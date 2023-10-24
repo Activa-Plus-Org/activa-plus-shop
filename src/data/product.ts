@@ -2,6 +2,7 @@ import type {
   FollowShopPopularProductsQueryOption,
   PopularProductsQueryOptions,
   Product,
+  ProductByService,
   ProductPaginator,
   ProductQueryOptions,
 } from '@/types';
@@ -16,6 +17,7 @@ import { API_ENDPOINTS } from '@/data/client/endpoints';
 import client from '@/data/client';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/router';
+import { isNull } from 'lodash';
 
 export function useProducts(
   options?: Partial<ProductQueryOptions>,
@@ -97,6 +99,18 @@ export function usePopularProducts(
   );
   return {
     popularProducts: data ?? [],
+    isLoading,
+    error,
+  };
+}
+
+export function useProductsByService(id: number) {
+  const { data, isLoading, error } = useQuery<ProductByService[], Error>(
+    API_ENDPOINTS.PRODUCTS_BY_SERVICE,
+    () => client.products.getByService(id)
+  );
+  return {
+    productsByService: data ?? [],
     isLoading,
     error,
   };

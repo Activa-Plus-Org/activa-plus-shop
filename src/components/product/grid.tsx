@@ -1,4 +1,4 @@
-import type { Product } from '@/types';
+import type { Product, ProductByService } from '@/types';
 import { motion } from 'framer-motion';
 import cn from 'classnames';
 import Button from '@/components/ui/button';
@@ -11,7 +11,7 @@ import { staggerTransition } from '@/lib/framer-motion/stagger-transition';
 import { useTranslation } from 'next-i18next';
 
 interface GridProps {
-  products: Product[];
+  products: ProductByService[];
   onLoadMore?: () => void;
   hasNextPage?: boolean;
   isLoadingMore?: boolean;

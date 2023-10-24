@@ -1,11 +1,13 @@
 export const API_ENDPOINTS = {
   PRODUCTS: '/products',
   PRODUCTS_POPULAR: '/popular-products',
+  PRODUCTS_BY_SERVICE: 'products/findProductsByService',
   PRODUCTS_FREE_DOWNLOAD: '/free-downloads/digital-file',
   PRODUCTS_REVIEWS: '/reviews',
   PRODUCTS_REVIEWS_ABUSE_REPORT: '/abusive_reports',
   PRODUCTS_QUESTIONS: '/questions',
   PRODUCTS_FEEDBACK: '/feedbacks',
+  SERVICES: '/services',
   CATEGORIES: '/categories',
   TAGS: '/tags',
   TYPES: '/types',

@@ -54,6 +54,10 @@ import type {
   SettingsQueryOptions,
   TypeQueryOptions,
   Type,
+  Service,
+  ServiceQueryOptions,
+  ServicePaginator,
+  ProductByService,
 } from '@/types';
 import { API_ENDPOINTS } from './endpoints';
 import { HttpClient } from './http-client';
@@ -90,6 +94,10 @@ class Client {
         withCount: 'orders',
         ...params,
       }),
+    getByService: (slug: number) =>
+      HttpClient.get<ProductByService[]>(
+        `${API_ENDPOINTS.PRODUCTS_BY_SERVICE}/${slug}`
+      ),
     get: ({ slug, language }: GetParams) =>
       HttpClient.get<Product>(`${API_ENDPOINTS.PRODUCTS}/${slug}`, {
         language,
@@ -102,6 +110,9 @@ class Client {
   categories = {
     all: (query?: CategoryQueryOptions) =>
       HttpClient.get<CategoryPaginator>(API_ENDPOINTS.CATEGORIES, { ...query }),
+  };
+  services = {
+    all: () => HttpClient.get<Service[]>(API_ENDPOINTS.SERVICES),
   };
   tags = {
     all: (query?: QueryOptions) =>

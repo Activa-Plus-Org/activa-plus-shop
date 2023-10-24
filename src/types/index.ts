@@ -365,15 +365,51 @@ export interface Product {
   language: string;
   in_stock: number;
 }
+export interface ProductByService {
+  id: number;
+  name: string;
+  description: string;
+  image: string;
+  type: string;
+  price: number;
+  stock: number;
+  benefit: string;
+  isDeleted: boolean;
+  providerId: number;
+}
 
 export interface ProductPaginator extends PaginatorInfo<Product> {}
 
 export interface ReportsPaginator extends PaginatorInfo<Question> {}
 
 export interface Category {
-  id: string;
+  id: number;
   name: string;
   slug: string;
+}
+
+export interface ServiceConfiguration {
+  id: number;
+  email: boolean;
+  password: boolean;
+  code: boolean;
+}
+
+export interface Service {
+  id: number;
+  name: string;
+  image: string;
+  category: Category;
+  serviceConfiguration: ServiceConfiguration;
+}
+
+export interface ServicePaginator extends PaginatorInfo<Service> {}
+
+export interface ServiceQueryOptions extends QueryOptions {
+  name: string;
+  image: string;
+  categoryId: number;
+  serviceConfigurationId: number;
 }
 
 export interface Type {
