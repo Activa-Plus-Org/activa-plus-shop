@@ -27,13 +27,16 @@ export default function RegisterUserForm() {
   let [serverError, setServerError] = useState<RegisterUserInput | null>(null);
   const { mutate } = useMutation(client.users.register, {
     onSuccess: (res) => {
-      if (!res.token) {
-        toast.error(<b>{t('text-profile-page-error-toast')}</b>, {
-          className: '-mt-10 xs:mt-0',
-        });
-        return;
-      }
-      authorize(res.token);
+      // if (!res.token) {
+      //   toast.error(<b>{t('text-profile-page-error-toast')}</b>, {
+      //     className: '-mt-10 xs:mt-0',
+      //   });
+      //   return;
+      // }
+      //authorize(res.token);
+      toast.success(<b>{t('text-profile-page-success-toast')}</b>, {
+        className: '-mt-10 xs:mt-0',
+      });
       closeModal();
     },
     onError: (err: any) => {
@@ -67,17 +70,29 @@ export default function RegisterUserForm() {
 
           <Form<RegisterUserInput>
             onSubmit={onSubmit}
-            validationSchema={registerUserValidationSchema}
+            //validationSchema={registerUserValidationSchema}
             serverError={serverError}
             className="space-y-4 lg:space-y-5"
           >
             {({ register, formState: { errors } }) => (
               <>
                 <Input
-                  label="contact-us-name-field"
+                  label="contact-us-firstname-field"
                   inputClassName="bg-light dark:bg-dark-300"
-                  {...register('name')}
-                  error={errors.name?.message}
+                  {...register('firstName')}
+                  error={errors.firstName?.message}
+                />
+                <Input
+                  label="contact-us-lastname-field"
+                  inputClassName="bg-light dark:bg-dark-300"
+                  {...register('lastName')}
+                  error={errors.lastName?.message}
+                />
+                <Input
+                  label="contact-us-phone-field"
+                  inputClassName="bg-light dark:bg-dark-300"
+                  {...register('numberPhone')}
+                  error={errors.numberPhone?.message}
                 />
                 <Input
                   label="contact-us-email-field"

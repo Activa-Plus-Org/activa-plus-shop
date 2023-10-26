@@ -23,7 +23,8 @@ import * as yup from 'yup';
 
 const profileValidationSchema = yup.object().shape({
   id: yup.string().required(),
-  name: yup.string().required(),
+  firstName: yup.string().required(),
+  phoneNumber: yup.string().required(),
   profile: yup.object().shape({
     id: yup.string(),
     bio: yup.string(),
@@ -74,9 +75,10 @@ const ProfilePage: NextPageWithLayout = () => {
         useFormProps={{
           defaultValues: pick(me, [
             'id',
-            'name',
+            'firstName',
+            'numberPhone',
             'profile.id',
-            'profile.contact',
+            'numberPhone',
             'profile.bio',
             'profile.avatar',
           ]),
@@ -88,7 +90,7 @@ const ProfilePage: NextPageWithLayout = () => {
           <>
             <fieldset className="mb-6 grid gap-5 pb-5 sm:grid-cols-2 md:pb-9 lg:mb-8">
               <Controller
-                name="profile.avatar"
+                name="phoneNumber"
                 control={control}
                 render={({ field: { ref, ...rest } }) => (
                   <div className="sm:col-span-2">
@@ -103,20 +105,20 @@ const ProfilePage: NextPageWithLayout = () => {
               />
               <Input
                 label={t('text-profile-name')}
-                {...register('name')}
-                error={errors.name?.message}
+                {...register('firstName')}
+                error={errors.firstName?.message}
               />
               <div>
                 <span className="block cursor-pointer pb-2.5 font-normal text-dark/70 dark:text-light/70">
                   {t('text-profile-contact')}
                 </span>
                 <Controller
-                  name="profile.contact"
+                  name="phoneNumber"
                   control={control}
-                  render={({ field }) => <ReactPhone country="us" {...field} />}
+                  render={({ field }) => <ReactPhone country="bo" {...field} />}
                 />
 
-                {errors.profile?.contact?.message && (
+                {errors.phoneNumber?.message && (
                   <span
                     role="alert"
                     className="block pt-2 text-xs text-warning"
@@ -127,8 +129,8 @@ const ProfilePage: NextPageWithLayout = () => {
               </div>
               <Textarea
                 label={t('text-profile-bio')}
-                {...register('profile.bio')}
-                error={errors.profile?.bio?.message && 'bio field is required'}
+                {...register('phoneNumber')}
+                error={errors.phoneNumber?.message && 'bio field is required'}
                 className="sm:col-span-2"
               />
             </fieldset>
@@ -138,13 +140,14 @@ const ProfilePage: NextPageWithLayout = () => {
                 onClick={() =>
                   reset({
                     id: me?.id,
-                    name: '',
-                    profile: {
-                      id: me?.profile?.id,
-                      avatar: null,
-                      bio: '',
-                      contact: '',
-                    },
+                    firstName: me?.firstName,
+                    phoneNumber: me?.phoneNumber,
+                    // profile: {
+                    //   id: me?.profile?.id,
+                    //   avatar: null,
+                    //   bio: 'me?.phoneNumber',
+                    //   contact: me?.phoneNumber,
+                    // },
                   })
                 }
                 disabled={isLoading}
