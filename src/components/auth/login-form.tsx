@@ -32,6 +32,8 @@ export default function LoginUserForm() {
         return;
       }
       authorize(data.token);
+      console.log(data);
+      console.log(data.token);
       closeModal();
     },
   });
