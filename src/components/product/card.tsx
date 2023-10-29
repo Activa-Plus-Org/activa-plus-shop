@@ -1,5 +1,5 @@
 import type { Product, ProductByService } from '@/types';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import cn from 'classnames';
 import { motion } from 'framer-motion';
 import Image from '@/components/ui/image';
@@ -14,9 +14,13 @@ import { useGridSwitcher } from '@/components/product/grid-switcher';
 import { fadeInBottomWithScaleX } from '@/lib/framer-motion/fade-in-bottom';
 import { isFree } from '@/lib/is-free';
 import { useTranslation } from 'next-i18next';
+import { MouseEventHandler, useEffect } from 'react';
+import { useProduct } from './lib/product.context';
 
 export default function Card({ product }: { product: ProductByService }) {
   const { name, image, price } = product ?? {};
+  const { updateProduct, getProduct, productByService } = useProduct();
+  const router = useRouter();
   // const { openModal } = useModalAction();
   // const { isGridCompact } = useGridSwitcher();
   // const { price, basePrice } = usePrice({
@@ -30,12 +34,26 @@ export default function Card({ product }: { product: ProductByService }) {
   const { t } = useTranslation('common');
   // const isFreeItem = isFree(product?.sale_price ?? product?.price);
   const isFreeItem = isFree(product?.price);
+
+  const purchaseProduct = (product: ProductByService) => {
+    console.log(product);
+    updateProduct(product);
+    getProduct();
+    router.push('/checkout');
+  };
+  // useEffect(() => {
+  //   if (productByService === undefined) return;
+  //   console.log(productByService);
+  //   router.push('/checkout');
+  // }, [productByService]);
+
   return (
     <motion.div
       animate={{ opacity: 1, scale: 1 }}
       whileHover={{ opacity: 0.8, scale: 0.95 }}
       transition={{ ease: 'easeOut', duration: 0.1 }}
       title={name}
+      onClick={() => purchaseProduct(product)}
     >
       <div className="group relative flex aspect-[3/2] w-full justify-center overflow-hidden">
         <Image

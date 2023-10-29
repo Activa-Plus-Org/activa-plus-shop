@@ -17,6 +17,7 @@ import { useMe } from '@/data/user';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import type { GetStaticProps } from 'next';
+import { useProduct } from '@/components/product/lib/product.context';
 
 const CheckoutPage: NextPageWithLayout = () => {
   const router = useRouter();
@@ -30,6 +31,8 @@ const CheckoutPage: NextPageWithLayout = () => {
     setVerifiedResponse,
     verifiedResponse,
   } = useCart();
+  const { productByService, getProduct } = useProduct();
+  getProduct();
   const { price: totalPrice } = usePrice({
     amount: total,
   });
@@ -49,6 +52,11 @@ const CheckoutPage: NextPageWithLayout = () => {
       })),
     });
   }
+
+  if (productByService !== undefined) {
+    return <div>HOLA</div>;
+  }
+
   return (
     <>
       <Seo
@@ -122,7 +130,7 @@ const CheckoutPage: NextPageWithLayout = () => {
   );
 };
 
-CheckoutPage.authorization = true;
+//CheckoutPage.authorization = true;
 CheckoutPage.getLayout = function getLayout(page) {
   return <GeneralLayout>{page}</GeneralLayout>;
 };
