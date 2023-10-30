@@ -58,6 +58,7 @@ import type {
   ServiceQueryOptions,
   ServicePaginator,
   ProductByService,
+  WalletChangeRespone,
   CreateOrderSyncInput,
   Purchase,
 } from '@/types';
@@ -198,6 +199,12 @@ class Client {
         input
       ),
     logout: () => HttpClient.post<boolean>(API_ENDPOINTS.USERS_LOGOUT, {}),
+  };
+  wallet = {
+    getWalletByUserId: (id: string) =>
+      HttpClient.get<WalletChangeRespone>(
+        `${API_ENDPOINTS.WALLET_USER_ID}/${id}`
+      ),
   };
   questions = {
     all: ({ question, ...params }: QuestionQueryOptions) =>

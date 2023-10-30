@@ -1,5 +1,6 @@
 const routes = {
   home: '/',
+  wallet: '/wallet',
   authors: '/authors',
   explore: '/explore',
   popularProducts: '/popular-products',

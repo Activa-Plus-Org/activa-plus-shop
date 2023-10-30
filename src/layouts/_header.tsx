@@ -54,7 +54,7 @@ function AuthorizedMenu({ user }: { user: User }) {
         <Avatar
           size="32"
           round={true}
-          name={user.name}
+          name={user.firstName}
           textSizeRatio={2}
           src={user?.profile?.avatar?.thumbnail}
         />
