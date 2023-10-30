@@ -58,6 +58,8 @@ import type {
   ServiceQueryOptions,
   ServicePaginator,
   ProductByService,
+  CreateOrderSyncInput,
+  Purchase,
 } from '@/types';
 import { API_ENDPOINTS } from './endpoints';
 import { HttpClient } from './http-client';
@@ -164,6 +166,8 @@ class Client {
       ),
     create: (data: CreateOrderInput) =>
       HttpClient.post<Order>(API_ENDPOINTS.ORDERS, data),
+    createOrderSync: (data: CreateOrderSyncInput) =>
+      HttpClient.post<Purchase>(API_ENDPOINTS.ORDERS_PURCHASE_SYNC, data),
   };
   users = {
     me: () => HttpClient.get<User>(API_ENDPOINTS.USERS_ME),

@@ -1,9 +1,14 @@
 import { ProductByService } from '@/types';
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, useEffect } from 'react';
+import {
+  saveProductContext,
+  getProductContext,
+  PRODUCT_TOKEN_KEY,
+} from '@/data/product/local-storage-service';
 
 interface ProductProvider {
   productByService: ProductByService | undefined;
-  getProduct: () => void;
+  verifyExistsProduct: () => void;
   updateProduct: (product: ProductByService) => void;
 }
 
@@ -25,18 +30,26 @@ export const ProductProvider: React.FC = (props) => {
   const [product, setProduct] = useState<ProductByService>();
   console.log(product + 'HOLLA');
 
-  const getProduct = () => {
-    console.log('GET PRODUCT');
-    console.log(product);
-  };
-
   const updateProduct = (product: ProductByService) => {
     setProduct(product);
+    saveProductContext(PRODUCT_TOKEN_KEY, JSON.stringify(product));
   };
+
+  const verifyExistsProduct = () => {
+    let productString: string | null = getProductContext(PRODUCT_TOKEN_KEY);
+    const productJSON: ProductByService = JSON.parse(productString as string);
+    if (productJSON) {
+      setProduct(productJSON);
+    }
+  };
+
+  useEffect(() => {
+    verifyExistsProduct();
+  }, []);
 
   const value = {
     productByService: product,
-    getProduct,
+    verifyExistsProduct,
     updateProduct,
   };
 

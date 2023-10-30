@@ -19,7 +19,7 @@ import { useProduct } from './lib/product.context';
 
 export default function Card({ product }: { product: ProductByService }) {
   const { name, image, price } = product ?? {};
-  const { updateProduct, getProduct, productByService } = useProduct();
+  const { updateProduct, productByService } = useProduct();
   const router = useRouter();
   // const { openModal } = useModalAction();
   // const { isGridCompact } = useGridSwitcher();
@@ -38,7 +38,6 @@ export default function Card({ product }: { product: ProductByService }) {
   const purchaseProduct = (product: ProductByService) => {
     console.log(product);
     updateProduct(product);
-    getProduct();
     router.push('/checkout');
   };
   // useEffect(() => {

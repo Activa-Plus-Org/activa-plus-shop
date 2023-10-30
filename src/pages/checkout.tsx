@@ -18,44 +18,75 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import type { GetStaticProps } from 'next';
 import { useProduct } from '@/components/product/lib/product.context';
+import { ProductItem } from '@/components/product/product-item';
+import CartWallet from '@/components/cart/cart-wallet';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 const CheckoutPage: NextPageWithLayout = () => {
   const router = useRouter();
   const { me } = useMe();
   const { t } = useTranslation('common');
-  const {
-    items,
-    total,
-    totalItems,
-    isEmpty,
-    setVerifiedResponse,
-    verifiedResponse,
-  } = useCart();
-  const { productByService, getProduct } = useProduct();
-  getProduct();
-  const { price: totalPrice } = usePrice({
-    amount: total,
-  });
-  const { mutate, isLoading } = useMutation(client.orders.verify, {
+  let isEmpty = false;
+  // const {
+  //   items,
+  //   total,
+  //   totalItems,
+  //   isEmpty,
+  //   setVerifiedResponse,
+  //   verifiedResponse,
+  // } = useCart();
+  const { productByService } = useProduct();
+  if (!productByService) isEmpty = true;
+  console.log(productByService);
+  // const { price: totalPrice } = usePrice({
+  //   amount: total,
+  // });
+  // const { mutate, isLoading } = useMutation(client.orders.verify, {
+  //   onSuccess: (res) => {
+  //     setVerifiedResponse(res);
+  //   },
+  // });
+  // function verify() {
+  //   mutate({
+  //     amount: total,
+  //     products: items.map((item) => ({
+  //       product_id: item.id,
+  //       order_quantity: item.quantity,
+  //       unit_price: item.price,
+  //       subtotal: item.price * item.quantity,
+  //     })),
+  //   });
+  // }
+  const { mutate, isLoading } = useMutation(client.orders.createOrderSync, {
     onSuccess: (res) => {
-      setVerifiedResponse(res);
+      router.push(routes.orderUrl(res.id.toString()));
+    },
+    onError: (err: any) => {
+      toast.error(<b>Something went wrong!</b>);
+      console.log(err.response.data.message);
     },
   });
-  function verify() {
+  const createOrder = () => {
+    // if (
+    //   (use_wallet && Boolean(payableAmount) && !token) ||
+    //   (!use_wallet && !token)
+    // ) {
+    //   toast.error(<b>Please verify payment card</b>, {
+    //     className: '-mt-10 xs:mt-0',
+    //   });
+    //   return;
+    // }
+    // if (!phoneNumber) {
+    //   toast.error(<b>Please enter your contact number</b>);
+    //   window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    //   return;
+    // }
     mutate({
-      amount: total,
-      products: items.map((item) => ({
-        product_id: item.id,
-        order_quantity: item.quantity,
-        unit_price: item.price,
-        subtotal: item.price * item.quantity,
-      })),
+      customerId: 1,
+      productId: productByService?.id !== undefined ? productByService.id : 0,
     });
-  }
-
-  if (productByService !== undefined) {
-    return <div>HOLA</div>;
-  }
+  };
 
   return (
     <>
@@ -65,7 +96,7 @@ const CheckoutPage: NextPageWithLayout = () => {
         url={routes?.checkout}
       />
       <div className="mx-auto flex h-full w-full max-w-screen-sm flex-col p-4 pt-6 sm:p-5 sm:pt-8 md:pt-10 3xl:pt-12">
-        {!isEmpty && Boolean(verifiedResponse) ? (
+        {/* {!isEmpty && Boolean(verifiedResponse) ? (
           <div className="mb-4 bg-light shadow-card dark:bg-dark-250 dark:shadow-none md:mb-5 3xl:mb-6">
             <h2 className="flex items-center justify-between border-b border-light-400 px-5 py-4 text-sm font-medium text-dark dark:border-dark-400 dark:text-light sm:py-5 sm:px-7 md:text-base">
               {t('text-checkout-title')}
@@ -74,16 +105,16 @@ const CheckoutPage: NextPageWithLayout = () => {
               <PhoneInput defaultValue={me?.profile?.contact} />
             </div>
           </div>
-        ) : null}
+        ) : null} */}
 
         <div className="bg-light shadow-card dark:bg-dark-250 dark:shadow-none">
           <h2 className="flex items-center justify-between border-b border-light-400 px-5 py-4 text-sm font-medium text-dark dark:border-dark-400 dark:text-light sm:py-5 sm:px-7 md:text-base">
             {t('text-checkout-title-two')}
-            <span className="font-normal text-dark-700">({totalItems})</span>
+            <span className="font-normal text-dark-700">({1})</span>
           </h2>
           <div className="px-5 pt-9 sm:px-7 sm:pt-11">
             {!isEmpty ? (
-              <CartItemList className="pl-3" />
+              <ProductItem item={productByService} /*className="pl-3"*/ />
             ) : (
               <>
                 <CartEmpty />
@@ -99,12 +130,14 @@ const CheckoutPage: NextPageWithLayout = () => {
               </>
             )}
 
-            {!isEmpty && !Boolean(verifiedResponse) && (
+            {/* {!isEmpty && (
               <div className="sticky bottom-11 z-[5] mt-10 border-t border-light-400 bg-light pt-6 pb-7 dark:border-dark-400 dark:bg-dark-250 sm:bottom-0 sm:mt-12 sm:pt-8 sm:pb-9">
                 <div className="mb-6 flex flex-col gap-3 text-dark dark:text-light sm:mb-7">
                   <div className="flex justify-between">
                     <p>{t('text-subtotal')}</p>
-                    <strong className="font-semibold">{totalPrice}</strong>
+                    <strong className="font-semibold">
+                      {productByService?.price}
+                    </strong>
                   </div>
                   <div className="flex justify-between">
                     <p>{t('text-tax')}</p>
@@ -119,10 +152,58 @@ const CheckoutPage: NextPageWithLayout = () => {
                   isLoading={isLoading}
                 >
                   {t('text-check-availability')}
+                </Button> 
+              </div>
+            )} */}
+            {/* {!isEmpty && Boolean(verifiedResponse) && <CartCheckout />} */}
+            {!isEmpty && (
+              // <>
+              //   <CartWallet
+              //     totalPrice={productByService?.price ?? 0}
+              //     walletAmount={5000}
+              //     walletCurrency={2000}
+              //   />
+              //   <Button
+              //     // disabled={isLoading}
+              //     // isLoading={isLoading}
+              //     // onClick={createOrder}
+              //     className="w-full md:h-[50px] md:text-sm"
+              //   >
+              //     {t('text-submit-order')}
+              //   </Button>
+              // </>
+              <div className="mt-10 border-t border-light-400 bg-light pt-6 pb-7 dark:border-dark-400 dark:bg-dark-250 sm:bottom-0 sm:mt-12 sm:pt-8 sm:pb-9">
+                <div className="mb-6 flex flex-col gap-3 text-dark dark:text-light sm:mb-7">
+                  <div className="flex justify-between">
+                    <p>{t('text-subtotal')}</p>
+                    <strong className="font-semibold">
+                      Bs. {productByService?.price}
+                    </strong>
+                  </div>
+                  <div className="mt-4 flex justify-between border-t border-light-400 pt-5 dark:border-dark-400">
+                    <p>{t('text-total')}</p>
+                    <strong className="font-semibold">
+                      Bs. {productByService?.price}
+                    </strong>
+                  </div>
+                </div>
+
+                <CartWallet
+                  totalPrice={productByService?.price ?? 0}
+                  walletAmount={5000}
+                  walletCurrency={2000}
+                />
+
+                <Button
+                  disabled={isLoading}
+                  isLoading={isLoading}
+                  onClick={createOrder}
+                  className="w-full md:h-[50px] md:text-sm"
+                >
+                  {t('text-submit-order')}
                 </Button>
               </div>
             )}
-            {!isEmpty && Boolean(verifiedResponse) && <CartCheckout />}
           </div>
         </div>
       </div>

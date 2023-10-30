@@ -16,6 +16,7 @@ export const API_ENDPOINTS = {
   ORDERS: '/orders',
   ORDERS_CHECKOUT_VERIFY: 'orders/checkout/verify',
   ORDERS_DOWNLOADS: '/downloads',
+  ORDERS_PURCHASE_SYNC: '/purchases/createPurchaseSync',
   GENERATE_DOWNLOADABLE_PRODUCT_LINK: '/downloads/digital-file',
   USERS: '/users',
   USERS_ME: '/me',
