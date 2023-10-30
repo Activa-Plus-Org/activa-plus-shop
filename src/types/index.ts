@@ -183,7 +183,9 @@ export interface Shop {
 
 export interface User {
   id: string;
-  name: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
   profile: {
     id: string;
     bio: string;
@@ -197,13 +199,15 @@ export interface User {
 
 export interface UpdateProfileInput {
   id: string;
-  name: string;
-  profile: {
-    id?: string;
-    bio?: string;
-    contact?: string;
-    avatar?: Attachment | null;
-  };
+  firstName: string;
+  //lastName: string;
+  phoneNumber: string;
+  // profile: {
+  //   id?: string;
+  //   bio?: string;
+  //   contact?: string;
+  //   avatar?: Attachment | null;
+  // };
 }
 
 export interface ChangePasswordInput {
@@ -225,7 +229,9 @@ export interface LoginUserInput {
 }
 
 export interface RegisterUserInput {
-  name: string;
+  firstName: string;
+  lastName: string;
+  numberPhone: string;
   email: string;
   password: string;
 }
@@ -252,7 +258,7 @@ export interface PasswordChangeResponse {
 
 export interface AuthResponse {
   token: string;
-  permissions: string[];
+  //permissions: string[];
 }
 
 export interface CreateContactUsInput {
