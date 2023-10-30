@@ -597,3 +597,10 @@ export interface CreateQuestionInput {
   product_id: string;
   shop_id: string;
 }
+
+export interface WalletChangeRespone {
+  id: string;
+  totalPoints: number;
+  pointsUsed: number;
+  availablePoints: number;
+}
