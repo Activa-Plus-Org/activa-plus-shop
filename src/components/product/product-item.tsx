@@ -10,7 +10,7 @@ export function ProductItem({ item }: { item: ProductByService | undefined }) {
   if (item === undefined) {
     return <div>El producto no está disponible</div>;
   }
-  const { name, image, price } = item;
+  const { name, image, price, description } = item;
   //   const { price: itemPrice } = usePrice({
   //     amount: price,
   //   });
@@ -37,6 +37,14 @@ export function ProductItem({ item }: { item: ProductByService | undefined }) {
             className="transition-colors hover:text-brand-dark"
           > */}
           {name}
+          {/* </AnchorLink> */}
+        </h3>
+        <h3 className="truncate text-dark dark:text-light">
+          {/* <AnchorLink
+            href={routes.productUrl(slug)}
+            className="transition-colors hover:text-brand-dark"
+          > */}
+          {description}
           {/* </AnchorLink> */}
         </h3>
         {/* <p className="mt-1 mb-2.5">
