@@ -325,6 +325,11 @@ export interface CreateOrderInput {
   use_wallet_points: boolean;
 }
 
+export interface CreateOrderSyncInput {
+  customerId: number;
+  productId: number;
+}
+
 export interface CheckoutVerificationInput {
   amount: number;
   products: ConnectProductOrderPivot[];
@@ -443,6 +448,17 @@ export interface Order {
   products: Product[];
   created_at: string;
   updated_at: string;
+}
+
+export interface Purchase {
+  id: number;
+  total: number;
+  createdDate: Date;
+  isDeleted: boolean;
+  customerId: number;
+  productId: number;
+  customer: string;
+  product: string;
 }
 
 export interface DigitalFile {

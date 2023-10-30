@@ -57,7 +57,7 @@ export default function CartWallet({
 
   return (
     <div>
-      <div className="mt-2 space-y-3">
+      <div className="mt-2 mb-7 space-y-3">
         <div className="text-body flex justify-between">
           <span>{t('text-wallet-points-title')}</span>
           <span>{walletAmount}</span>
@@ -68,7 +68,7 @@ export default function CartWallet({
         </div>
       </div>
 
-      <CheckBox
+      {/* <CheckBox
         name="use_wallet"
         label="text-wallet-input-label"
         onChange={() => setUseWallet(!use_wallet)}
@@ -78,7 +78,7 @@ export default function CartWallet({
           !walletAmount ? 'cursor-not-allowed' : 'cursor-pointer'
         )}
         disabled={!walletAmount}
-      />
+      /> */}
 
       {use_wallet && (
         <div className="mt-1 mb-7 flex justify-between border-t-4 border-double border-light-400 pt-4 dark:border-dark-400">
