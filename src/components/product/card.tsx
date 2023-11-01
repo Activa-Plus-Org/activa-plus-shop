@@ -57,11 +57,24 @@ export default function Card({ product }: { product: ProductByService }) {
           >
             {name}
           </h3>
-          {type === 'SYNC' ? (
-            <h3 title="Rapido">Rápido</h3>
-          ) : (
-            <h3 title="Con Orden">Espera</h3>
-          )}
+          <div className="flex">
+            <h3 className="mr-2">Tiempo:</h3>
+            {type === 'SYNC' ? (
+              <h3
+                className="rounded-2xl bg-light-500 px-1.5 py-0.5 text-13px font-semibold uppercase text-green-600 dark:bg-dark-300 dark:text-green-400"
+                title="Rapido"
+              >
+                Rápido
+              </h3>
+            ) : (
+              <h3
+                className="rounded-2xl bg-light-500 px-1.5 py-0.5 text-13px font-semibold uppercase text-blue-900 dark:bg-dark-300 dark:text-blue-400"
+                title="Con Orden"
+              >
+                Con Orden
+              </h3>
+            )}
+          </div>
         </div>
 
         <div className="flex flex-shrink-0 flex-col items-end pl-2.5">

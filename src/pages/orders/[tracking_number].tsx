@@ -57,7 +57,7 @@ const Order: NextPageWithLayout = () => {
   );
 };
 
-//Order.authorization = true;
+Order.authorization = true;
 Order.getLayout = function getLayout(page) {
   return <GeneralLayout>{page}</GeneralLayout>;
 };

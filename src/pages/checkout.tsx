@@ -161,7 +161,7 @@ const CheckoutPage: NextPageWithLayout = () => {
   );
 };
 
-//CheckoutPage.authorization = true;
+CheckoutPage.authorization = true;
 CheckoutPage.getLayout = function getLayout(page) {
   return <GeneralLayout>{page}</GeneralLayout>;
 };
