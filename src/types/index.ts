@@ -331,6 +331,11 @@ export interface CreateOrderSyncInput {
   productId: number;
 }
 
+export interface CreateOrderAsyncInput {
+  customerId: number;
+  productId: number;
+}
+
 export interface CheckoutVerificationInput {
   amount: number;
   products: ConnectProductOrderPivot[];
@@ -460,6 +465,14 @@ export interface Purchase {
   productId: number;
   customer: string;
   product: string;
+}
+
+export interface PurchaseOrder {
+  id: number;
+  stateRequest: number;
+  dateCreated: Date;
+  dateResponse: Date;
+  purchaseId: number;
 }
 
 export interface DigitalFile {
