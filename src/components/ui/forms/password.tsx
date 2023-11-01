@@ -19,14 +19,14 @@ const Password = forwardRef<HTMLInputElement, InputProps>(
     { label, error, className, inputClassName = 'bg-transparent', ...props },
     ref
   ) => {
-    const { t } = useTranslation('common');
+    //const { t } = useTranslation('common');
     let [showPassword, setShowPassword] = useState(false);
     return (
       <div className={className}>
         <label className="block text-13px">
           {label && (
             <span className="block cursor-pointer pb-2.5 font-normal text-dark/70 rtl:text-right dark:text-light/70">
-              {t(label)}
+              {label}
             </span>
           )}
 
