@@ -34,6 +34,10 @@ export default function CartWallet({
   const { price: payableAmount } = usePrice({
     amount: calculatePayableAmount,
   });
+  // console.log(totalPrice);
+  // console.log(walletAmount);
+  // console.log(walletCurrency);
+  // console.log();
   useEffect(() => {
     if (use_wallet) {
       const calculatedCurrentWalletCurrencyAfterPayment =
@@ -86,7 +90,7 @@ export default function CartWallet({
             Payable Amount
           </span>
           <span className="text-heading text-15px font-semibold">
-            {payableAmount}
+            {'Bs. ' + totalPrice}
           </span>
         </div>
       )}

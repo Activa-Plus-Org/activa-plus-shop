@@ -22,9 +22,11 @@ import { ProductItem } from '@/components/product/product-item';
 import CartWallet from '@/components/cart/cart-wallet';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import { useWallet } from '@/data/wallet';
 
 const CheckoutPage: NextPageWithLayout = () => {
   const router = useRouter();
+  const { data } = useWallet();
   const { me } = useMe();
   const { t } = useTranslation('common');
   let isEmpty = false;
@@ -190,8 +192,11 @@ const CheckoutPage: NextPageWithLayout = () => {
 
                 <CartWallet
                   totalPrice={productByService?.price ?? 0}
-                  walletAmount={5000}
-                  walletCurrency={2000}
+                  walletAmount={data?.totalPoints ?? 0}
+                  walletCurrency={
+                    (data?.totalPoints ?? 0) - (productByService?.price ?? 0) ??
+                    0
+                  }
                 />
 
                 <Button
