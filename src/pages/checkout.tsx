@@ -29,38 +29,13 @@ const CheckoutPage: NextPageWithLayout = () => {
   const { data } = useWallet();
   const { me } = useMe();
   const { t } = useTranslation('common');
+  const [isLoading, setIsLoading] = useState(false);
   let isEmpty = false;
-  // const {
-  //   items,
-  //   total,
-  //   totalItems,
-  //   isEmpty,
-  //   setVerifiedResponse,
-  //   verifiedResponse,
-  // } = useCart();
+
   const { productByService } = useProduct();
   if (!productByService) isEmpty = true;
-  console.log(productByService);
-  // const { price: totalPrice } = usePrice({
-  //   amount: total,
-  // });
-  // const { mutate, isLoading } = useMutation(client.orders.verify, {
-  //   onSuccess: (res) => {
-  //     setVerifiedResponse(res);
-  //   },
-  // });
-  // function verify() {
-  //   mutate({
-  //     amount: total,
-  //     products: items.map((item) => ({
-  //       product_id: item.id,
-  //       order_quantity: item.quantity,
-  //       unit_price: item.price,
-  //       subtotal: item.price * item.quantity,
-  //     })),
-  //   });
-  // }
-  const { mutate, isLoading } = useMutation(client.orders.createOrderSync, {
+
+  const syncPurchaseMutation = useMutation(client.orders.createOrderSync, {
     onSuccess: (res) => {
       router.push(routes.orderUrl(res.id.toString()));
     },
@@ -69,7 +44,19 @@ const CheckoutPage: NextPageWithLayout = () => {
       console.log(err.response.data.message);
     },
   });
+
+  const asyncPurchaseMutation = useMutation(client.orders.createOrderAsync, {
+    onSuccess: (res) => {
+      router.push(routes.orderUrl(res.id.toString()));
+    },
+    onError: (err: any) => {
+      toast.error(<b>Something went wrong!</b>);
+      console.log(err.response.data.message);
+    },
+  });
+
   const createOrder = () => {
+    setIsLoading(true);
     // if (
     //   (use_wallet && Boolean(payableAmount) && !token) ||
     //   (!use_wallet && !token)
@@ -84,10 +71,20 @@ const CheckoutPage: NextPageWithLayout = () => {
     //   window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     //   return;
     // }
-    mutate({
-      customerId: 1,
-      productId: productByService?.id !== undefined ? productByService.id : 0,
-    });
+    if (productByService?.type === 'SYNC') {
+      syncPurchaseMutation.mutate({
+        customerId: 1,
+        productId: productByService.id !== undefined ? productByService.id : 0,
+      });
+    } else if (productByService?.type === 'ASYNC') {
+      asyncPurchaseMutation.mutate({
+        customerId: 1,
+        productId: productByService.id !== undefined ? productByService.id : 0,
+      });
+    } else {
+      toast.error(<b>Something went wrong!</b>);
+    }
+    setIsLoading(false);
   };
 
   return (
@@ -98,17 +95,6 @@ const CheckoutPage: NextPageWithLayout = () => {
         url={routes?.checkout}
       />
       <div className="mx-auto flex h-full w-full max-w-screen-sm flex-col p-4 pt-6 sm:p-5 sm:pt-8 md:pt-10 3xl:pt-12">
-        {/* {!isEmpty && Boolean(verifiedResponse) ? (
-          <div className="mb-4 bg-light shadow-card dark:bg-dark-250 dark:shadow-none md:mb-5 3xl:mb-6">
-            <h2 className="flex items-center justify-between border-b border-light-400 px-5 py-4 text-sm font-medium text-dark dark:border-dark-400 dark:text-light sm:py-5 sm:px-7 md:text-base">
-              {t('text-checkout-title')}
-            </h2>
-            <div className="px-5 py-4 sm:py-6 sm:px-7">
-              <PhoneInput defaultValue={me?.profile?.contact} />
-            </div>
-          </div>
-        ) : null} */}
-
         <div className="bg-light shadow-card dark:bg-dark-250 dark:shadow-none">
           <h2 className="flex items-center justify-between border-b border-light-400 px-5 py-4 text-sm font-medium text-dark dark:border-dark-400 dark:text-light sm:py-5 sm:px-7 md:text-base">
             {t('text-checkout-title-two')}
@@ -132,48 +118,7 @@ const CheckoutPage: NextPageWithLayout = () => {
               </>
             )}
 
-            {/* {!isEmpty && (
-              <div className="sticky bottom-11 z-[5] mt-10 border-t border-light-400 bg-light pt-6 pb-7 dark:border-dark-400 dark:bg-dark-250 sm:bottom-0 sm:mt-12 sm:pt-8 sm:pb-9">
-                <div className="mb-6 flex flex-col gap-3 text-dark dark:text-light sm:mb-7">
-                  <div className="flex justify-between">
-                    <p>{t('text-subtotal')}</p>
-                    <strong className="font-semibold">
-                      {productByService?.price}
-                    </strong>
-                  </div>
-                  <div className="flex justify-between">
-                    <p>{t('text-tax')}</p>
-                    <strong className="font-semibold">
-                      {t('text-calculated-checkout')}
-                    </strong>
-                  </div>
-                </div>
-                <Button
-                  className="w-full md:h-[50px] md:text-sm"
-                  onClick={verify}
-                  isLoading={isLoading}
-                >
-                  {t('text-check-availability')}
-                </Button> 
-              </div>
-            )} */}
-            {/* {!isEmpty && Boolean(verifiedResponse) && <CartCheckout />} */}
             {!isEmpty && (
-              // <>
-              //   <CartWallet
-              //     totalPrice={productByService?.price ?? 0}
-              //     walletAmount={5000}
-              //     walletCurrency={2000}
-              //   />
-              //   <Button
-              //     // disabled={isLoading}
-              //     // isLoading={isLoading}
-              //     // onClick={createOrder}
-              //     className="w-full md:h-[50px] md:text-sm"
-              //   >
-              //     {t('text-submit-order')}
-              //   </Button>
-              // </>
               <div className="mt-10 border-t border-light-400 bg-light pt-6 pb-7 dark:border-dark-400 dark:bg-dark-250 sm:bottom-0 sm:mt-12 sm:pt-8 sm:pb-9">
                 <div className="mb-6 flex flex-col gap-3 text-dark dark:text-light sm:mb-7">
                   <div className="flex justify-between">
