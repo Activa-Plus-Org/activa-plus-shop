@@ -193,9 +193,9 @@ class Client {
         API_ENDPOINTS.USERS_RESET_PASSWORD,
         input
       ),
-    changePassword: (input: ChangePasswordInput) =>
-      HttpClient.post<PasswordChangeResponse>(
-        API_ENDPOINTS.USERS_CHANGE_PASSWORD,
+    changePassword: (id: string, input: ChangePasswordInput) =>
+      HttpClient.put<PasswordChangeResponse>(
+        `${API_ENDPOINTS.USERS_CHANGE_PASSWORD}/${id}`,
         input
       ),
     logout: () => HttpClient.post<boolean>(API_ENDPOINTS.USERS_LOGOUT, {}),
