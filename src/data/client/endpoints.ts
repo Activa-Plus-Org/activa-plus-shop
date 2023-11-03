@@ -24,6 +24,8 @@ export const API_ENDPOINTS = {
   USERS_LOGIN: '/auth/login',
   USERS_REGISTER: '/auth',
   //----
+  CLAIMS: '/claims',
+  //----
   USERS_FORGOT_PASSWORD: '/forget-password',
   USERS_VERIFY_FORGOT_PASSWORD_TOKEN: '/verify-forget-password-token',
   USERS_RESET_PASSWORD: '/reset-password',

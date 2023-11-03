@@ -61,6 +61,7 @@ import type {
   WalletChangeRespone,
   CreateOrderSyncInput,
   Purchase,
+  Claim,
 } from '@/types';
 import { API_ENDPOINTS } from './endpoints';
 import { HttpClient } from './http-client';
@@ -116,6 +117,9 @@ class Client {
   };
   services = {
     all: () => HttpClient.get<Service[]>(API_ENDPOINTS.SERVICES),
+  };
+  claims = {
+    all: () => HttpClient.get<Claim[]>(API_ENDPOINTS.CLAIMS),
   };
   tags = {
     all: (query?: QueryOptions) =>
