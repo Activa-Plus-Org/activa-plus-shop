@@ -68,7 +68,7 @@ export default function CartWallet({
         </div>
         <div className="text-body flex justify-between">
           <span>{t('text-wallet-currency')}</span>
-          <span>{currentWalletCurrency}</span>
+          <span> {calculateCurrentWalletCurrency}</span>
         </div>
       </div>
 
@@ -90,7 +90,7 @@ export default function CartWallet({
             Payable Amount
           </span>
           <span className="text-heading text-15px font-semibold">
-            {'Bs. ' + totalPrice}
+            {'' + totalPrice}
           </span>
         </div>
       )}
