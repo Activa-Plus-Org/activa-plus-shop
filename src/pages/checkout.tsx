@@ -121,23 +121,24 @@ const CheckoutPage: NextPageWithLayout = () => {
                   <div className="flex justify-between">
                     <p>{t('text-subtotal')}</p>
                     <strong className="font-semibold">
-                      Bs. {productByService?.price}
+                      {productByService?.price}
                     </strong>
                   </div>
                   <div className="mt-4 flex justify-between border-t border-light-400 pt-5 dark:border-dark-400">
                     <p>{t('text-total')}</p>
                     <strong className="font-semibold">
-                      Bs. {productByService?.price}
+                      {productByService?.price}
                     </strong>
                   </div>
                 </div>
 
                 <CartWallet
                   totalPrice={productByService?.price ?? 0}
-                  walletAmount={data?.totalPoints ?? 0}
+                  walletAmount={data?.availablePoints ?? 0}
                   walletCurrency={
-                    (data?.totalPoints ?? 0) - (productByService?.price ?? 0) ??
-                    0
+                    data?.availablePoints ?? 0
+                    //  - (productByService?.price ?? 0) ??
+                    // 0
                   }
                 />
 
