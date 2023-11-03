@@ -17,6 +17,7 @@ export const API_ENDPOINTS = {
   ORDERS_CHECKOUT_VERIFY: 'orders/checkout/verify',
   ORDERS_DOWNLOADS: '/downloads',
   ORDERS_PURCHASE_SYNC: '/purchases/createPurchaseSync',
+  ORDERS_PURCHASE_ASYNC: '/purchases/createPurchaseAsync',
   GENERATE_DOWNLOADABLE_PRODUCT_LINK: '/downloads/digital-file',
   //----
   USERS: '/users',
@@ -29,7 +30,7 @@ export const API_ENDPOINTS = {
   USERS_FORGOT_PASSWORD: '/forget-password',
   USERS_VERIFY_FORGOT_PASSWORD_TOKEN: '/verify-forget-password-token',
   USERS_RESET_PASSWORD: '/reset-password',
-  USERS_CHANGE_PASSWORD: '/change-password',
+  USERS_CHANGE_PASSWORD: '/auth/changePassword',
   //----
   USERS_LOGOUT: '/auth/logout',
   //----

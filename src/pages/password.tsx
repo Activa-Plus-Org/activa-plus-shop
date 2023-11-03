@@ -7,7 +7,12 @@ import type {
   SettingsQueryOptions,
 } from '@/types';
 import type { SubmitHandler } from 'react-hook-form';
-import { dehydrate, QueryClient, useMutation } from 'react-query';
+import {
+  dehydrate,
+  QueryClient,
+  useMutation,
+  useQueryClient,
+} from 'react-query';
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
 import DashboardLayout from '@/layouts/_dashboard';
@@ -19,6 +24,8 @@ import { fadeInBottom } from '@/lib/framer-motion/fade-in-bottom';
 import * as yup from 'yup';
 import { useState } from 'react';
 import { API_ENDPOINTS } from '@/data/client/endpoints';
+import { useLogout, useMe } from '@/data/user';
+import { pick } from 'lodash';
 
 // export const getStaticProps = async () => {
 //   const queryClient = new QueryClient();
@@ -33,6 +40,7 @@ import { API_ENDPOINTS } from '@/data/client/endpoints';
 //   };
 // };
 const changePasswordSchema = yup.object().shape({
+  idUser: yup.string(),
   oldPassword: yup.string().required(),
   newPassword: yup.string().min(6).required(),
   confirmPassword: yup
@@ -42,30 +50,48 @@ const changePasswordSchema = yup.object().shape({
 });
 
 const ChangePasswordPage: NextPageWithLayout = () => {
-  const { t } = useTranslation('common');
+  //const { t } = useTranslation('common');
+  const { me } = useMe();
   let [error, setError] = useState<Partial<ChangePasswordInput> | null>(null);
-  const { mutate, isLoading } = useMutation(client.users.changePassword, {
-    onSuccess: (data) => {
-      if (!data.success) {
-        setError({ oldPassword: data.message });
-        toast.error(<b>Current password is incorrect</b>, {
+
+  const passwordMutation = useMutation(
+    (data: ChangePasswordInput) => {
+      return client.users.changePassword(me?.id as string, data);
+    },
+    {
+      onSuccess: (data) => {
+        if (!data.success) {
+          setError({ oldPassword: data.message });
+
+          if (!data.message) {
+            toast.success(<b>Contraseña cambiada con éxito</b>, {
+              className: '-mt-10 xs:mt-0',
+            });
+            return;
+          }
+          return;
+        }
+      },
+      onError: (e) => {
+        toast.error(<b>{'text-profile-page-error-toast'}</b>, {
           className: '-mt-10 xs:mt-0',
         });
-        return;
-      }
-      toast.success(<b>Password successfully updated!</b>, {
-        className: '-mt-10 xs:mt-0',
-      });
-    },
-  });
-  const onSubmit: SubmitHandler<ChangePasswordInput> = (data) => mutate(data);
+        console.log(error);
+      },
+    }
+  );
+
+  const onSubmit: SubmitHandler<ChangePasswordInput> = (data) => {
+    console.log(data);
+    passwordMutation.mutate(data);
+  };
   return (
     <motion.div
       variants={fadeInBottom()}
       className="flex min-h-full flex-grow flex-col"
     >
       <h1 className="mb-5 text-15px font-medium text-dark dark:text-light sm:mb-6">
-        {t('text-password-page-title')}
+        {'text-password-page-title'}
       </h1>
       <Form<ChangePasswordInput & { confirmPassword: string }>
         onSubmit={onSubmit}
@@ -76,20 +102,21 @@ const ChangePasswordPage: NextPageWithLayout = () => {
         {({ register, reset, formState: { errors } }) => (
           <>
             <fieldset className="mb-6 grid gap-5 pb-5 sm:grid-cols-2 md:pb-9 lg:mb-8">
+              {/* <input type='hidden' {...register('idUser')}></input> */}
               <Password
-                label={t('text-current-password')}
+                label={'text-current-password'}
                 {...register('oldPassword')}
                 error={
                   errors.oldPassword?.message && 'Current password is incorrect'
                 }
               />
               <Password
-                label={t('text-new-password')}
+                label={'text-new-password'}
                 {...register('newPassword')}
                 error={errors.newPassword?.message}
               />
               <Password
-                label={t('text-confirm-password')}
+                label={'text-confirm-password'}
                 {...register('confirmPassword')}
                 error={errors.confirmPassword?.message}
               />
@@ -98,19 +125,19 @@ const ChangePasswordPage: NextPageWithLayout = () => {
               <Button
                 type="reset"
                 variant="outline"
-                disabled={isLoading}
+                disabled={passwordMutation.isLoading}
                 onClick={() => reset()}
                 className="flex-1 lg:flex-none"
               >
-                {t('text-cancel')}
+                {'text-cancel'}
               </Button>
               <Button
                 type="submit"
-                isLoading={isLoading}
-                disabled={isLoading}
+                isLoading={passwordMutation.isLoading}
+                disabled={passwordMutation.isLoading}
                 className="flex-1 lg:flex-none"
               >
-                {t('text-save-changes')}
+                {'text-save-changes'}
               </Button>
             </div>
           </>

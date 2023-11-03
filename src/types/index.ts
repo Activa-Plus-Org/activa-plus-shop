@@ -211,6 +211,7 @@ export interface UpdateProfileInput {
 }
 
 export interface ChangePasswordInput {
+  //idUser?: string
   oldPassword: string;
   newPassword: string;
 }
@@ -326,6 +327,11 @@ export interface CreateOrderInput {
 }
 
 export interface CreateOrderSyncInput {
+  customerId: number;
+  productId: number;
+}
+
+export interface CreateOrderAsyncInput {
   customerId: number;
   productId: number;
 }
@@ -476,6 +482,14 @@ export interface Purchase {
   productId: number;
   customer: string;
   product: string;
+}
+
+export interface PurchaseOrder {
+  id: number;
+  stateRequest: number;
+  dateCreated: Date;
+  dateResponse: Date;
+  purchaseId: number;
 }
 
 export interface DigitalFile {
