@@ -64,11 +64,11 @@ export default function CartWallet({
       <div className="mt-2 mb-7 space-y-3">
         <div className="text-body flex justify-between">
           <span>{t('text-wallet-points-title')}</span>
-          <span>{walletAmount}</span>
+          <span>&#128179; {walletAmount}</span>
         </div>
         <div className="text-body flex justify-between">
           <span>{t('text-wallet-currency')}</span>
-          <span> {calculateCurrentWalletCurrency}</span>
+          <span>&#128179; {calculateCurrentWalletCurrency}</span>
         </div>
       </div>
 
@@ -90,7 +90,7 @@ export default function CartWallet({
             Payable Amount
           </span>
           <span className="text-heading text-15px font-semibold">
-            {'' + totalPrice}
+            {totalPrice} &#128176;
           </span>
         </div>
       )}

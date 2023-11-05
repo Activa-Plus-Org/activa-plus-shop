@@ -116,18 +116,12 @@ const CheckoutPage: NextPageWithLayout = () => {
             )}
 
             {!isEmpty && (
-              <div className="mt-10 border-t border-light-400 bg-light pt-6 pb-7 dark:border-dark-400 dark:bg-dark-250 sm:bottom-0 sm:mt-12 sm:pt-8 sm:pb-9">
+              <div className="bg-light pb-7 dark:bg-dark-250 sm:bottom-0 sm:pb-9">
                 <div className="mb-6 flex flex-col gap-3 text-dark dark:text-light sm:mb-7">
-                  <div className="flex justify-between">
-                    <p>{t('text-subtotal')}</p>
-                    <strong className="font-semibold">
-                      {productByService?.price}
-                    </strong>
-                  </div>
                   <div className="mt-4 flex justify-between border-t border-light-400 pt-5 dark:border-dark-400">
                     <p>{t('text-total')}</p>
                     <strong className="font-semibold">
-                      {productByService?.price}
+                      &#128176; {productByService?.price}
                     </strong>
                   </div>
                 </div>
