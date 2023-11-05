@@ -39,7 +39,7 @@ export function ProductItem({ item }: { item: ProductByService | undefined }) {
           {name}
           {/* </AnchorLink> */}
         </h3>
-        <h3 className="truncate text-dark dark:text-light">
+        <h3 className="text-heading text-13px font-normal">
           {/* <AnchorLink
             href={routes.productUrl(slug)}
             className="transition-colors hover:text-brand-dark"
@@ -57,7 +57,7 @@ export function ProductItem({ item }: { item: ProductByService | undefined }) {
         </p> */}
         <p className="my-4 flex items-center gap-1">
           <span className="rounded-2xl bg-light-300 p-1.5 font-semibold uppercase leading-none text-brand-dark dark:bg-dark-500">
-            Bs. {price}
+            &#128176; {price}
           </span>
         </p>
       </div>
