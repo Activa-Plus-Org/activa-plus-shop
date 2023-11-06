@@ -2,6 +2,7 @@ import type { SearchParamOptions } from '@/types';
 import axios from 'axios';
 import Router from 'next/router';
 import { getAuthToken, removeAuthToken } from './token.utils';
+import { ExecException } from 'child_process';
 
 // TODO: Due to windows timeout was set to 15000
 const Axios = axios.create({

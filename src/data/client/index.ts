@@ -62,6 +62,8 @@ import type {
   CreateOrderSyncInput,
   Purchase,
   Claim,
+  CreateOrderAsyncInput,
+  PurchaseOrder,
 } from '@/types';
 import { API_ENDPOINTS } from './endpoints';
 import { HttpClient } from './http-client';
@@ -173,6 +175,8 @@ class Client {
       HttpClient.post<Order>(API_ENDPOINTS.ORDERS, data),
     createOrderSync: (data: CreateOrderSyncInput) =>
       HttpClient.post<Purchase>(API_ENDPOINTS.ORDERS_PURCHASE_SYNC, data),
+    createOrderAsync: (data: CreateOrderAsyncInput) =>
+      HttpClient.post<PurchaseOrder>(API_ENDPOINTS.ORDERS_PURCHASE_ASYNC, data),
   };
   users = {
     me: () => HttpClient.get<User>(API_ENDPOINTS.USERS_ME),
@@ -197,9 +201,9 @@ class Client {
         API_ENDPOINTS.USERS_RESET_PASSWORD,
         input
       ),
-    changePassword: (input: ChangePasswordInput) =>
-      HttpClient.post<PasswordChangeResponse>(
-        API_ENDPOINTS.USERS_CHANGE_PASSWORD,
+    changePassword: (id: string, input: ChangePasswordInput) =>
+      HttpClient.put<PasswordChangeResponse>(
+        `${API_ENDPOINTS.USERS_CHANGE_PASSWORD}/${id}`,
         input
       ),
     logout: () => HttpClient.post<boolean>(API_ENDPOINTS.USERS_LOGOUT, {}),

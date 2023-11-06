@@ -19,10 +19,10 @@ const Order: NextPageWithLayout = () => {
   const router = useRouter();
   const { t } = useTranslation('common');
   const { width, height } = useWindowSize();
-  const { resetCart } = useCart();
-  useEffect(() => {
-    resetCart();
-  }, [resetCart]);
+  // const { resetCart } = useCart();
+  // useEffect(() => {
+  //   resetCart();
+  // }, [resetCart]);
   return (
     <div className="m-auto flex flex-grow flex-col items-center justify-center px-5">
       <div className="mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-light shadow-card dark:bg-dark-400 md:h-[120px] md:w-[120px] 3xl:h-32 3xl:w-32">
