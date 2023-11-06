@@ -17,7 +17,6 @@ function Products() {
   const id = idParams ? parseInt(idParams, 10) : NaN;
 
   const { productsByService, isLoading } = useProductsByService(id);
-  console.log('El ID es:', id);
   //   if (isLoading) {
   //     return <div>Not found</div>;
   //   }

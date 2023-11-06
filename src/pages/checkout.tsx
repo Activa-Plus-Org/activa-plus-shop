@@ -70,12 +70,12 @@ const CheckoutPage: NextPageWithLayout = () => {
     // }
     if (productByService?.type === 'SYNC') {
       syncPurchaseMutation.mutate({
-        customerId: 1,
+        customerId: me?.id ? +me.id : 0,
         productId: productByService.id !== undefined ? productByService.id : 0,
       });
     } else if (productByService?.type === 'ASYNC') {
       asyncPurchaseMutation.mutate({
-        customerId: 1,
+        customerId: me?.id ? +me.id : 0,
         productId: productByService.id !== undefined ? productByService.id : 0,
       });
     } else {

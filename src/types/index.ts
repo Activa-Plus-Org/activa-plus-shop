@@ -399,6 +399,23 @@ export interface ProductPaginator extends PaginatorInfo<Product> {}
 
 export interface ReportsPaginator extends PaginatorInfo<Question> {}
 
+export interface Claim {
+  id: number;
+  title: string;
+  socialReason: string;
+  statusResponse: string;
+  customer: User;
+  causal: Cause;
+  purchase: number;
+  isEnable: number;
+  date: Date;
+}
+
+export interface Cause {
+  id: number;
+  causeOfClose: string;
+}
+
 export interface Category {
   id: number;
   name: string;

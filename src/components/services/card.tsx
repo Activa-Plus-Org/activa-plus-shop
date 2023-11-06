@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 
 export default function Card({ service }: { service: Service }) {
   const { id, name, image } = service ?? {};
-
+  console.log(service);
   const router = useRouter();
   const handlerRouter = (id: number) => {
     router.push(`/productsByService/?id=${id}`);
