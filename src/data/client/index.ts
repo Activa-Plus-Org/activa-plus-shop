@@ -64,6 +64,8 @@ import type {
   Claim,
   CreateOrderAsyncInput,
   PurchaseOrder,
+  WalletRechargeResponse,
+  WalletRechargeInput,
 } from '@/types';
 import { API_ENDPOINTS } from './endpoints';
 import { HttpClient } from './http-client';
@@ -212,6 +214,11 @@ class Client {
     getWalletByUserId: (id: string) =>
       HttpClient.get<WalletChangeRespone>(
         `${API_ENDPOINTS.WALLET_USER_ID}/${id}`
+      ),
+    rechargeWallet: (id: string, input: WalletRechargeInput) =>
+      HttpClient.patch<WalletRechargeResponse>(
+        `${API_ENDPOINTS.WALLET_RECHARGE}/${id}`,
+        input
       ),
   };
   questions = {

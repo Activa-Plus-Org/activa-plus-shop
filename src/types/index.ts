@@ -651,3 +651,17 @@ export interface WalletChangeRespone {
   pointsUsed: number;
   availablePoints: number;
 }
+
+export interface WalletRechargeInput {
+  totalPoints: number;
+}
+
+export interface WalletRechargeResponse {
+  operation: string;
+  amount: number;
+  stateAdjusted: string;
+  paymentMethod: string;
+  walletId: number;
+  id: number;
+  transactionDate: Date;
+}
