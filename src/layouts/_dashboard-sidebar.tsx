@@ -65,6 +65,12 @@ const menuItems = [
     label: 'text-auth-password',
     path: routes.password,
   },
+  {
+    id: 5,
+    icon: <LockIcon className="h-[18px] w-[18px] sm:h-5 sm:w-5" />,
+    label: 'text-auth-recharge-wallet',
+    path: routes.recharge,
+  },
 ];
 
 function SidebarNav() {

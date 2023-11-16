@@ -9,6 +9,7 @@ const routes = {
   purchases: '/purchases',
   wishlists: '/wishlists',
   reports: '/reports',
+  recharge: 'recharge',
   questions: '/questions',
   profile: '/profile',
   checkout: '/checkout',

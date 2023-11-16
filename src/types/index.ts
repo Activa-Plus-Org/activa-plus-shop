@@ -557,6 +557,13 @@ export interface Wishlist {
   user_id: string;
 }
 
+export interface WalletRechargePlan {
+  id: number;
+  plan: string;
+  point: number;
+  price: number;
+}
+
 export interface TagPaginator extends PaginatorInfo<Tag> {}
 
 export interface OrderPaginator extends PaginatorInfo<Order> {}
@@ -650,4 +657,18 @@ export interface WalletChangeRespone {
   totalPoints: number;
   pointsUsed: number;
   availablePoints: number;
+}
+
+export interface WalletRechargeInput {
+  totalPoints: number;
+}
+
+export interface WalletRechargeResponse {
+  operation: string;
+  amount: number;
+  stateAdjusted: string;
+  paymentMethod: string;
+  walletId: number;
+  id: number;
+  transactionDate: Date;
 }
