@@ -557,6 +557,13 @@ export interface Wishlist {
   user_id: string;
 }
 
+export interface WalletRechargePlan {
+  id: number;
+  plan: string;
+  point: number;
+  price: number;
+}
+
 export interface TagPaginator extends PaginatorInfo<Tag> {}
 
 export interface OrderPaginator extends PaginatorInfo<Order> {}

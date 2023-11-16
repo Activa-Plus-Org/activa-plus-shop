@@ -4,44 +4,46 @@ import { useMe } from '@/data/user';
 import { useWallet } from '@/data/wallet';
 import DashboardLayout from '@/layouts/_dashboard';
 import { fadeInBottom } from '@/lib/framer-motion/fade-in-bottom';
-import { NextPageWithLayout, WalletRechargeInput } from '@/types';
+import {
+  NextPageWithLayout,
+  WalletRechargeInput,
+  WalletRechargePlan,
+} from '@/types';
 import { motion } from 'framer-motion';
 import client from '@/data/client';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { GetStaticProps } from 'next/types';
 import { useMutation } from 'react-query';
 import toast from 'react-hot-toast';
+import Card from '@/components/wallet/recharge/card';
+import Grid from '@/components/wallet/recharge/grid';
 
 const WalletPage: NextPageWithLayout = () => {
   //const { data, isLoading, error } = useWallet();
 
-  const { mutate, isLoading } = useMutation(
-    (data: { id: string; input: WalletRechargeInput }) =>
-      client.wallet.rechargeWallet(data.id, data.input),
+  const dataRechargePlan: WalletRechargePlan[] = [
     {
-      onSuccess: (res) => {
-        console.log(res);
-      },
-      onError: (err: any) => {
-        toast.error(<b>Something went wrong!</b>);
-        console.log(err.response.data.message);
-      },
-    }
-  );
-
-  const rechargeMyWallet = (id: string, input: WalletRechargeInput) => {
-    mutate({ id, input });
-  };
+      id: 1,
+      plan: 'Básico',
+      point: 15,
+      price: 40,
+    },
+    {
+      id: 2,
+      plan: 'Medio',
+      point: 25,
+      price: 70,
+    },
+    {
+      id: 3,
+      plan: 'Premium',
+      point: 25,
+      price: 100,
+    },
+  ];
 
   //console.log(data);
-  return (
-    <motion.div
-      variants={fadeInBottom()}
-      className="flex min-h-full flex-grow flex-col"
-    >
-      <></>
-    </motion.div>
-  );
+  return <Grid rechargePlan={dataRechargePlan} isLoading={false} />;
 };
 
 WalletPage.authorization = true;
