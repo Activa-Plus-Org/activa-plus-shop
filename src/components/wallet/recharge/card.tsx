@@ -29,6 +29,7 @@ export default function Card({
       client.wallet.rechargeWallet(data.id, data.input),
     {
       onSuccess: (res) => {
+        toast.success(<b>Recarga Existosa!</b>);
         console.log(res);
       },
       onError: (err: any) => {
