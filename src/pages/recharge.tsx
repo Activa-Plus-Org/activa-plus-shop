@@ -17,6 +17,7 @@ import { useMutation } from 'react-query';
 import toast from 'react-hot-toast';
 import Card from '@/components/wallet/recharge/card';
 import Grid from '@/components/wallet/recharge/grid';
+import { Recharge } from '@/components/wallet/recharge';
 
 const WalletPage: NextPageWithLayout = () => {
   //const { data, isLoading, error } = useWallet();
@@ -43,7 +44,8 @@ const WalletPage: NextPageWithLayout = () => {
   ];
 
   //console.log(data);
-  return <Grid rechargePlan={dataRechargePlan} isLoading={false} />;
+  //return <Grid rechargePlan={dataRechargePlan} isLoading={false} />;
+  return <Recharge />;
 };
 
 WalletPage.authorization = true;
