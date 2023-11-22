@@ -124,6 +124,8 @@ class Client {
   };
   claims = {
     all: () => HttpClient.get<Claim[]>(API_ENDPOINTS.CLAIMS),
+    getClaimsByUser: (id: string) =>
+      HttpClient.get<Claim[]>(`${API_ENDPOINTS.CLAIMS_BY_USER}/${id}`),
   };
   tags = {
     all: (query?: QueryOptions) =>
