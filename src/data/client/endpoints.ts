@@ -43,7 +43,7 @@ export const API_ENDPOINTS = {
   MY_REPORTS: '/my-reports',
   MY_QUESTIONS: '/my-questions',
   SETTINGS: '/settings',
-  SETTINGS_CONTACT_US: '/contact-us',
+  SETTINGS_CONTACT_US: '/settings/contact-us',
   UPLOADS: '/attachments',
   FOLLOW_SHOP: 'follow-shop',
   FOLLOWED_SHOPS: 'followed-shops',
