@@ -42,6 +42,10 @@ const AuthorizedMenuItems = [
     label: 'text-auth-password',
     path: routes.password,
   },
+  {
+    label: 'Recharge Wallet',
+    path: routes.recharge,
+  },
 ];
 
 function AuthorizedMenu({ user }: { user: User }) {
