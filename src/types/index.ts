@@ -237,6 +237,10 @@ export interface RegisterUserInput {
   password: string;
 }
 
+export interface PaymentInput {
+  amount: string;
+}
+
 export interface ForgetPasswordInput {
   email: string;
 }
