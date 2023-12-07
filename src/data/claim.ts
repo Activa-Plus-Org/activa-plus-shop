@@ -1,5 +1,5 @@
-import type { Claim, Cause, User } from '@/types';
-import { useQuery } from 'react-query';
+import type { Claim, Cause, User, InputClaim } from '@/types';
+import { useMutation, useQuery } from 'react-query';
 import { API_ENDPOINTS } from '@/data/client/endpoints';
 import client from '@/data/client';
 import { useMe } from './user';

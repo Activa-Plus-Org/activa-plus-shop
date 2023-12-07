@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import StatusResponse from './statusResponse';
 
 export default function Card({ claim }: { claim: Claim }) {
-  console.log(claim);
   const { title, socialReason, statusResponse, customer, causal, date } =
     claim ?? {};
 

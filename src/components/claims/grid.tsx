@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import type { Claim } from '@/types';
 import Card from './card';
 import ItemNotFound from '../ui/item-not-found';
