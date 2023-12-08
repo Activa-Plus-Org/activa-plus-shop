@@ -39,8 +39,8 @@ export default function Grid({ claims, isLoading }: GridProps) {
       {!isLoading && !claims.length ? (
         <div className="flex items-center justify-center">
           <ItemNotFound
-            title={t('text-no-claims-found')}
-            message={t('text-no-claims-found-message')}
+            title="Lista de reclamos vacía"
+            message="No realizaste ningún reclamo aún"
             className="px-4 pt-5 pb-10 md:px-6 md:pt-6 lg:px-7 lg:pb-12 3xl:px-8"
           />
         </div>
