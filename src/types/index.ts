@@ -675,6 +675,51 @@ export interface CreateQuestionInput {
   shop_id: string;
 }
 
+export interface PaymentGenerateUrl {
+  companyCode: string;
+  codeTransaction: string;
+  urlSuccess: string;
+  urlFailed: string;
+  billName: string;
+  billNit: string;
+  email: string;
+  generateBill: number;
+  concept: string;
+  currency: string;
+  amount: number;
+  messagePayment: string;
+  codeExternal: string;
+}
+
+export interface PaymentTransaction {
+  operation: string;
+  amount: string;
+  stateAdjusted: string;
+  url: string;
+  statusPayment: string;
+  transactionId: string;
+  walletId: number;
+}
+
+export interface PaymentTransactionResponse {
+  operation: string;
+  amount: number;
+  stateAdjusted: string;
+  url: string;
+  statusPayment: string;
+  transactionId: string;
+  walletId: number;
+}
+
+export interface PaymentGenerateUrlResponse {
+  status: string;
+  message: string;
+  dateCreated: Date;
+  expireTime: string;
+  url: string;
+  transactionId: string;
+}
+
 export interface WalletChangeRespone {
   id: string;
   totalPoints: number;

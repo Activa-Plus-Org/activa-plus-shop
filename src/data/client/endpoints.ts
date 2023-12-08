@@ -43,6 +43,8 @@ export const API_ENDPOINTS = {
   WISHLIST: '/wishlists',
   WALLET_USER_ID: '/wallets/findOneByUser',
   WALLET_RECHARGE: 'wallets/recharge',
+  PAYMENT_GENERATE_URL: 'https://yopago.com.bo/pay/api/generateUrl',
+  SAVE_PAYMENT_TRANSACTION: 'history-wallets/createPaymentTransaction',
   USERS_WISHLIST_TOGGLE: '/wishlists/toggle',
   MY_REPORTS: '/my-reports',
   MY_QUESTIONS: '/my-questions',
