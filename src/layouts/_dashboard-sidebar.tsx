@@ -37,9 +37,9 @@ const menuItems = [
   },
   {
     id: 2,
-    icon: <HeartFillIcon className="h-[15px] w-[15px] sm:h-4 sm:w-4" />,
-    label: 'text-auth-wishlist',
-    path: routes.wishlists,
+    icon: <ReportIcon className="h-[15px] w-[15px] sm:h-4 sm:w-4" />,
+    label: 'text-auth-claims',
+    path: routes.claims,
   },
   {
     id: 2,

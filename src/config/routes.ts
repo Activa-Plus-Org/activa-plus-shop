@@ -8,6 +8,7 @@ const routes = {
   contact: '/contact-us',
   purchases: '/purchases',
   wishlists: '/wishlists',
+  claims: '/claims',
   reports: '/reports',
   recharge: 'recharge',
   questions: '/questions',

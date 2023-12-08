@@ -69,6 +69,9 @@ import type {
   PaymentGenerateUrl,
   PaymentGenerateUrlResponse,
   PaymentTransaction,
+  ViewUserServices,
+  Cause,
+  InputClaim,
 } from '@/types';
 import { API_ENDPOINTS } from './endpoints';
 import { HttpClient } from './http-client';
@@ -126,8 +129,21 @@ class Client {
   services = {
     all: () => HttpClient.get<Service[]>(API_ENDPOINTS.SERVICES),
   };
+  viewServiceUser = {
+    getViewsByUser: (id: string) =>
+      HttpClient.get<ViewUserServices[]>(
+        `${API_ENDPOINTS.VIEWS_SERVICES_BY_USER}/${id}`
+      ),
+  };
+  causes = {
+    all: () => HttpClient.get<Cause[]>(API_ENDPOINTS.CAUSES),
+  };
   claims = {
     all: () => HttpClient.get<Claim[]>(API_ENDPOINTS.CLAIMS),
+    getClaimsByUser: (id: string) =>
+      HttpClient.get<Claim[]>(`${API_ENDPOINTS.CLAIMS_BY_USER}/${id}`),
+    create: (data: InputClaim) =>
+      HttpClient.post<Claim>(API_ENDPOINTS.CLAIMS, data),
   };
   tags = {
     all: (query?: QueryOptions) =>
