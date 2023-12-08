@@ -66,10 +66,14 @@ import type {
   PurchaseOrder,
   WalletRechargeResponse,
   WalletRechargeInput,
+  PaymentGenerateUrl,
+  PaymentGenerateUrlResponse,
+  PaymentTransaction,
 } from '@/types';
 import { API_ENDPOINTS } from './endpoints';
 import { HttpClient } from './http-client';
-import { FollowedShopsQueryOptions } from '@/types';
+import { FollowedShopsQueryOptions, PaymentTransactionResponse } from '@/types';
+import Input from '@/components/ui/forms/input';
 
 class Client {
   products = {
@@ -316,6 +320,18 @@ class Client {
         ...params,
       });
     },
+  };
+  payment = {
+    generateUrl: (input: PaymentGenerateUrl) =>
+      HttpClient.post<PaymentGenerateUrlResponse>(
+        API_ENDPOINTS.PAYMENT_GENERATE_URL,
+        input
+      ),
+    savePaymentTransaction: (input: PaymentTransaction) =>
+      HttpClient.post<PaymentTransactionResponse>(
+        API_ENDPOINTS.SAVE_PAYMENT_TRANSACTION,
+        input
+      ),
   };
   settings = {
     all: (params?: SettingsQueryOptions) =>
