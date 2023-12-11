@@ -2,8 +2,9 @@ import Layout from '@/layouts/_layout';
 import { Claim, NextPageWithLayout } from '@/types';
 import Grid from '@/components/claims/grid';
 import { useClaims } from '@/data/claim';
+import DashboardLayout from '@/layouts/_dashboard';
 
-function HistoryClaim() {
+function ClaimPage() {
   const { claims, isLoading } = useClaims();
 
   return (
@@ -16,13 +17,15 @@ function HistoryClaim() {
 const Claims: NextPageWithLayout = () => {
   return (
     <>
-      <HistoryClaim />
+      <ClaimPage />
     </>
   );
 };
 
+Claims.authorization = true;
+
 Claims.getLayout = function getLayout(page) {
-  return <Layout>{page}</Layout>;
+  return <DashboardLayout>{page}</DashboardLayout>;
 };
 
 export default Claims;

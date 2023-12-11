@@ -31,6 +31,7 @@ const AbuseReportForm = dynamic(
 const QuestionForm = dynamic(
   () => import('@/components/questions/question-form')
 );
+const PaymentModal = dynamic(() => import('@/components/wallet/payment'));
 
 function renderModalContent(view: MODAL_VIEWS) {
   switch (view) {
@@ -50,6 +51,8 @@ function renderModalContent(view: MODAL_VIEWS) {
       return <AbuseReportForm />;
     case 'QUESTION_FORM':
       return <QuestionForm />;
+    case 'PAYMENT_VIEW':
+      return <PaymentModal />;
     default:
       return null;
   }

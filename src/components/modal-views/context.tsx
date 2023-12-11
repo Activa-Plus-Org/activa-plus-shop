@@ -8,7 +8,8 @@ export type MODAL_VIEWS =
   | 'ABUSE_REPORT'
   | 'QUESTION_FORM'
   | 'REVIEW_RATING'
-  | 'REVIEW_IMAGE_POPOVER';
+  | 'REVIEW_IMAGE_POPOVER'
+  | 'PAYMENT_VIEW';
 
 interface State {
   view: MODAL_VIEWS | undefined;

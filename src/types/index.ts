@@ -403,6 +403,17 @@ export interface ProductPaginator extends PaginatorInfo<Product> {}
 
 export interface ReportsPaginator extends PaginatorInfo<Question> {}
 
+export interface ViewUserServices {
+  id: number;
+  idUser: number;
+  providerFullName: string;
+  productName: string;
+  credentials: JSON;
+  isActived: boolean;
+  imagePath: string;
+  dateExpired: Date;
+}
+
 export interface Claim {
   id: number;
   title: string;
@@ -411,8 +422,16 @@ export interface Claim {
   customer: User;
   causal: Cause;
   purchase: number;
-  isEnable: number;
   date: Date;
+}
+
+export interface InputClaim {
+  title: string;
+  socialReason: string;
+  statusResponse: string;
+  customerId: number;
+  causeId: number;
+  purchaseId: number;
 }
 
 export interface Cause {
@@ -654,6 +673,51 @@ export interface CreateQuestionInput {
   question: string;
   product_id: string;
   shop_id: string;
+}
+
+export interface PaymentGenerateUrl {
+  companyCode: string;
+  codeTransaction: string;
+  urlSuccess: string;
+  urlFailed: string;
+  billName: string;
+  billNit: string;
+  email: string;
+  generateBill: number;
+  concept: string;
+  currency: string;
+  amount: number;
+  messagePayment: string;
+  codeExternal: string;
+}
+
+export interface PaymentTransaction {
+  operation: string;
+  amount: string;
+  stateAdjusted: string;
+  url: string;
+  statusPayment: string;
+  transactionId: string;
+  walletId: number;
+}
+
+export interface PaymentTransactionResponse {
+  operation: string;
+  amount: number;
+  stateAdjusted: string;
+  url: string;
+  statusPayment: string;
+  transactionId: string;
+  walletId: number;
+}
+
+export interface PaymentGenerateUrlResponse {
+  status: string;
+  message: string;
+  dateCreated: Date;
+  expireTime: string;
+  url: string;
+  transactionId: string;
 }
 
 export interface WalletChangeRespone {
