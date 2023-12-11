@@ -663,6 +663,16 @@ export interface WalletChangeRespone {
   availablePoints: number;
 }
 
+export interface HistoryWalletResponse {
+  id: string;
+  operation: string;
+  amount: number;
+  stateAdjusted: string;
+  paymenthMethod: string;
+  transactionDate: Date;
+  walletId: string;
+}
+
 export interface WalletRechargeInput {
   totalPoints: number;
 }

@@ -38,6 +38,7 @@ export const API_ENDPOINTS = {
   WISHLIST: '/wishlists',
   WALLET_USER_ID: '/wallets/findOneByUser',
   WALLET_RECHARGE: 'wallets/recharge',
+  WALLET_HISTORY: '/history-wallets',
   USERS_WISHLIST_TOGGLE: '/wishlists/toggle',
   MY_REPORTS: '/my-reports',
   MY_QUESTIONS: '/my-questions',

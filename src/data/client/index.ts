@@ -66,6 +66,7 @@ import type {
   PurchaseOrder,
   WalletRechargeResponse,
   WalletRechargeInput,
+  HistoryWalletResponse,
 } from '@/types';
 import { API_ENDPOINTS } from './endpoints';
 import { HttpClient } from './http-client';
@@ -219,6 +220,12 @@ class Client {
       HttpClient.patch<WalletRechargeResponse>(
         `${API_ENDPOINTS.WALLET_RECHARGE}/${id}`,
         input
+      ),
+  };
+  historyWallet = {
+    getHistoryWallet: (id: string) =>
+      HttpClient.get<HistoryWalletResponse[]>(
+        `${API_ENDPOINTS.WALLET_HISTORY}/${id}`
       ),
   };
   questions = {

@@ -1,7 +1,7 @@
 import useAuth from '@/components/auth/use-auth';
 import Button from '@/components/ui/button';
 import { useMe } from '@/data/user';
-import { useWallet } from '@/data/wallet';
+import { useHistoryWallet, useWallet } from '@/data/wallet';
 import DashboardLayout from '@/layouts/_dashboard';
 import { fadeInBottom } from '@/lib/framer-motion/fade-in-bottom';
 import { NextPageWithLayout } from '@/types';
@@ -13,18 +13,58 @@ import { useQueryClient } from 'react-query';
 const WalletPage: NextPageWithLayout = () => {
   const { data, isLoading, error } = useWallet();
 
-  console.log(data);
+  var idWallet = '';
+  if (!isLoading) {
+    console.log(data!.id);
+    idWallet = data!.id;
+  }
+  const { dataHistory } = useHistoryWallet(idWallet);
+
+  console.log(dataHistory);
   return (
     <motion.div
       variants={fadeInBottom()}
       className="flex min-h-full flex-grow flex-col"
     >
-      <h1 className="mb-5 text-15px font-medium text-dark dark:text-light sm:mb-6">
-        {'Wallet'}
-      </h1>
-      <p>Puntos disponibles: {data?.availablePoints}</p>
-      <p>Puntos usados: {data?.pointsUsed}</p>
-      <p>Puntos totales: {data?.totalPoints} </p>
+      <div className="grid grid-cols-6 gap-4">
+        <div className="col-span-2 sm:col-span-2 md:col-span-3 lg:col-span-1 xl:col-span-4">
+          <h1 className="mb-5 text-15px font-medium text-dark dark:text-light sm:mb-6">
+            Wallet
+          </h1>
+          <p>Puntos disponibles: {data?.availablePoints}</p>
+          <p>Puntos usados: {data?.pointsUsed}</p>
+          <p>Puntos totales: {data?.totalPoints} </p>
+        </div>
+        <div className="relative col-span-4 overflow-x-auto sm:col-span-2 md:col-span-3 lg:col-span-4 xl:col-span-2 ">
+          <table className="w-full text-left text-sm text-gray-500 rtl:text-right dark:text-gray-400">
+            <thead className="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                <th className="px-6 py-3">Detalle</th>
+                <th className="px-6 py-3">Mondo</th>
+                <th className="px-6 py-3">Fecha</th>
+              </tr>
+            </thead>
+            <tbody>
+              {dataHistory != undefined ? (
+                dataHistory!.map((item, index) => (
+                  <tr className="bg-white dark:bg-gray-800" key={index}>
+                    <td className="px-3 py-2">{item.operation}</td>
+                    <td className="px-3 py-2">
+                      {item.operation != 'Recarga'
+                        ? '-' + item.amount
+                        : '+' + item.amount}
+                    </td>
+                    <td className="px-3 py-2">{item.transactionDate}</td>
+                  </tr>
+                ))
+              ) : (
+                <h1>...</h1>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       <div className="mt-auto flex items-center gap-4 pb-3 lg:justify-end">
         <Button onClick={() => {}}>Recargar saldo</Button>
       </div>
