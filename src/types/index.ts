@@ -185,23 +185,23 @@ export interface User {
   id: string;
   firstName: string;
   lastName: string;
-  phoneNumber: string;
-  profile: {
-    id: string;
-    bio: string;
-    contact: string;
-    avatar: Attachment;
-  };
+  numberPhone: string;
+  // profile: {
+  //   id: string;
+  //   bio: string;
+  //   contact: string;
+  //   avatar: Attachment;
+  // };
   role: string;
   created_at: string;
   updated_at: string;
 }
 
 export interface UpdateProfileInput {
-  id: string;
   firstName: string;
-  //lastName: string;
-  phoneNumber: string;
+  lastName: string;
+  numberPhone: string;
+  email: string;
   // profile: {
   //   id?: string;
   //   bio?: string;
