@@ -185,23 +185,23 @@ export interface User {
   id: string;
   firstName: string;
   lastName: string;
-  phoneNumber: string;
-  profile: {
-    id: string;
-    bio: string;
-    contact: string;
-    avatar: Attachment;
-  };
+  numberPhone: string;
+  // profile: {
+  //   id: string;
+  //   bio: string;
+  //   contact: string;
+  //   avatar: Attachment;
+  // };
   role: string;
   created_at: string;
   updated_at: string;
 }
 
 export interface UpdateProfileInput {
-  id: string;
   firstName: string;
-  //lastName: string;
-  phoneNumber: string;
+  lastName: string;
+  numberPhone: string;
+  email: string;
   // profile: {
   //   id?: string;
   //   bio?: string;
@@ -725,6 +725,16 @@ export interface WalletChangeRespone {
   totalPoints: number;
   pointsUsed: number;
   availablePoints: number;
+}
+
+export interface HistoryWalletResponse {
+  id: string;
+  operation: string;
+  amount: number;
+  stateAdjusted: string;
+  paymenthMethod: string;
+  transactionDate: Date;
+  walletId: string;
 }
 
 export interface WalletRechargeInput {
