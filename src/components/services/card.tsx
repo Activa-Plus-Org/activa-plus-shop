@@ -26,10 +26,7 @@ export default function Card({ service }: { service: Service }) {
           layout="fill"
           quality={100}
           objectFit="cover"
-          src={
-            'https://hbomax-images.warnermediacdn.com/2020-05/square%20social%20logo%20400%20x%20400_0.png' ??
-            placeholder
-          }
+          src={image ?? placeholder}
           className="bg-light-500 dark:bg-dark-400"
         />
       </div>
