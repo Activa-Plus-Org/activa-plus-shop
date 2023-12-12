@@ -66,6 +66,7 @@ import type {
   PurchaseOrder,
   WalletRechargeResponse,
   WalletRechargeInput,
+  HistoryWalletResponse,
   PaymentGenerateUrl,
   PaymentGenerateUrlResponse,
   PaymentTransaction,
@@ -202,8 +203,8 @@ class Client {
   };
   users = {
     me: () => HttpClient.get<User>(API_ENDPOINTS.USERS_ME),
-    update: (user: UpdateProfileInput) =>
-      HttpClient.put<User>(`${API_ENDPOINTS.USERS}/${user.id}`, user),
+    update: (id: string, user: UpdateProfileInput) =>
+      HttpClient.patch<User>(`${API_ENDPOINTS.USER_UPDATE}/${id}`, user),
     login: (input: LoginUserInput) =>
       HttpClient.post<AuthResponse>(API_ENDPOINTS.USERS_LOGIN, input),
     register: (input: RegisterUserInput) =>
@@ -239,6 +240,12 @@ class Client {
       HttpClient.patch<WalletRechargeResponse>(
         `${API_ENDPOINTS.WALLET_RECHARGE}/${id}`,
         input
+      ),
+  };
+  historyWallet = {
+    getHistoryWallet: (id: string) =>
+      HttpClient.get<HistoryWalletResponse[]>(
+        `${API_ENDPOINTS.WALLET_HISTORY}/${id}`
       ),
   };
   questions = {

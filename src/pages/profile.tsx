@@ -22,45 +22,55 @@ import Uploader from '@/components/ui/forms/uploader';
 import * as yup from 'yup';
 
 const profileValidationSchema = yup.object().shape({
-  id: yup.string().required(),
+  //id: yup.string().required(),
   firstName: yup.string().required(),
-  phoneNumber: yup.string().required(),
-  profile: yup.object().shape({
-    id: yup.string(),
-    bio: yup.string(),
-    contact: yup.string(),
-    avatar: yup
-      .object()
-      .shape({
-        id: yup.string(),
-        thumbnail: yup.string(),
-        original: yup.string(),
-      })
-      .optional()
-      .nullable(),
-  }),
+  lastName: yup.string().required(),
+  numberPhone: yup.string().required(),
+  email: yup.string().required(),
+  // profile: yup.object().shape({
+  //   id: yup.string(),
+  //   bio: yup.string(),
+  //   contact: yup.string(),
+  //   avatar: yup
+  //     .object()
+  //     .shape({
+  //       id: yup.string(),
+  //       thumbnail: yup.string(),
+  //       original: yup.string(),
+  //     })
+  //     .optional()
+  //     .nullable(),
+  // }),
 });
 const ProfilePage: NextPageWithLayout = () => {
   const { t } = useTranslation('common');
   const queryClient = useQueryClient();
   const { me } = useMe();
-  const { mutate, isLoading } = useMutation(client.users.update, {
-    onSuccess: () => {
-      toast.success(<b>{t('text-profile-page-success-toast')}</b>, {
-        className: '-mt-10 xs:mt-0',
-      });
+  const userMutation = useMutation(
+    (data: UpdateProfileInput) => {
+      return client.users.update(me?.id as string, data);
     },
-    onError: (error) => {
-      toast.error(<b>{t('text-profile-page-error-toast')}</b>, {
-        className: '-mt-10 xs:mt-0',
-      });
-      console.log(error);
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries(API_ENDPOINTS.USERS_ME);
-    },
-  });
-  const onSubmit: SubmitHandler<UpdateProfileInput> = (data) => mutate(data);
+    {
+      onSuccess: () => {
+        toast.success(<b>{t('text-profile-page-success-toast')}</b>, {
+          className: '-mt-10 xs:mt-0',
+        });
+      },
+      onError: (error) => {
+        toast.error(<b>{t('text-profile-page-error-toast')}</b>, {
+          className: '-mt-10 xs:mt-0',
+        });
+        console.log(error);
+      },
+      onSettled: () => {
+        queryClient.invalidateQueries(API_ENDPOINTS.USERS_ME);
+      },
+    }
+  );
+  const onSubmit: SubmitHandler<UpdateProfileInput> = (data) => {
+    console.log(data);
+    userMutation.mutate(data);
+  };
 
   return (
     <motion.div
@@ -74,13 +84,10 @@ const ProfilePage: NextPageWithLayout = () => {
         onSubmit={onSubmit}
         useFormProps={{
           defaultValues: pick(me, [
-            'id',
             'firstName',
-            'numberPhone',
-            'profile.id',
-            'numberPhone',
-            'profile.bio',
-            'profile.avatar',
+            'phoneNumber',
+            'lastName',
+            'email',
           ]),
         }}
         validationSchema={profileValidationSchema}
@@ -89,7 +96,7 @@ const ProfilePage: NextPageWithLayout = () => {
         {({ register, reset, control, formState: { errors } }) => (
           <>
             <fieldset className="mb-6 grid gap-5 pb-5 sm:grid-cols-2 md:pb-9 lg:mb-8">
-              <Controller
+              {/* <Controller
                 name="phoneNumber"
                 control={control}
                 render={({ field: { ref, ...rest } }) => (
@@ -102,23 +109,28 @@ const ProfilePage: NextPageWithLayout = () => {
                     </div>
                   </div>
                 )}
-              />
+              /> */}
               <Input
-                label={t('text-profile-name')}
+                label={'Nombre'}
                 {...register('firstName')}
                 error={errors.firstName?.message}
+              />
+              <Input
+                label={'Apellido'}
+                {...register('lastName')}
+                error={errors.lastName?.message}
               />
               <div>
                 <span className="block cursor-pointer pb-2.5 font-normal text-dark/70 dark:text-light/70">
                   {t('text-profile-contact')}
                 </span>
                 <Controller
-                  name="phoneNumber"
+                  name="numberPhone"
                   control={control}
                   render={({ field }) => <ReactPhone country="bo" {...field} />}
                 />
 
-                {errors.phoneNumber?.message && (
+                {errors.numberPhone?.message && (
                   <span
                     role="alert"
                     className="block pt-2 text-xs text-warning"
@@ -127,30 +139,29 @@ const ProfilePage: NextPageWithLayout = () => {
                   </span>
                 )}
               </div>
-              <Textarea
+              <Input
+                label={'Email'}
+                {...register('email')}
+                error={errors.email?.message}
+              />
+              {/* <Textarea
                 label={t('text-profile-bio')}
                 {...register('phoneNumber')}
                 error={errors.phoneNumber?.message && 'bio field is required'}
                 className="sm:col-span-2"
-              />
+              /> */}
             </fieldset>
             <div className="mt-auto flex items-center gap-4 pb-3 lg:justify-end">
               <Button
                 type="reset"
                 onClick={() =>
                   reset({
-                    id: me?.id,
+                    //id: me?.id,
                     firstName: me?.firstName,
-                    phoneNumber: me?.phoneNumber,
-                    // profile: {
-                    //   id: me?.profile?.id,
-                    //   avatar: null,
-                    //   bio: 'me?.phoneNumber',
-                    //   contact: me?.phoneNumber,
-                    // },
+                    numberPhone: me?.numberPhone,
                   })
                 }
-                disabled={isLoading}
+                disabled={userMutation.isLoading}
                 variant="outline"
                 className="flex-1 lg:flex-none"
               >
@@ -158,8 +169,8 @@ const ProfilePage: NextPageWithLayout = () => {
               </Button>
               <Button
                 className="flex-1 lg:flex-none"
-                isLoading={isLoading}
-                disabled={isLoading}
+                isLoading={userMutation.isLoading}
+                disabled={userMutation.isLoading}
               >
                 {t('text-save-changes')}
               </Button>
