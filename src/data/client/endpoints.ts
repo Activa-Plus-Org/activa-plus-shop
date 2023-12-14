@@ -23,7 +23,7 @@ export const API_ENDPOINTS = {
   USERS: '/users',
   USERS_ME: '/auth/me',
   USERS_LOGIN: '/auth/login',
-  USERS_REGISTER: '/auth',
+  USERS_REGISTER: '/auth/create-user',
   USER_UPDATE: '/auth/updateUser',
   //----
   CLAIMS: '/claims',
