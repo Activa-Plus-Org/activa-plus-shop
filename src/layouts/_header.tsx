@@ -11,7 +11,6 @@ import { Menu } from '@/components/ui/dropdown';
 import { Transition } from '@/components/ui/transition';
 import { UserIcon } from '@/components/icons/user-icon';
 import SearchButton from '@/components/search/search-button';
-import CartButton from '@/components/cart/cart-button';
 import Hamburger from '@/components/ui/hamburger';
 import GridSwitcher from '@/components/product/grid-switcher';
 import { useIsMounted } from '@/lib/hooks/use-is-mounted';
@@ -29,14 +28,6 @@ const AuthorizedMenuItems = [
   {
     label: 'text-auth-purchase',
     path: routes.purchases,
-  },
-  {
-    label: 'text-auth-wishlist',
-    path: routes.wishlists,
-  },
-  {
-    label: 'text-followed-authors',
-    path: routes.followedShop,
   },
   {
     label: 'text-auth-password',
@@ -152,12 +143,10 @@ export default function Header({
         <Logo />
       </div>
       <div className="relative flex items-center gap-5 pr-0.5 xs:gap-6 sm:gap-7">
-        <SearchButton className="hidden sm:flex" />
+        {/* Activar cuando se integre la funcionalidad */}
+        {/* <SearchButton className="hidden sm:flex" /> */}
         <ThemeSwitcher />
         <GridSwitcher />
-        {asPath !== routes.checkout && (
-          <CartButton className="hidden sm:flex" />
-        )}
         {isMultiLangEnable ? (
           <div className="ltr:ml-auto rtl:mr-auto">
             <LanguageSwitcher />
