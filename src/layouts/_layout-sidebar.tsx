@@ -73,7 +73,7 @@ export function Sidebar({
         <div className="flex h-full w-full flex-col">
           <nav className="flex flex-col">
             <NavLink
-              title={t('text-home')}
+              title={'Inicio'}
               href={routes.home}
               isCollapse={isCollapse}
               icon={<HomeIcon className="h-[18px] w-[18px] text-current" />}
@@ -116,13 +116,13 @@ export function Sidebar({
 
           <nav className="mt-auto flex flex-col pb-4">
             <NavLink
-              title={t('text-settings')}
+              title={'Configurar'}
               href={routes.profile}
               isCollapse={isCollapse}
               icon={<SettingIcon className="h-[18px] w-[18px] text-current" />}
             />
             <NavLink
-              title={t('text-help-page-title')}
+              title={'Ayuda'}
               href={routes.help}
               isCollapse={isCollapse}
               icon={<HelpIcon className="h-[18px] w-[18px] text-current" />}

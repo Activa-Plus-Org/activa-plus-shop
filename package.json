@@ -20,6 +20,7 @@
     "axios": "0.26.0",
     "camelcase-keys": "7.0.2",
     "classnames": "2.3.1",
+    "core-js-pure": "^3.34.0",
     "dayjs": "1.11.0",
     "framer-motion": "6.2.3",
     "jotai": "1.6.0",

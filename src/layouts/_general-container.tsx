@@ -11,7 +11,7 @@ import { useTranslation } from 'next-i18next';
 
 const menuItems = [
   {
-    label: 'text-help-page-title',
+    label: 'Ayuda',
     path: routes.help,
   },
   {

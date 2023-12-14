@@ -78,7 +78,7 @@ const ProfilePage: NextPageWithLayout = () => {
       className="flex min-h-full flex-grow flex-col"
     >
       <h1 className="mb-5 text-15px font-medium text-dark dark:text-light sm:mb-6">
-        {t('text-profile-page-title')}
+        {'Información personal'}
       </h1>
       <Form<UpdateProfileInput>
         onSubmit={onSubmit}
@@ -122,7 +122,7 @@ const ProfilePage: NextPageWithLayout = () => {
               />
               <div>
                 <span className="block cursor-pointer pb-2.5 font-normal text-dark/70 dark:text-light/70">
-                  {t('text-profile-contact')}
+                  {'Contacto'}
                 </span>
                 <Controller
                   name="numberPhone"
@@ -135,7 +135,7 @@ const ProfilePage: NextPageWithLayout = () => {
                     role="alert"
                     className="block pt-2 text-xs text-warning"
                   >
-                    {'contact field is required'}
+                    {'Contacto es requerido'}
                   </span>
                 )}
               </div>
@@ -165,14 +165,14 @@ const ProfilePage: NextPageWithLayout = () => {
                 variant="outline"
                 className="flex-1 lg:flex-none"
               >
-                {t('text-cancel')}
+                {'Cancelar'}
               </Button>
               <Button
                 className="flex-1 lg:flex-none"
                 isLoading={userMutation.isLoading}
                 disabled={userMutation.isLoading}
               >
-                {t('text-save-changes')}
+                {'Guardar cambios'}
               </Button>
             </div>
           </>

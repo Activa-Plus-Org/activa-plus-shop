@@ -29,7 +29,7 @@ const WalletPage: NextPageWithLayout = () => {
       <div className="grid grid-cols-6 gap-4">
         <div className="col-span-2 sm:col-span-2 md:col-span-3 lg:col-span-1 xl:col-span-4">
           <h1 className="mb-5 text-15px font-medium text-dark dark:text-light sm:mb-6">
-            Wallet
+            Billetera
           </h1>
           <p>Puntos disponibles: {data?.availablePoints}</p>
           <p>Puntos usados: {data?.pointsUsed}</p>

@@ -11,64 +11,60 @@ import { ReportIcon } from '@/components/icons/report-icon';
 import { InformationIcon } from '@/components/icons/information-icon';
 import { LogoutIcon } from '@/components/icons/logout-icon';
 import { useLogout } from '@/data/user';
+import { FaWallet } from 'react-icons/fa';
 import { useBreakpoint } from '@/lib/hooks/use-breakpoint';
 import { useIsMounted } from '@/lib/hooks/use-is-mounted';
 import { UserFollowingIcon } from '@/components/icons/user-following-icon';
 //import { useTranslation } from 'next-i18next';
+import { GiWallet } from 'react-icons/gi';
 
 const menuItems = [
   {
     id: 1,
     icon: <UserIconAlt className="h-4 w-4 sm:h-[18px] sm:w-[18px]" />,
-    label: 'text-auth-profile',
+    label: 'Perfil',
     path: routes.profile,
   },
   {
     id: 2,
-    icon: <PurchaseIcon className="h-[15px] w-[15px] sm:h-4 sm:w-4" />,
-    label: 'text-auth-wallet',
+    icon: <FaWallet className="h-[15px] w-[15px] sm:h-4 sm:w-4" />,
+    label: 'Billetera',
     path: routes.wallet,
   },
   {
     id: 2,
     icon: <PurchaseIcon className="h-[15px] w-[15px] sm:h-4 sm:w-4" />,
-    label: 'text-auth-purchase',
+    label: 'Compras',
     path: routes.purchases,
   },
   {
     id: 2,
-    icon: <ReportIcon className="h-[15px] w-[15px] sm:h-4 sm:w-4" />,
-    label: 'text-auth-claims',
+    icon: <InformationIcon className="h-[15px] w-[15px] sm:h-4 sm:w-4" />,
+    label: 'Reclamos',
     path: routes.claims,
   },
-  {
-    id: 2,
-    icon: <ReportIcon className="h-[15px] w-[15px] sm:h-4 sm:w-4" />,
-    label: 'text-my-reports-title',
-    path: routes.reports,
-  },
-  {
-    id: 2,
-    icon: <InformationIcon className="h-[15px] w-[15px] sm:h-4 sm:w-4" />,
-    label: 'text-my-question-title',
-    path: routes.questions,
-  },
-  {
-    id: 3,
-    icon: <UserFollowingIcon className="h-[18px] w-[18px] sm:h-5 sm:w-5" />,
-    label: 'text-followed-authors',
-    path: routes.followedShop,
-  },
+  // {
+  //   id: 2,
+  //   icon: <ReportIcon className="h-[15px] w-[15px] sm:h-4 sm:w-4" />,
+  //   label: 'text-my-reports-title',
+  //   path: routes.reports,
+  // },
+  // {
+  //   id: 2,
+  //   icon: <InformationIcon className="h-[15px] w-[15px] sm:h-4 sm:w-4" />,
+  //   label: 'text-my-question-title',
+  //   path: routes.questions,
+  // },
   {
     id: 4,
     icon: <LockIcon className="h-[18px] w-[18px] sm:h-5 sm:w-5" />,
-    label: 'text-auth-password',
+    label: 'Cambiar contraseña',
     path: routes.password,
   },
   {
     id: 5,
-    icon: <LockIcon className="h-[18px] w-[18px] sm:h-5 sm:w-5" />,
-    label: 'text-auth-recharge-wallet',
+    icon: <GiWallet className="h-[18px] w-[18px] sm:h-5 sm:w-5" />,
+    label: 'Recargar billetera',
     path: routes.recharge,
   },
 ];
@@ -97,7 +93,7 @@ function SidebarNav() {
       >
         <LogoutIcon className="h-6 w-6" />
         <span className="text-dark-100 dark:text-light-400">
-          {'text-logout'}
+          {'Cerrar sesión'}
         </span>
       </button>
     </nav>
@@ -162,7 +158,7 @@ function SidebarMobileNav() {
                 className="flex w-full items-center gap-2.5 px-4 py-2 text-left text-13px hover:text-dark focus:text-dark dark:hover:text-light dark:focus:text-light sm:px-5 sm:py-3 sm:text-sm md:py-3.5 "
               >
                 <LogoutIcon className="h-5 w-5" />
-                {'text-logout'}
+                {'Cerrar sesión'}
               </button>
             </Listbox.Options>
           </Transition>
