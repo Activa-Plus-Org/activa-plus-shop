@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import CustomDropdown from './dropdown/customDropdown';
 import { useViewServices } from '@/data/viewServiceUser';
 import { Cause, InputClaim, ViewUserServices } from '@/types';
@@ -40,19 +40,16 @@ export default function CreateClaim({ handlerHideModal }: CreateClaimProps) {
     },
   });
 
-  const inputTitle = document.querySelector(
-    'input[id="txtTitle"]'
-  ) as HTMLInputElement;
-  const inputSocialReason = document.querySelector(
-    'input[id="txtSocialReason"]'
-  ) as HTMLInputElement;
+  const inputTitle = useRef<HTMLInputElement | null>(null);
+  const inputSocialReason = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
-    if (inputTitle) {
-      inputTitle.value = viewServiceSelected?.productName ?? '';
+    if (inputTitle.current) {
+      inputTitle.current.value = viewServiceSelected?.productName ?? '';
     }
-    if (inputSocialReason) {
-      inputSocialReason.value = viewServiceSelected?.providerFullName ?? '';
+    if (inputSocialReason.current) {
+      inputSocialReason.current.value =
+        viewServiceSelected?.providerFullName ?? '';
     }
   }, [viewServiceSelected]);
 
@@ -63,8 +60,8 @@ export default function CreateClaim({ handlerHideModal }: CreateClaimProps) {
     }
 
     const claim: InputClaim = {
-      title: inputTitle.value,
-      socialReason: inputSocialReason.value,
+      title: inputTitle.current!.value,
+      socialReason: inputSocialReason.current!.value,
       statusResponse: 'En Proceso',
       causeId: causeSelected?.id!,
       customerId: me?.id ? +me.id : 0,
@@ -101,6 +98,7 @@ export default function CreateClaim({ handlerHideModal }: CreateClaimProps) {
                   <label htmlFor="txtTitle">Título:</label>
                   <input
                     id="txtTitle"
+                    ref={inputTitle}
                     className="col-span-3 rounded-md border border-light border-opacity-25 bg-dark-100 hover:border-opacity-75 dark:text-light"
                     type="text"
                     name="txtTitle"
@@ -111,6 +109,7 @@ export default function CreateClaim({ handlerHideModal }: CreateClaimProps) {
                   <label htmlFor="txtSocialReason">Razón social:</label>
                   <input
                     id="txtSocialReason"
+                    ref={inputSocialReason}
                     className="col-span-3 rounded-md border border-light border-opacity-25 bg-dark-100 hover:border-opacity-75 dark:text-light"
                     type="text"
                     name="txtSocialReason"
