@@ -210,7 +210,7 @@ class Client {
     register: (input: RegisterUserInput) =>
       HttpClient.post<AuthResponse>(API_ENDPOINTS.USERS_REGISTER, input),
     forgotPassword: (input: ForgetPasswordInput) =>
-      HttpClient.post<PasswordChangeResponse>(
+      HttpClient.patch<PasswordChangeResponse>(
         API_ENDPOINTS.USERS_FORGOT_PASSWORD,
         input
       ),

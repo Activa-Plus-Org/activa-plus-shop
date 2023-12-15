@@ -73,13 +73,13 @@ export function Sidebar({
         <div className="flex h-full w-full flex-col">
           <nav className="flex flex-col">
             <NavLink
-              title={t('text-home')}
+              title={'Inicio'}
               href={routes.home}
               isCollapse={isCollapse}
               icon={<HomeIcon className="h-[18px] w-[18px] text-current" />}
             />
             <NavLink
-              title={t('text-contact')}
+              title={'Contactar'}
               href={routes.contact}
               isCollapse={isCollapse}
               icon={
@@ -90,13 +90,13 @@ export function Sidebar({
 
           <nav className="mt-auto flex flex-col pb-4">
             <NavLink
-              title={t('text-settings')}
+              title={'Configurar'}
               href={routes.profile}
               isCollapse={isCollapse}
               icon={<SettingIcon className="h-[18px] w-[18px] text-current" />}
             />
             <NavLink
-              title={t('text-help-page-title')}
+              title={'Ayuda'}
               href={routes.help}
               isCollapse={isCollapse}
               icon={<HelpIcon className="h-[18px] w-[18px] text-current" />}
@@ -116,19 +116,19 @@ export function Sidebar({
             href={routes.terms}
             className="block py-2 text-dark-700 hover:text-dark-100 dark:hover:text-brand"
           >
-            {t('text-terms')}
+            {'Términos'}
           </ActiveLink>
           <ActiveLink
             href={routes.privacy}
             className="block py-2 text-dark-700 hover:text-dark-100 dark:hover:text-brand"
           >
-            {t('text-privacy')}
+            {'Privacidad'}
           </ActiveLink>
           <ActiveLink
             href={routes.help}
             className="block py-2 text-dark-700 hover:text-dark-100 dark:hover:text-brand"
           >
-            {t('text-help-page-title')}
+            {'Ayuda'}
           </ActiveLink>
         </nav>
         <Copyright className="text-xs font-medium text-dark-800/80 dark:text-dark-700" />

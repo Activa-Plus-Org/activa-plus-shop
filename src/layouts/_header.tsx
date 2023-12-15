@@ -19,31 +19,35 @@ import { useModalAction } from '@/components/modal-views/context';
 import Button from '@/components/ui/button';
 import LanguageSwitcher from '@/components/ui/language-switcher';
 import { useTranslation } from 'next-i18next';
+import { useWallet } from '@/data/wallet';
 
 const AuthorizedMenuItems = [
   {
-    label: 'text-auth-profile',
+    label: 'Perfil',
     path: routes.profile,
   },
   {
-    label: 'text-auth-purchase',
+    label: 'Compras',
     path: routes.purchases,
   },
+
   {
-    label: 'text-auth-password',
+    label: 'Cambiar contraseña',
     path: routes.password,
   },
   {
-    label: 'Recharge Wallet',
+    label: 'Recargar billetera',
     path: routes.recharge,
   },
 ];
 
 function AuthorizedMenu({ user }: { user: User }) {
+  const { data } = useWallet();
   const { mutate: logout } = useLogout();
   const { t } = useTranslation('common');
   return (
     <Menu>
+      <p className="font-sans text-lg">{data?.availablePoints ?? ''} Puntos</p>
       <Menu.Button className="relative inline-flex h-8 w-8 justify-center rounded-full border border-light-400 bg-light-300 dark:border-dark-500 dark:bg-dark-500">
         {/* @ts-ignore */}
         <Avatar
@@ -51,7 +55,7 @@ function AuthorizedMenu({ user }: { user: User }) {
           round={true}
           name={user.firstName}
           textSizeRatio={2}
-          src={user?.profile?.avatar?.thumbnail}
+          //src={user?.profile?.avatar?.thumbnail}
         />
       </Menu.Button>
       <Transition
@@ -80,7 +84,7 @@ function AuthorizedMenu({ user }: { user: User }) {
               className="transition-fill-colors w-full px-5 py-2.5 hover:bg-light-400 ltr:text-left rtl:text-right dark:hover:bg-dark-600"
               onClick={() => logout()}
             >
-              {t('text-logout')}
+              {'Cerrar sesión'}
             </button>
           </Menu.Item>
         </Menu.Items>
@@ -126,6 +130,7 @@ export default function Header({
 }: HeaderProps) {
   const { asPath } = useRouter();
   const { t } = useTranslation('common');
+  const { data } = useWallet();
   useSwapBodyClassOnScrollDirection();
   const isMultiLangEnable =
     process.env.NEXT_PUBLIC_ENABLE_MULTI_LANG === 'true' &&
@@ -160,7 +165,7 @@ export default function Header({
           rel="noreferrer"
           className="focus:ring-accent-700 hidden h-9 shrink-0 items-center justify-center rounded border border-transparent bg-brand px-3 py-0 text-sm font-semibold leading-none text-light outline-none transition duration-300 ease-in-out hover:bg-brand-dark focus:shadow focus:outline-none focus:ring-1 sm:inline-flex"
         >
-          {t('text-become-seller')}
+          {'Ser vendedor'}
         </a>
         <LoginMenu />
       </div>

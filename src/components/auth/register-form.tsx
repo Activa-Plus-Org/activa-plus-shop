@@ -55,15 +55,15 @@ export default function RegisterUserForm() {
         <div className="w-full shrink-0 text-left md:w-[380px]">
           <div className="flex flex-col pb-5 text-center lg:pb-9 xl:pb-10 xl:pt-2">
             <h2 className="text-lg font-medium tracking-[-0.3px] text-dark dark:text-light lg:text-xl">
-              {t('text-welcome-back')}
+              {'Registrare'}
             </h2>
             <div className="mt-1.5 text-13px leading-6 tracking-[0.2px] dark:text-light-900 lg:mt-2.5 xl:mt-3">
-              {t('text-create-an-account')}{' '}
+              {'Tengo una cuenta para'}{' '}
               <button
                 onClick={() => openModal('LOGIN_VIEW')}
                 className="inline-flex font-semibold text-brand hover:text-dark-400 hover:dark:text-light-500"
               >
-                {t('text-login')}
+                {'ingresar'}
               </button>
             </div>
           </div>
@@ -77,32 +77,32 @@ export default function RegisterUserForm() {
             {({ register, formState: { errors } }) => (
               <>
                 <Input
-                  label="contact-us-firstname-field"
+                  label="Nombres"
                   inputClassName="bg-light dark:bg-dark-300"
                   {...register('firstName')}
                   error={errors.firstName?.message}
                 />
                 <Input
-                  label="contact-us-lastname-field"
+                  label="Apellidos"
                   inputClassName="bg-light dark:bg-dark-300"
                   {...register('lastName')}
                   error={errors.lastName?.message}
                 />
                 <Input
-                  label="contact-us-phone-field"
+                  label="Número de celular"
                   inputClassName="bg-light dark:bg-dark-300"
                   {...register('numberPhone')}
                   error={errors.numberPhone?.message}
                 />
                 <Input
-                  label="contact-us-email-field"
+                  label="Email"
                   inputClassName="bg-light dark:bg-dark-300"
                   type="email"
                   {...register('email')}
                   error={errors.email?.message}
                 />
                 <Password
-                  label="text-auth-password"
+                  label="Contraseña"
                   inputClassName="bg-light dark:bg-dark-300"
                   {...register('password')}
                   error={errors.password?.message}
@@ -111,7 +111,7 @@ export default function RegisterUserForm() {
                   type="submit"
                   className="!mt-5 w-full text-sm tracking-[0.2px] lg:!mt-7"
                 >
-                  {t('text-register')}
+                  {'Registrar'}
                 </Button>
               </>
             )}

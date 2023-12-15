@@ -47,15 +47,15 @@ export default function LoginUserForm() {
         <div className="w-full shrink-0 text-left md:w-[380px]">
           <div className="flex flex-col pb-5 text-center xl:pb-6 xl:pt-2">
             <h2 className="text-lg font-medium tracking-[-0.3px] text-dark dark:text-light lg:text-xl">
-              {t('text-welcome-back')}
+              {'Bienvenido'}
             </h2>
             <div className="mt-1.5 text-13px leading-6 tracking-[0.2px] dark:text-light-900 lg:mt-2.5 xl:mt-3">
-              {t('text-join-now')}{' '}
+              {'¿No tienes cuenta?'}{' '}
               <button
                 onClick={() => openModal('REGISTER')}
                 className="inline-flex font-semibold text-brand hover:text-dark-400 hover:dark:text-light-500"
               >
-                {t('text-create-account')}
+                {'Crear una cuenta'}
               </button>
             </div>
           </div>
@@ -67,21 +67,21 @@ export default function LoginUserForm() {
             {({ register, formState: { errors } }) => (
               <>
                 <Input
-                  label="contact-us-email-field"
+                  label="Email"
                   inputClassName="bg-light dark:bg-dark-300"
                   type="email"
                   {...register('email')}
                   error={errors.email?.message}
                 />
                 <Password
-                  label="text-auth-password"
+                  label="Contraseña"
                   inputClassName="bg-light dark:bg-dark-300"
                   {...register('password')}
                   error={errors.password?.message}
                 />
                 <div className="flex items-center justify-between space-x-5 rtl:space-x-reverse">
                   <CheckBox
-                    label="text-remember-me"
+                    label="Recordar"
                     // inputClassName="bg-light dark:bg-dark-300"
                   />
                   <button
@@ -89,14 +89,14 @@ export default function LoginUserForm() {
                     className="text-13px font-semibold text-brand hover:text-dark-400 hover:dark:text-light-500"
                     onClick={() => openModal('FORGOT_PASSWORD_VIEW')}
                   >
-                    {t('text-forgot-password')}
+                    {'¿Olvidaste tu contraseña?'}
                   </button>
                 </div>
                 <Button
                   type="submit"
                   className="!mt-5 w-full text-sm tracking-[0.2px] lg:!mt-7"
                 >
-                  {t('text-get-login')}
+                  {'Entrar'}
                 </Button>
               </>
             )}

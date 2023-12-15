@@ -91,7 +91,7 @@ const ChangePasswordPage: NextPageWithLayout = () => {
       className="flex min-h-full flex-grow flex-col"
     >
       <h1 className="mb-5 text-15px font-medium text-dark dark:text-light sm:mb-6">
-        {'text-password-page-title'}
+        {'Cambiar contraseña'}
       </h1>
       <Form<ChangePasswordInput & { confirmPassword: string }>
         onSubmit={onSubmit}
@@ -104,19 +104,19 @@ const ChangePasswordPage: NextPageWithLayout = () => {
             <fieldset className="mb-6 grid gap-5 pb-5 sm:grid-cols-2 md:pb-9 lg:mb-8">
               {/* <input type='hidden' {...register('idUser')}></input> */}
               <Password
-                label={'text-current-password'}
+                label={'Escribe tu contraseña actual'}
                 {...register('oldPassword')}
                 error={
                   errors.oldPassword?.message && 'Current password is incorrect'
                 }
               />
               <Password
-                label={'text-new-password'}
+                label={'Escribe tu nueva contraseña'}
                 {...register('newPassword')}
                 error={errors.newPassword?.message}
               />
               <Password
-                label={'text-confirm-password'}
+                label={'Confirma la nueva contraseña'}
                 {...register('confirmPassword')}
                 error={errors.confirmPassword?.message}
               />
@@ -129,7 +129,7 @@ const ChangePasswordPage: NextPageWithLayout = () => {
                 onClick={() => reset()}
                 className="flex-1 lg:flex-none"
               >
-                {'text-cancel'}
+                {'Cancelar'}
               </Button>
               <Button
                 type="submit"
@@ -137,7 +137,7 @@ const ChangePasswordPage: NextPageWithLayout = () => {
                 disabled={passwordMutation.isLoading}
                 className="flex-1 lg:flex-none"
               >
-                {'text-save-changes'}
+                {'Guardar cambios'}
               </Button>
             </div>
           </>
