@@ -44,7 +44,8 @@ function EmailForm({
   onSubmit: SubmitHandler<ForgetPasswordInput>;
   isLoading: boolean;
 }) {
-  const { t } = useTranslation('common');
+  //console.log(email + "ESTE ES EL EMAIL");
+  // const { t } = useTranslation('common');
   const { openModal } = useModalAction();
   return (
     <div className="bg-light px-6 pt-10 pb-8 dark:bg-dark-300 sm:px-8 lg:p-12">
@@ -53,11 +54,8 @@ function EmailForm({
         <div className="w-full shrink-0 text-left md:w-[380px]">
           <div className="flex flex-col pb-5 text-center lg:pb-9 xl:pb-10 xl:pt-2">
             <h2 className="text-lg font-medium tracking-[-0.3px] text-dark dark:text-light lg:text-xl">
-              {t('text-reset-password')}
+              {'Olvide mi contraseña'}
             </h2>
-            <div className="mt-1.5 text-13px leading-6 tracking-[0.2px] dark:text-light-900 lg:mt-2.5 xl:mt-3">
-              {t('text-reset-password-title')}
-            </div>
           </div>
           <Form<ForgetPasswordInput>
             onSubmit={onSubmit}
@@ -71,7 +69,7 @@ function EmailForm({
             {({ register, formState: { errors } }) => (
               <>
                 <Input
-                  label="contact-us-email-field"
+                  label="Ingrese su email"
                   type="email"
                   {...register('email')}
                   error={errors.email?.message && 'text-email-notice'}
@@ -82,24 +80,24 @@ function EmailForm({
                   isLoading={isLoading}
                   disabled={isLoading}
                 >
-                  {t('text-reset-password-submit')}
+                  {'Restablecer contraseña'}
                 </Button>
               </>
             )}
           </Form>
           <div className="relative mt-10 flex items-center justify-center border-t border-light-500 text-13px dark:border-dark-600">
             <span className="absolute inline-flex bg-light px-2 pb-0.5 dark:bg-dark-300">
-              {t('text-or')}
+              {'sino'}
             </span>
           </div>
           <div className="pt-7 text-center text-13px">
-            {t('text-back-to')}{' '}
+            {'Volver a'}{' '}
             <button
               type="button"
               className="font-semibold text-brand hover:text-dark-400 hover:dark:text-light-500"
               onClick={() => openModal('LOGIN_VIEW')}
             >
-              {t('text-login')}
+              {'inicio de sesión'}
             </button>
           </div>
         </div>
@@ -247,6 +245,7 @@ function RenderFormSteps() {
   const { state, actions } = useStateMachine({ updateFormState });
 
   const emailFormHandle: SubmitHandler<ForgetPasswordInput> = ({ email }) => {
+    console.log(email);
     forgotPassword(
       { email },
       {
@@ -320,7 +319,7 @@ function RenderFormSteps() {
           isLoading={isLoading}
         />
       )}
-      {state.step === 'Token' && (
+      {/* {state.step === 'Token' && (
         <TokenForm
           token={state.token}
           onSubmit={tokenFormHandle}
@@ -336,14 +335,14 @@ function RenderFormSteps() {
           isLoading={resetting}
           onBack={() => backToPreviousStep('Token')}
         />
-      )}
+      )} */}
     </div>
   );
 }
 
 const initialState: GlobalState = {
   step: 'Email',
-  email: '',
+  email: 'c',
   password: '',
   token: '',
 };
