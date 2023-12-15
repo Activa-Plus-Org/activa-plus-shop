@@ -20,9 +20,9 @@ export default function Card({ viewService, handlerShowModal }: CardProps) {
 
   return (
     <motion.div
-      className="my-1 flex justify-around rounded border border-2 border-white border-opacity-25 p-2 shadow-md"
+      className="border-ligth my-1 flex justify-around rounded border border-2 border-opacity-25 p-2 shadow"
       animate={{ opacity: 1, scale: 1 }}
-      whileHover={{ opacity: 0.85, scale: 0.99 }}
+      whileHover={{ opacity: 0.95, scale: 0.99 }}
       transition={{ ease: 'easeOut', duration: 0.1 }}
     >
       <div className="group relative flex aspect-[3/2] w-1/5 justify-center overflow-hidden">
@@ -52,7 +52,7 @@ export default function Card({ viewService, handlerShowModal }: CardProps) {
           <span className="self-start">Credenciales: </span>
         </div>
         <button
-          className="ml-3 rounded border border-green-700 py-2 px-4 font-bold text-white hover:bg-green-800"
+          className="ml-3 rounded border border-green-700 py-2 px-4 font-bold"
           onClick={handlerShowModal}
         >
           Ver Credenciales
