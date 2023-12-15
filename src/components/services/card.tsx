@@ -11,7 +11,6 @@ export default function Card({ service }: { service: Service }) {
   const handlerRouter = (id: number) => {
     router.push(`/productsByService/?id=${id}`);
   };
-
   return (
     <motion.div
       title={name}
