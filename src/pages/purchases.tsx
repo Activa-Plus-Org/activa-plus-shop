@@ -3,12 +3,19 @@ import DashboardLayout from '@/layouts/_dashboard';
 import Grid from '@/components/purchases/grid';
 import { useViewServices } from '@/data/viewServiceUser';
 import CartEmpty from '@/components/cart/cart-empty';
+import { motion } from 'framer-motion';
+import { fadeInBottom } from '@/lib/framer-motion/fade-in-bottom';
+import { GetStaticProps } from 'next/types';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-function ViewServicesPage() {
+const ViewServicesPage: NextPageWithLayout = () => {
   const { viewServices, isLoading } = useViewServices();
 
   return (
-    <>
+    <motion.div
+      variants={fadeInBottom()}
+      className="flex min-h-full flex-grow flex-col"
+    >
       {viewServices.length ? (
         <Grid viewServices={viewServices} isLoading={isLoading} />
       ) : (
@@ -23,9 +30,9 @@ function ViewServicesPage() {
           />
         </div>
       )}
-    </>
+    </motion.div>
   );
-}
+};
 
 const ViewServices: NextPageWithLayout = () => {
   return (
@@ -41,6 +48,14 @@ ViewServices.getLayout = function getLayout(page) {
   return <DashboardLayout>{page}</DashboardLayout>;
 };
 
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale!, ['common'])),
+    },
+    revalidate: 60, // In seconds
+  };
+};
 export default ViewServices;
 
 {

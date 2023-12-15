@@ -26,8 +26,8 @@ const WalletPage: NextPageWithLayout = () => {
       variants={fadeInBottom()}
       className="flex min-h-full flex-grow flex-col"
     >
-      <div className="grid grid-cols-6 gap-4">
-        <div className="col-span-2 sm:col-span-2 md:col-span-3 lg:col-span-1 xl:col-span-4">
+      <div className="grid grid-cols-2 ">
+        <div className="col-span-2 sm:col-span-2  lg:col-span-1 ">
           <h1 className="mb-5 text-15px font-medium text-dark dark:text-light sm:mb-6">
             Billetera
           </h1>
@@ -35,7 +35,8 @@ const WalletPage: NextPageWithLayout = () => {
           <p>Puntos usados: {data?.pointsUsed}</p>
           <p>Puntos totales: {data?.totalPoints} </p>
         </div>
-        <div className="relative col-span-4 overflow-x-auto sm:col-span-2 md:col-span-3 lg:col-span-4 xl:col-span-2 ">
+        <div className="relative col-span-2 overflow-x-auto sm:col-span-2  ">
+          <br />
           <table className="w-full text-left text-sm text-gray-500 rtl:text-right dark:text-gray-400">
             <thead className="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
               <tr>

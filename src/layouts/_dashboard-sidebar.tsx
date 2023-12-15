@@ -43,18 +43,6 @@ const menuItems = [
     label: 'Reclamos',
     path: routes.claims,
   },
-  // {
-  //   id: 2,
-  //   icon: <ReportIcon className="h-[15px] w-[15px] sm:h-4 sm:w-4" />,
-  //   label: 'text-my-reports-title',
-  //   path: routes.reports,
-  // },
-  // {
-  //   id: 2,
-  //   icon: <InformationIcon className="h-[15px] w-[15px] sm:h-4 sm:w-4" />,
-  //   label: 'text-my-question-title',
-  //   path: routes.questions,
-  // },
   {
     id: 4,
     icon: <LockIcon className="h-[18px] w-[18px] sm:h-5 sm:w-5" />,

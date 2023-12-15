@@ -79,33 +79,7 @@ export function Sidebar({
               icon={<HomeIcon className="h-[18px] w-[18px] text-current" />}
             />
             <NavLink
-              title={t('text-explore')}
-              href={routes.explore}
-              isCollapse={isCollapse}
-              icon={<DiscoverIcon className="h-[18px] w-[18px] text-current" />}
-            />
-            <NavLink
-              title={t('text-popular-products')}
-              href={routes.popularProducts}
-              isCollapse={isCollapse}
-              icon={<ProductIcon className="h-4 w-4 text-current" />}
-            />
-            <NavLink
-              title={t('text-top-authors')}
-              href={routes.authors}
-              isCollapse={isCollapse}
-              icon={<PeopleIcon className="h-[18px] w-[18px] text-current" />}
-            />
-
-            <NavLink
-              title={t('text-feed')}
-              href={routes.feed}
-              isCollapse={isCollapse}
-              icon={<FeedIcon className="h-[17px] w-[17px] text-current" />}
-            />
-
-            <NavLink
-              title={t('text-contact')}
+              title={'Contactar'}
               href={routes.contact}
               isCollapse={isCollapse}
               icon={
@@ -142,19 +116,19 @@ export function Sidebar({
             href={routes.terms}
             className="block py-2 text-dark-700 hover:text-dark-100 dark:hover:text-brand"
           >
-            {t('text-terms')}
+            {'Términos'}
           </ActiveLink>
           <ActiveLink
             href={routes.privacy}
             className="block py-2 text-dark-700 hover:text-dark-100 dark:hover:text-brand"
           >
-            {t('text-privacy')}
+            {'Privacidad'}
           </ActiveLink>
           <ActiveLink
             href={routes.help}
             className="block py-2 text-dark-700 hover:text-dark-100 dark:hover:text-brand"
           >
-            {t('text-help-page-title')}
+            {'Ayuda'}
           </ActiveLink>
         </nav>
         <Copyright className="text-xs font-medium text-dark-800/80 dark:text-dark-700" />

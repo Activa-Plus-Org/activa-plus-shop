@@ -23,7 +23,7 @@ export const API_ENDPOINTS = {
   USERS: '/users',
   USERS_ME: '/auth/me',
   USERS_LOGIN: '/auth/login',
-  USERS_REGISTER: '/auth',
+  USERS_REGISTER: '/auth/create-user',
   USER_UPDATE: '/auth/updateUser',
   //----
   CLAIMS: '/claims',
@@ -44,7 +44,8 @@ export const API_ENDPOINTS = {
   WISHLIST: '/wishlists',
   WALLET_USER_ID: '/wallets/findOneByUser',
   WALLET_RECHARGE: 'wallets/recharge',
-  WALLET_HISTORY: '/history-wallets',
+  //WALLET_HISTORY: '/history-wallets',
+  WALLET_HISTORY: '/history-wallets/getByUser',
   PAYMENT_GENERATE_URL: 'https://yopago.com.bo/pay/api/generateUrl',
   SAVE_PAYMENT_TRANSACTION: 'history-wallets/createPaymentTransaction',
   USERS_WISHLIST_TOGGLE: '/wishlists/toggle',

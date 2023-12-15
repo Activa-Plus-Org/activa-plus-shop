@@ -11,7 +11,6 @@ import { Menu } from '@/components/ui/dropdown';
 import { Transition } from '@/components/ui/transition';
 import { UserIcon } from '@/components/icons/user-icon';
 import SearchButton from '@/components/search/search-button';
-import CartButton from '@/components/cart/cart-button';
 import Hamburger from '@/components/ui/hamburger';
 import GridSwitcher from '@/components/product/grid-switcher';
 import { useIsMounted } from '@/lib/hooks/use-is-mounted';
@@ -20,6 +19,7 @@ import { useModalAction } from '@/components/modal-views/context';
 import Button from '@/components/ui/button';
 import LanguageSwitcher from '@/components/ui/language-switcher';
 import { useTranslation } from 'next-i18next';
+import { useWallet } from '@/data/wallet';
 
 const AuthorizedMenuItems = [
   {
@@ -42,10 +42,12 @@ const AuthorizedMenuItems = [
 ];
 
 function AuthorizedMenu({ user }: { user: User }) {
+  const { data } = useWallet();
   const { mutate: logout } = useLogout();
   const { t } = useTranslation('common');
   return (
     <Menu>
+      <p className="font-sans text-lg">{data?.availablePoints ?? ''} Puntos</p>
       <Menu.Button className="relative inline-flex h-8 w-8 justify-center rounded-full border border-light-400 bg-light-300 dark:border-dark-500 dark:bg-dark-500">
         {/* @ts-ignore */}
         <Avatar
@@ -53,7 +55,7 @@ function AuthorizedMenu({ user }: { user: User }) {
           round={true}
           name={user.firstName}
           textSizeRatio={2}
-          src={user?.profile?.avatar?.thumbnail}
+          //src={user?.profile?.avatar?.thumbnail}
         />
       </Menu.Button>
       <Transition
@@ -128,6 +130,7 @@ export default function Header({
 }: HeaderProps) {
   const { asPath } = useRouter();
   const { t } = useTranslation('common');
+  const { data } = useWallet();
   useSwapBodyClassOnScrollDirection();
   const isMultiLangEnable =
     process.env.NEXT_PUBLIC_ENABLE_MULTI_LANG === 'true' &&
@@ -145,12 +148,10 @@ export default function Header({
         <Logo />
       </div>
       <div className="relative flex items-center gap-5 pr-0.5 xs:gap-6 sm:gap-7">
-        <SearchButton className="hidden sm:flex" />
+        {/* Activar cuando se integre la funcionalidad */}
+        {/* <SearchButton className="hidden sm:flex" /> */}
         <ThemeSwitcher />
         <GridSwitcher />
-        {asPath !== routes.checkout && (
-          <CartButton className="hidden sm:flex" />
-        )}
         {isMultiLangEnable ? (
           <div className="ltr:ml-auto rtl:mr-auto">
             <LanguageSwitcher />
@@ -164,7 +165,7 @@ export default function Header({
           rel="noreferrer"
           className="focus:ring-accent-700 hidden h-9 shrink-0 items-center justify-center rounded border border-transparent bg-brand px-3 py-0 text-sm font-semibold leading-none text-light outline-none transition duration-300 ease-in-out hover:bg-brand-dark focus:shadow focus:outline-none focus:ring-1 sm:inline-flex"
         >
-          {t('text-become-seller')}
+          {'Ser vendedor'}
         </a>
         <LoginMenu />
       </div>
