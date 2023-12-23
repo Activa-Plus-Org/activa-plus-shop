@@ -2,7 +2,7 @@ import { useQuery } from 'react-query';
 import { API_ENDPOINTS } from '@/data/client/endpoints';
 import client from '@/data/client';
 import { useMe } from './user';
-import { ViewUserServices } from '@/types';
+import { Purchase, ViewUserServices } from '@/types';
 
 export function useViewServices() {
   const { me } = useMe();
@@ -13,6 +13,20 @@ export function useViewServices() {
 
   return {
     viewServices: data ?? [],
+    isLoading,
+    error,
+  };
+}
+
+export function usePurchases() {
+  const { me } = useMe();
+  const { data, isLoading, error } = useQuery<Purchase[], Error>(
+    API_ENDPOINTS.PURCHASES_BY_USER,
+    () => client.purchases.getPurchasesByUser(me?.id ?? '0')
+  );
+
+  return {
+    purchases: data ?? [],
     isLoading,
     error,
   };
