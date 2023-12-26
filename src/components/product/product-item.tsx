@@ -17,13 +17,7 @@ export function ProductItem({ item }: { item: ProductByService | undefined }) {
   return (
     <div className="flex w-full items-start gap-4 py-3">
       <div className="relative aspect-[5/3.4] w-28 flex-shrink-0 border border-light-300 bg-light-300 dark:border-0 dark:bg-dark-500 xs:w-32">
-        <Image
-          alt={name}
-          layout="fill"
-          //image ?? placeholder
-          src={placeholder}
-          objectFit="cover"
-        />
+        <Image alt={name} layout="fill" src={image} objectFit="cover" />
       </div>
       <div className="w-[calc(100%-125px)] text-13px font-medium xs:w-[calc(100%-145px)] sm:w-[calc(100%-150px)]">
         {/* {notAvailable && (
