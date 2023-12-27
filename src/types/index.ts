@@ -412,6 +412,8 @@ export interface ViewUserServices {
   isActived: boolean;
   imagePath: string;
   dateExpired: Date;
+  total: number;
+  idPurchase: number;
 }
 
 export interface Claim {

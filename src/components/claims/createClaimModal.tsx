@@ -65,7 +65,7 @@ export default function CreateClaim({ handlerHideModal }: CreateClaimProps) {
       statusResponse: 'En Proceso',
       causeId: causeSelected?.id!,
       customerId: me?.id ? +me.id : 0,
-      purchaseId: 1, // HAY QUE CAMBIAR
+      purchaseId: viewServiceSelected.idPurchase,
     };
 
     setValidate(true);
@@ -113,7 +113,6 @@ export default function CreateClaim({ handlerHideModal }: CreateClaimProps) {
                     className="col-span-3 rounded-md border border-light border-opacity-25 bg-dark-100 hover:border-opacity-75 dark:text-light"
                     type="text"
                     name="txtSocialReason"
-                    //value={viewServiceSelected?.providerFullName}
                   />
                 </div>
                 <div className="grid grid-cols-4 items-center gap-6">
