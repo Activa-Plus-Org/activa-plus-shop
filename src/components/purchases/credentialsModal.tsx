@@ -25,12 +25,15 @@ export default function CredentialsModal({
           <div className="relative flex w-full flex-col rounded-lg border border-light border-opacity-25 bg-dark-100 shadow-lg outline-none focus:outline-none">
             {/*header*/}
             <div className="flex items-start justify-between rounded-t border-b border-solid border-light border-opacity-25 p-5">
-              <h3 className="text-3xl font-semibold">Ver Credenciales</h3>
+              <h3 className="text-2xl font-semibold">Ver Credenciales</h3>
             </div>
             {/*body*/}
             <div className="relative flex flex-col items-center justify-center bg-dark-250 p-6">
               {Object.entries(credentials).map(([key, value]) => (
-                <p key={key} className="text-center">{`${key}: ${value}`}</p>
+                <p
+                  key={key}
+                  className="text-center text-xl"
+                >{`${key}: ${value}`}</p>
               ))}
             </div>
             {/*footer*/}
