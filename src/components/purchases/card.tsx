@@ -3,13 +3,18 @@ import Image from '@/components/ui/image';
 import { motion } from 'framer-motion';
 import placeholder from '@/assets/images/placeholders/netflix.jpg';
 import { FiCalendar, FiUser, FiKey, FiDollarSign } from 'react-icons/fi';
+import CredentialsModal from './credentialsModal';
+import { useState } from 'react';
 
 interface CardProps {
   viewService: ViewUserServices;
-  handlerShowModal: () => void;
+  handlerShowModal: (credentials: JSON) => void;
 }
 
 export default function Card({ viewService, handlerShowModal }: CardProps) {
+  const openModalAction = () => {
+    handlerShowModal(viewService.credentials);
+  };
   const stringDate = new Date(viewService.dateExpired);
   const options: Intl.DateTimeFormatOptions = {
     year: 'numeric',
@@ -71,11 +76,17 @@ export default function Card({ viewService, handlerShowModal }: CardProps) {
         </div>
         <button
           className="ml-3 rounded border border-green-700 py-2 px-4 font-bold"
-          onClick={handlerShowModal}
+          onClick={openModalAction}
         >
           Ver Credenciales
         </button>
       </div>
+      {/* {showModal && (
+                  <CredentialsModal
+                    handlerHideModal={handlerHideModal}
+                    credentials={viewService.credentials}
+                  />
+                )} */}
     </motion.div>
   );
 }

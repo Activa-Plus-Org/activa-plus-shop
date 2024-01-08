@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { useModalAction, useModalState } from '../modal-views/context';
 
 interface CredentialsProps {
-  credentials: JSON;
-  handlerHideModal: () => void;
+  credentials?: JSON;
+  handlerHideModal?: () => void;
 }
 
 const formatCredentials = (credentials: Record<string, any> = {}) => {
@@ -13,10 +14,15 @@ const formatCredentials = (credentials: Record<string, any> = {}) => {
     .join('\n');
 };
 
-export default function CredentialsModal({
-  credentials,
-  handlerHideModal,
-}: CredentialsProps) {
+export default function CredentialsModal({ credentials }: CredentialsProps) {
+  const { closeModal } = useModalAction();
+
+  const handlerHideModal = () => {
+    closeModal();
+  };
+  const { data } = useModalState();
+  console.log(data);
+  // console.log(payload)
   return (
     <>
       <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden outline-none focus:outline-none">
@@ -29,12 +35,13 @@ export default function CredentialsModal({
             </div>
             {/*body*/}
             <div className="relative flex flex-col items-center justify-center bg-dark-250 p-6">
-              {Object.entries(credentials).map(([key, value]) => (
+              {Object.entries(data!).map(([key, value]) => (
                 <p
                   key={key}
                   className="text-center text-xl"
                 >{`${key}: ${value}`}</p>
               ))}
+              {/* {data} */}
             </div>
             {/*footer*/}
             <div className="flex items-center justify-end rounded-b border-t border-solid border-light border-opacity-25 p-6">
