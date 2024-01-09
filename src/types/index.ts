@@ -186,6 +186,7 @@ export interface User {
   firstName: string;
   lastName: string;
   numberPhone: string;
+  email: string;
   // profile: {
   //   id: string;
   //   bio: string;
@@ -195,6 +196,7 @@ export interface User {
   role: string;
   created_at: string;
   updated_at: string;
+  walletId: number;
 }
 
 export interface UpdateProfileInput {
