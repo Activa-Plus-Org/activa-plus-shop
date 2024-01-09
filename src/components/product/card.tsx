@@ -64,7 +64,7 @@ export default function Card({ product }: { product: ProductByService }) {
                 className="rounded-2xl bg-light-500 px-1.5 py-0.5 text-13px font-semibold uppercase text-green-600 dark:bg-dark-300 dark:text-green-400"
                 title="Rapido"
               >
-                Rápido
+                INMEDIATO
               </h3>
             ) : (
               <h3
