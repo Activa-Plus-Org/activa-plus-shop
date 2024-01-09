@@ -2,6 +2,7 @@ import { ViewUserServices } from '@/types';
 import Card from './card';
 import { useState } from 'react';
 import CredentialsModal from './credentialsModal';
+import { useModalAction } from '../modal-views/context';
 
 interface GridProps {
   viewServices: ViewUserServices[];
@@ -9,13 +10,13 @@ interface GridProps {
 }
 
 export default function Grid({ viewServices, isLoading }: GridProps) {
+  const { openModal } = useModalAction();
+
   const [showModal, setShowModal] = useState(false);
 
-  const handlerShowModal = () => {
-    setShowModal(true);
-  };
-  const handlerHideModal = () => {
-    setShowModal(false);
+  const handlerShowModal = (credentials: JSON) => {
+    // setShowModal(true);
+    openModal('VIEW_CREDENTIAL', credentials);
   };
 
   return (
@@ -28,17 +29,18 @@ export default function Grid({ viewServices, isLoading }: GridProps) {
         {viewServices.length
           ? viewServices.map((value, index) => (
               <>
+                {console.log(index)}
                 <Card
                   key={index}
                   viewService={value}
-                  handlerShowModal={handlerShowModal}
+                  handlerShowModal={() => handlerShowModal(value.credentials)}
                 />
-                {showModal && (
+                {/* {showModal && (
                   <CredentialsModal
                     handlerHideModal={handlerHideModal}
                     credentials={value.credentials}
                   />
-                )}
+                )} */}
               </>
             ))
           : null}

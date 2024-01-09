@@ -66,9 +66,9 @@ const WalletPage: NextPageWithLayout = () => {
         </div>
       </div>
 
-      <div className="mt-auto flex items-center gap-4 pb-3 lg:justify-end">
+      {/* <div className="mt-auto flex items-center gap-4 pb-3 lg:justify-end">
         <Button onClick={() => {}}>Recargar saldo</Button>
-      </div>
+      </div> */}
     </motion.div>
   );
 };

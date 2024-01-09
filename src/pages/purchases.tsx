@@ -10,6 +10,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 const ViewServicesPage: NextPageWithLayout = () => {
   const { viewServices, isLoading } = useViewServices();
+  console.log(viewServices);
 
   return (
     <motion.div

@@ -79,7 +79,7 @@ const CheckoutPage: NextPageWithLayout = () => {
         productId: productByService.id !== undefined ? productByService.id : 0,
       });
     } else {
-      toast.error(<b>Something went wrong!</b>);
+      toast.error(<b>Ocurrio un problema!</b>);
     }
     setIsLoading(false);
   };
