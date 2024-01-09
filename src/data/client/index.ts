@@ -136,6 +136,10 @@ class Client {
         `${API_ENDPOINTS.VIEWS_SERVICES_BY_USER}/${id}`
       ),
   };
+  purchases = {
+    getPurchasesByUser: (id: string) =>
+      HttpClient.get<Purchase[]>(`${API_ENDPOINTS.PURCHASES_BY_USER}/${id}`),
+  };
   causes = {
     all: () => HttpClient.get<Cause[]>(API_ENDPOINTS.CAUSES),
   };

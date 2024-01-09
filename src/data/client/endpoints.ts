@@ -32,6 +32,7 @@ export const API_ENDPOINTS = {
   CAUSES: '/causes',
   //----
   VIEWS_SERVICES_BY_USER: '/view-user-services/getViewServicesByUser',
+  PURCHASES_BY_USER: '/purchases/getPurchasesByUser',
   //----
   USERS_FORGOT_PASSWORD: '/auth/forgotPassword',
   USERS_VERIFY_FORGOT_PASSWORD_TOKEN: '/verify-forget-password-token',

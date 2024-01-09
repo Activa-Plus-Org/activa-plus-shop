@@ -8,7 +8,7 @@ export default function StatusResponse({
   const Status = {
     'En Proceso': 'En Proceso',
     Resuelto: 'Resuelto',
-    Pendiente: 'Pendiente',
+    Fallido: 'Fallido',
   };
 
   const divStyle = 'grid place-content-center w-full rounded-lg my-2';
@@ -21,7 +21,7 @@ export default function StatusResponse({
           <span className={textStyle}>{statusResponse}</span>
         </div>
       );
-    case Status['Pendiente']:
+    case Status['Fallido']:
       return (
         <div className={`${divStyle} bg-red-500`}>
           <span className={textStyle}>{statusResponse}</span>

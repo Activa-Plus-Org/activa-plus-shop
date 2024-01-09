@@ -45,7 +45,7 @@ export default function Card({ product }: { product: ProductByService }) {
           layout="fill"
           quality={100}
           objectFit="cover"
-          src={placeholder /*image?.thumbnail ?? placeholder*/}
+          src={image}
           className="bg-light-500 dark:bg-dark-400"
         />
       </div>
