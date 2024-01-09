@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import Button from '../ui/button';
 import { PurchaseIcon } from '../icons/purchase-icon';
 import { Form } from '../ui/forms/form';
-import { PaymentInput } from '@/types';
+import { PaymentInput, User } from '@/types';
 import { SubmitHandler } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import client from '@/data/client';
@@ -18,7 +18,13 @@ const paymentValidationSchema = yup.object().shape({
   amount: yup.string().required(),
 });
 
-export function Recharge() {
+export function Recharge({ userAccount }: { userAccount: User | null }) {
+  const walletId = userAccount ? userAccount.walletId : 0;
+  const email = userAccount ? userAccount.email : '';
+  const fullName =
+    (userAccount ? userAccount.firstName : '') +
+    ' ' +
+    (userAccount ? userAccount.lastName : '');
   const [number, setNumber] = useState<number | ''>('');
   let [serverError, setServerError] = useState<PaymentInput | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -67,14 +73,14 @@ export function Recharge() {
         codeTransaction: uniqueId,
         urlSuccess: 'https://exito.com.bo',
         urlFailed: 'https://falla.com.bo',
-        billName: 'JAIME TEST',
+        billName: fullName,
         billNit: '123456789',
-        email: 'prueba@hotmail.com',
+        email: email,
         generateBill: 1,
-        concept: 'PAGO PRUEBA',
+        concept: 'PAGO RECARGA',
         currency: 'BOB',
         amount: amount,
-        messagePayment: 'Prueba Mensaje!!!',
+        messagePayment: 'Solicitando la Recarga',
         codeExternal: '',
       });
       const url: string = responseGenerateUrl.url;
@@ -82,13 +88,13 @@ export function Recharge() {
         responseGenerateUrl.transactionId.toString();
       if (url && transactionId) {
         await savePaymentTransaction.mutateAsync({
-          operation: 'PRUEBA',
+          operation: 'Solicitud de Recarga',
           amount: amount.toString(),
-          stateAdjusted: 'PRUEBA',
+          stateAdjusted: 'Solicitud de Recarga',
           url: url,
           statusPayment: 'PENDIENTE',
           transactionId: transactionId,
-          walletId: 1,
+          walletId: walletId,
         });
       } else {
         toast.error(<b>No se genero la URL, vuelva a intentarlo</b>);

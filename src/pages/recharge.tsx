@@ -6,6 +6,7 @@ import DashboardLayout from '@/layouts/_dashboard';
 import { fadeInBottom } from '@/lib/framer-motion/fade-in-bottom';
 import {
   NextPageWithLayout,
+  User,
   WalletRechargeInput,
   WalletRechargePlan,
 } from '@/types';
@@ -18,9 +19,15 @@ import toast from 'react-hot-toast';
 import Card from '@/components/wallet/recharge/card';
 import Grid from '@/components/wallet/recharge/grid';
 import { Recharge } from '@/components/wallet/recharge';
+import ErrorMessage from '@/components/ui/error-message';
+import { CheckLoaderIcon } from '@/components/icons/check-loader-icon';
+import TableLoader from '@/components/ui/loader/table-loader';
+import { FiLoader } from 'react-icons/fi';
+import ContentLoader from 'react-content-loader';
 
 const WalletPage: NextPageWithLayout = () => {
   //const { data, isLoading, error } = useWallet();
+  const { me, isLoading, error } = useMe();
 
   const dataRechargePlan: WalletRechargePlan[] = [
     {
@@ -42,10 +49,13 @@ const WalletPage: NextPageWithLayout = () => {
       price: 100,
     },
   ];
+  if (isLoading) return <TableLoader />;
+  if (error) return <ErrorMessage message={error?.message} />;
 
-  //console.log(data);
+  console.log(me);
+  const userAccount = me as User | null;
   //return <Grid rechargePlan={dataRechargePlan} isLoading={false} />;
-  return <Recharge />;
+  return <Recharge userAccount={userAccount} />;
 };
 
 WalletPage.authorization = true;
