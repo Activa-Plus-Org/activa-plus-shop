@@ -85,7 +85,7 @@ const ProfilePage: NextPageWithLayout = () => {
         useFormProps={{
           defaultValues: pick(me, [
             'firstName',
-            'phoneNumber',
+            'numberPhone',
             'lastName',
             'email',
           ]),
@@ -96,20 +96,6 @@ const ProfilePage: NextPageWithLayout = () => {
         {({ register, reset, control, formState: { errors } }) => (
           <>
             <fieldset className="mb-6 grid gap-5 pb-5 sm:grid-cols-2 md:pb-9 lg:mb-8">
-              {/* <Controller
-                name="phoneNumber"
-                control={control}
-                render={({ field: { ref, ...rest } }) => (
-                  <div className="sm:col-span-2">
-                    <span className="block cursor-pointer pb-2.5 font-normal text-dark/70 dark:text-light/70">
-                      {t('text-profile-avatar')}
-                    </span>
-                    <div className="text-xs">
-                      <Uploader {...rest} multiple={false} />
-                    </div>
-                  </div>
-                )}
-              /> */}
               <Input
                 label={'Nombre'}
                 {...register('firstName')}
@@ -144,12 +130,6 @@ const ProfilePage: NextPageWithLayout = () => {
                 {...register('email')}
                 error={errors.email?.message}
               />
-              {/* <Textarea
-                label={t('text-profile-bio')}
-                {...register('phoneNumber')}
-                error={errors.phoneNumber?.message && 'bio field is required'}
-                className="sm:col-span-2"
-              /> */}
             </fieldset>
             <div className="mt-auto flex items-center gap-4 pb-3 lg:justify-end">
               <Button
@@ -157,6 +137,7 @@ const ProfilePage: NextPageWithLayout = () => {
                 onClick={() =>
                   reset({
                     //id: me?.id,
+                    lastName: me?.lastName,
                     firstName: me?.firstName,
                     numberPhone: me?.numberPhone,
                   })

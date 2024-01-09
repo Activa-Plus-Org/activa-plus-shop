@@ -32,8 +32,8 @@ export default function Grid({
   if (!isLoading && !products.length) {
     return (
       <ItemNotFound
-        title={t('text-no-products-found')}
-        message={t('text-no-products-found-message')}
+        title={'No existen productos...'}
+        message={'Espera ha que se añadan nuevos productos'}
         className="px-4 pt-5 pb-10 md:px-6 md:pt-6 lg:px-7 lg:pb-12 3xl:px-8"
       />
     );

@@ -53,6 +53,7 @@ const ChangePasswordPage: NextPageWithLayout = () => {
   //const { t } = useTranslation('common');
   const { me } = useMe();
   let [error, setError] = useState<Partial<ChangePasswordInput> | null>(null);
+  const { mutate: logout } = useLogout();
 
   const passwordMutation = useMutation(
     (data: ChangePasswordInput) => {
@@ -67,6 +68,7 @@ const ChangePasswordPage: NextPageWithLayout = () => {
             toast.success(<b>Contraseña cambiada con éxito</b>, {
               className: '-mt-10 xs:mt-0',
             });
+            logout();
             return;
           }
           return;
