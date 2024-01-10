@@ -6,3 +6,9 @@ export function getDirection(language: string | undefined) {
   if (!language) return 'ltr';
   return RTL_LANGUAGES.includes(language) ? 'rtl' : 'ltr';
 }
+export const TRANSLATE_KEYS_TO_LANGUAGE = {
+  email: 'Cuenta',
+  password: 'Contraseña',
+  code: 'Código',
+  profile: 'Perfil',
+};

@@ -4,11 +4,13 @@ import Button from '../ui/button';
 import { Form } from '../ui/forms/form';
 import CheckBox from '../ui/forms/checkbox';
 import { RegisterBgPattern } from '../auth/register-bg-pattern';
+import { TRANSLATE_KEYS_TO_LANGUAGE } from '@/lib/constants';
 
 interface CredentialsProps {
   credentials?: JSON;
   handlerHideModal?: () => void;
 }
+type DataKey = keyof typeof TRANSLATE_KEYS_TO_LANGUAGE;
 
 const formatCredentials = (credentials: Record<string, any> = {}) => {
   return Object.entries(credentials)
@@ -74,10 +76,9 @@ export default function CredentialsModal({ credentials }: CredentialsProps) {
             <div className="mt-1.5 text-13px leading-6 tracking-[0.2px] dark:text-light-900 lg:mt-2.5 xl:mt-3">
               {data ? (
                 Object.entries(data!).map(([key, value]) => (
-                  <p
-                    key={key}
-                    className="text-center text-xl"
-                  >{`${key}: ${value}`}</p>
+                  <p key={key} className="text-center text-xl">{`${
+                    TRANSLATE_KEYS_TO_LANGUAGE[key as DataKey] || key
+                  }: ${value}`}</p>
                 ))
               ) : (
                 <> ... </>
