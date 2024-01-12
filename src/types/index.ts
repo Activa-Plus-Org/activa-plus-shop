@@ -197,6 +197,12 @@ export interface User {
   created_at: string;
   updated_at: string;
   walletId: number;
+  permissions: Permission[];
+}
+
+export interface Permission {
+  id: number;
+  name: string;
 }
 
 export interface UpdateProfileInput {
@@ -753,4 +759,8 @@ export interface WalletRechargeResponse {
   walletId: number;
   id: number;
   transactionDate: Date;
+}
+
+export interface ConvertProviderInput {
+  userId: number;
 }

@@ -1,5 +1,5 @@
 import type { User } from '@/types';
-import { Fragment } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Avatar from 'react-avatar';
 import routes from '@/config/routes';
@@ -128,13 +128,33 @@ export default function Header({
   showHamburger = false,
   onClickHamburger,
 }: HeaderProps) {
-  const { asPath } = useRouter();
-  const { t } = useTranslation('common');
-  const { data } = useWallet();
+  const [isProvider, setIsProvider] = useState(false);
+  console.log(isProvider);
+  // const { asPath } = useRouter();
+  // const { t } = useTranslation('common');
+  // const { data } = useWallet();
+  const { me, isAuthorized, isLoading } = useMe();
+  const { openModal } = useModalAction();
   useSwapBodyClassOnScrollDirection();
   const isMultiLangEnable =
     process.env.NEXT_PUBLIC_ENABLE_MULTI_LANG === 'true' &&
     !!process.env.NEXT_PUBLIC_AVAILABLE_LANGUAGES;
+  useEffect(() => {
+    setIsProvider(verifyProvider);
+  }, [me]);
+
+  const verifyProvider = () => {
+    if (me && !isLoading) {
+      const permissions = me!.permissions.map((item) => {
+        return item.name;
+      });
+      if (permissions.includes('Provider')) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   return (
     <header className="app-header sticky top-0 z-30 flex h-16 w-full items-center justify-between border-b border-light-300 bg-light py-1 px-4 ltr:left-0 rtl:right-0 dark:border-dark-300 dark:bg-dark-250 sm:h-[70px] sm:px-6">
       <div className="flex items-center gap-4">
@@ -159,14 +179,32 @@ export default function Header({
         ) : (
           ''
         )}
-        <a
-          href={`${process.env.NEXT_PUBLIC_ADMIN_URL}/register`}
-          target="_blank"
-          rel="noreferrer"
-          className="focus:ring-accent-700 hidden h-9 shrink-0 items-center justify-center rounded border border-transparent bg-brand px-3 py-0 text-sm font-semibold leading-none text-light outline-none transition duration-300 ease-in-out hover:bg-brand-dark focus:shadow focus:outline-none focus:ring-1 sm:inline-flex"
-        >
-          {'Ser vendedor'}
-        </a>
+        {isAuthorized ? (
+          isProvider ? (
+            <h2>Ya eres Proveedor</h2>
+          ) : (
+            <Button
+              //href={`${process.env.NEXT_PUBLIC_ADMIN_URL}/register`}
+              //target="_blank"
+              //rel="noreferrer"
+              className="focus:ring-accent-700 hidden h-9 shrink-0 items-center justify-center rounded border border-transparent bg-brand px-3 py-0 text-sm font-semibold leading-none text-light outline-none transition duration-300 ease-in-out hover:bg-brand-dark focus:shadow focus:outline-none focus:ring-1 sm:inline-flex"
+              onClick={() =>
+                openModal('ADD_PROVIDER_PERMISSION', { userId: me?.id })
+              }
+            >
+              {'Ser vendedor'}
+            </Button>
+          )
+        ) : (
+          <a
+            href={`${process.env.NEXT_PUBLIC_ADMIN_URL}/register`}
+            target="_blank"
+            rel="noreferrer"
+            className="focus:ring-accent-700 hidden h-9 shrink-0 items-center justify-center rounded border border-transparent bg-brand px-3 py-0 text-sm font-semibold leading-none text-light outline-none transition duration-300 ease-in-out hover:bg-brand-dark focus:shadow focus:outline-none focus:ring-1 sm:inline-flex"
+          >
+            {'Iniciar como vendedor'}
+          </a>
+        )}
         <LoginMenu />
       </div>
     </header>

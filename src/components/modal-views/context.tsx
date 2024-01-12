@@ -10,7 +10,8 @@ export type MODAL_VIEWS =
   | 'REVIEW_RATING'
   | 'REVIEW_IMAGE_POPOVER'
   | 'PAYMENT_VIEW'
-  | 'VIEW_CREDENTIAL';
+  | 'VIEW_CREDENTIAL'
+  | 'ADD_PROVIDER_PERMISSION';
 
 interface State {
   view: MODAL_VIEWS | undefined;
