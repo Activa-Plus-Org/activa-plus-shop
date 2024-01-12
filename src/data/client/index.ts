@@ -73,6 +73,7 @@ import type {
   ViewUserServices,
   Cause,
   InputClaim,
+  ConvertProviderInput,
 } from '@/types';
 import { API_ENDPOINTS } from './endpoints';
 import { HttpClient } from './http-client';
@@ -358,6 +359,13 @@ class Client {
       HttpClient.post<PaymentTransactionResponse>(
         API_ENDPOINTS.SAVE_PAYMENT_TRANSACTION,
         input
+      ),
+  };
+  permission = {
+    convertToProvider: (input: ConvertProviderInput) =>
+      HttpClient.patch<User>(
+        `${API_ENDPOINTS.CONVERT_TO_PROVIDER}/${input.userId}`,
+        []
       ),
   };
   settings = {
