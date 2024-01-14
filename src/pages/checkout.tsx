@@ -94,7 +94,7 @@ const CheckoutPage: NextPageWithLayout = () => {
       <div className="mx-auto flex h-full w-full max-w-screen-sm flex-col p-4 pt-6 sm:p-5 sm:pt-8 md:pt-10 3xl:pt-12">
         <div className="bg-light shadow-card dark:bg-dark-250 dark:shadow-none">
           <h2 className="flex items-center justify-between border-b border-light-400 px-5 py-4 text-sm font-medium text-dark dark:border-dark-400 dark:text-light sm:py-5 sm:px-7 md:text-base">
-            {t('text-checkout-title-two')}
+            {'Tu orden'}
             <span className="font-normal text-dark-700">({1})</span>
           </h2>
           <div className="px-5 pt-9 sm:px-7 sm:pt-11">
@@ -121,7 +121,7 @@ const CheckoutPage: NextPageWithLayout = () => {
                   <div className="mt-4 flex justify-between border-t border-light-400 pt-5 dark:border-dark-400">
                     <p>{t('text-total')}</p>
                     <strong className="font-semibold">
-                      &#128176; {productByService?.price}
+                      {productByService?.price} &#128176;
                     </strong>
                   </div>
                 </div>
@@ -142,7 +142,7 @@ const CheckoutPage: NextPageWithLayout = () => {
                   onClick={createOrder}
                   className="w-full md:h-[50px] md:text-sm"
                 >
-                  {t('text-submit-order')}
+                  {'Comprar'}
                 </Button>
               </div>
             )}

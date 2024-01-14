@@ -40,8 +40,15 @@ export default function RegisterUserForm() {
       closeModal();
     },
     onError: (err: any) => {
-      console.log(err.response.data, 'error');
-      setServerError(err.response.data);
+      if (err.response.data.statusCode === 406) {
+        toast.error(<b>El correo ya existe</b>, {
+          className: '-mt-10 xs:mt-0',
+        });
+        return;
+      }
+      toast.error(<b>Algo salio mal :(</b>, {
+        className: '-mt-10 xs:mt-0',
+      });
     },
   });
   const onSubmit: SubmitHandler<RegisterUserInput> = (data) => {
@@ -55,7 +62,7 @@ export default function RegisterUserForm() {
         <div className="w-full shrink-0 text-left md:w-[380px]">
           <div className="flex flex-col pb-5 text-center lg:pb-9 xl:pb-10 xl:pt-2">
             <h2 className="text-lg font-medium tracking-[-0.3px] text-dark dark:text-light lg:text-xl">
-              {'Registrare'}
+              {'Registrarse como cliente'}
             </h2>
             <div className="mt-1.5 text-13px leading-6 tracking-[0.2px] dark:text-light-900 lg:mt-2.5 xl:mt-3">
               {'Tengo una cuenta para'}{' '}
