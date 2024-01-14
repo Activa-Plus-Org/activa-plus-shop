@@ -35,6 +35,9 @@ const PaymentModal = dynamic(() => import('@/components/wallet/payment'));
 const CredentialUserViewModal = dynamic(
   () => import('@/components/purchases/credentialsModal')
 );
+const AddProviderPermission = dynamic(
+  () => import('@/components/permission/add-provider-permission')
+);
 
 function renderModalContent(view: MODAL_VIEWS) {
   switch (view) {
@@ -58,6 +61,8 @@ function renderModalContent(view: MODAL_VIEWS) {
       return <PaymentModal />;
     case 'VIEW_CREDENTIAL':
       return <CredentialUserViewModal />;
+    case 'ADD_PROVIDER_PERMISSION':
+      return <AddProviderPermission />;
     default:
       return null;
   }

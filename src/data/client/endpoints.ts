@@ -49,6 +49,7 @@ export const API_ENDPOINTS = {
   WALLET_HISTORY: '/history-wallets/get-by-wallet',
   PAYMENT_GENERATE_URL: 'https://yopago.com.bo/pay/api/generateUrl',
   SAVE_PAYMENT_TRANSACTION: 'history-wallets/createPaymentTransaction',
+  CONVERT_TO_PROVIDER: 'users/asign-provider-rol',
   USERS_WISHLIST_TOGGLE: '/wishlists/toggle',
   MY_REPORTS: '/my-reports',
   MY_QUESTIONS: '/my-questions',
