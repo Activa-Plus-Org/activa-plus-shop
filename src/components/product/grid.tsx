@@ -56,9 +56,9 @@ export default function Grid({
           ? rangeMap(limit, (i) => (
               <ProductCardLoader key={i} uniqueKey={`product-${i}`} />
             ))
-          : products.map((product) => (
-              <Card key={product.id} product={product} />
-            ))}
+          : products
+              .filter((product) => !product.isDeleted)
+              .map((product) => <Card key={product.id} product={product} />)}
       </motion.div>
 
       {hasNextPage && (
