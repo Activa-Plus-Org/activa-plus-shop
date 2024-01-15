@@ -15,9 +15,14 @@ import useAuth from './use-auth';
 import { useTranslation } from 'next-i18next';
 
 const registerUserValidationSchema = yup.object().shape({
-  name: yup.string().max(20).required(),
-  email: yup.string().email().required(),
-  password: yup.string().min(6).required(),
+  firstName: yup.string().max(20).required('Se requiere el nombre'),
+  lastName: yup.string().max(20).required('Se requiere el apellido'),
+  numberPhone: yup.string().max(20).required('Se requiere el teléfono'),
+  email: yup.string().email().required('Se requiere el correo électronico'),
+  password: yup
+    .string()
+    .min(6, 'Debe ser mayor a 6')
+    .required('Se requiere la contraseña'),
 });
 
 export default function RegisterUserForm() {
@@ -77,7 +82,7 @@ export default function RegisterUserForm() {
 
           <Form<RegisterUserInput>
             onSubmit={onSubmit}
-            //validationSchema={registerUserValidationSchema}
+            validationSchema={registerUserValidationSchema}
             serverError={serverError}
             className="space-y-4 lg:space-y-5"
           >

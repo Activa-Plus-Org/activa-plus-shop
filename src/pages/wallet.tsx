@@ -44,23 +44,28 @@ const WalletPage: NextPageWithLayout = () => {
             <thead className="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
               <tr>
                 <th className="px-6 py-3">Detalle</th>
-                <th className="px-6 py-3">Mondo</th>
+                <th className="px-6 py-3">Monto</th>
                 <th className="px-6 py-3">Fecha</th>
               </tr>
             </thead>
             <tbody>
               {dataHistory != undefined ? (
-                dataHistory!.map((item, index) => (
-                  <tr className="bg-white dark:bg-gray-800" key={index}>
-                    <td className="px-3 py-2">{item.operation}</td>
-                    <td className="px-3 py-2">
-                      {item.operation != 'Recarga'
-                        ? '-' + item.amount
-                        : '+' + item.amount}
-                    </td>
-                    <td className="px-3 py-2">{item.transactionDate}</td>
-                  </tr>
-                ))
+                dataHistory!.map((item, index) => {
+                  const instanceDateTime = new Date(item.transactionDate);
+                  return (
+                    <tr className="bg-white dark:bg-gray-800" key={index}>
+                      <td className="px-3 py-2">{item.operation}</td>
+                      <td className="px-3 py-2">
+                        {item.operation != 'Recarga'
+                          ? '-' + item.amount
+                          : '+' + item.amount}
+                      </td>
+                      <td className="px-3 py-2">
+                        {instanceDateTime.toLocaleDateString()}
+                      </td>
+                    </tr>
+                  );
+                })
               ) : (
                 <h1>...</h1>
               )}

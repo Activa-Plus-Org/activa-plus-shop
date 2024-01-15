@@ -23,10 +23,10 @@ import * as yup from 'yup';
 
 const profileValidationSchema = yup.object().shape({
   //id: yup.string().required(),
-  firstName: yup.string().required(),
-  lastName: yup.string().required(),
-  numberPhone: yup.string().required(),
-  email: yup.string().required(),
+  firstName: yup.string().required('Se requiere este campo'),
+  lastName: yup.string().required('Se requiere este campo'),
+  numberPhone: yup.string().required('Se requiere este campo'),
+  email: yup.string().required('Se requiere este campo'),
   // profile: yup.object().shape({
   //   id: yup.string(),
   //   bio: yup.string(),
@@ -132,7 +132,7 @@ const ProfilePage: NextPageWithLayout = () => {
               />
             </fieldset>
             <div className="mt-auto flex items-center gap-4 pb-3 lg:justify-end">
-              <Button
+              {/* <Button
                 type="reset"
                 onClick={() =>
                   reset({
@@ -140,6 +140,7 @@ const ProfilePage: NextPageWithLayout = () => {
                     lastName: me?.lastName,
                     firstName: me?.firstName,
                     numberPhone: me?.numberPhone,
+                    email: me?.email,
                   })
                 }
                 disabled={userMutation.isLoading}
@@ -147,7 +148,7 @@ const ProfilePage: NextPageWithLayout = () => {
                 className="flex-1 lg:flex-none"
               >
                 {'Cancelar'}
-              </Button>
+              </Button> */}
               <Button
                 className="flex-1 lg:flex-none"
                 isLoading={userMutation.isLoading}

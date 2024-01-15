@@ -58,10 +58,10 @@ function ContactInfo({
 }
 
 const contactUsFormSchema = yup.object().shape({
-  name: yup.string().required(),
-  email: yup.string().email().required(),
-  subject: yup.string().required(),
-  description: yup.string().required(),
+  name: yup.string().required('Se requiere este campo'),
+  email: yup.string().email().required('Se requiere este campo'),
+  subject: yup.string().required('Se requiere este campo'),
+  description: yup.string().required('Se requiere este campo'),
 });
 
 const ContactUsPage: NextPageWithLayout = () => {
@@ -71,7 +71,7 @@ const ContactUsPage: NextPageWithLayout = () => {
   let [reset, setReset] = useState<CreateContactUsInput | null>(null);
   const { mutate } = useMutation(client.settings.contactUs, {
     onSuccess: () => {
-      toast.success('Successfully sent your message');
+      toast.success('Correo enviado con éxito!');
       setReset({
         name: '',
         email: '',
@@ -80,8 +80,7 @@ const ContactUsPage: NextPageWithLayout = () => {
       });
     },
     onError: (res) => {
-      toast.error('Ops! something went wrong');
-      console.log(res);
+      toast.error('Algo salio mal :(');
     },
   });
   const onSubmit: SubmitHandler<CreateContactUsInput> = (values) => {
@@ -96,40 +95,25 @@ const ContactUsPage: NextPageWithLayout = () => {
       />
       <div className="mx-auto flex h-full w-full max-w-screen-xl flex-col p-4 sm:p-5">
         <PageHeading
-          title={t('contact-us-title')}
-          subtitle={t('contact-us-subtitle')}
+          title={'¿Necesita ayuda? Contactanos'}
+          subtitle={'¿Necesita ayuda? Escriba aquí sus datos de contacto'}
         />
         <div className="md:light:bg-light flex w-full flex-col overflow-hidden rounded-md px-4 py-5 sm:px-6 sm:py-8 md:p-10 md:shadow-card md:dark:bg-dark-200 md:dark:shadow-none lg:flex-row lg:p-0">
           <div className="shrink-0 border-light-300 dark:border-dark-300 lg:w-[400px] lg:py-10 ltr:lg:border-r ltr:lg:pr-[72px] ltr:lg:pl-10 rtl:lg:border-l rtl:lg:pl-[72px] rtl:lg:pr-10 lg:dark:bg-dark-250 xl:w-[430px] xl:py-12 ltr:xl:pr-24 rtl:xl:pl-24">
             <h2 className="pb-2 text-lg font-medium text-dark dark:text-light md:text-xl">
-              {t('contact-us-info-title')}
+              {'Información de contacto'}
             </h2>
             <p className="font-medium leading-[1.8em]">
-              {t('contact-us-info-subtitle')}
+              {
+                'Rellene el formulario y nuestro equipo se pondrá en contacto con usted en 24 horas.'
+              }
             </p>
             <div className="grid-cols-2 gap-x-5 gap-y-8 space-y-7 pt-9 sm:grid sm:space-y-0 md:gap-y-9 lg:block lg:space-y-9">
-              <ContactInfo
-                icon={<LocationIcon className="h-12 w-12" />}
-                title={t('contact-us-office-title')}
-                description={
-                  contactDetails?.location?.formattedAddress ??
-                  t('contact-us-office-message')
-                }
-                isWhatsAppLink={false}
-              />
               <ContactInfo
                 icon={<PhoneIcon className="h-10 w-10" />}
                 title={'Número de Contacto'}
                 description={formatPhone}
                 isWhatsAppLink={true}
-              />
-              <ContactInfo
-                icon={<MailIcon className="h-10 w-10" />}
-                title={t('contact-us-site-title')}
-                description={
-                  contactDetails?.website ?? t('contact-us-site-message')
-                }
-                isWhatsAppLink={false}
               />
             </div>
           </div>
@@ -143,24 +127,24 @@ const ContactUsPage: NextPageWithLayout = () => {
                 <>
                   <fieldset className="mb-6 grid gap-5 sm:grid-cols-2">
                     <Input
-                      label={t('contact-us-name-field')}
+                      label={'Nombre'}
                       {...register('name')}
                       error={errors.name?.message}
                     />
                     <Input
-                      label={t('contact-us-email-field')}
+                      label={'Correo electrónico'}
                       type="email"
                       {...register('email')}
                       error={errors.email?.message}
                     />
                     <Input
-                      label={t('contact-us-subject-field')}
+                      label={'Asunto'}
                       {...register('subject')}
                       error={errors.subject?.message}
                       className="sm:col-span-2"
                     />
                     <Textarea
-                      label={t('contact-us-message-field')}
+                      label={'Descripción'}
                       {...register('description')}
                       error={errors.description?.message}
                       className="sm:col-span-2"
@@ -170,7 +154,7 @@ const ContactUsPage: NextPageWithLayout = () => {
                     type="submit"
                     className="mb-1 w-full flex-1 sm:flex-none md:w-auto"
                   >
-                    {t('contact-us-submit-button')}
+                    {'Enviar'}
                   </Button>
                 </>
               )}

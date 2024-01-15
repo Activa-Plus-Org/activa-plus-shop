@@ -15,8 +15,8 @@ import client from '@/data/client';
 import { useTranslation } from 'next-i18next';
 
 const loginValidationSchema = yup.object().shape({
-  email: yup.string().email().required(),
-  password: yup.string().required(),
+  email: yup.string().email().required('Se requiere este campo!'),
+  password: yup.string().required('Se requiere este campo!'),
 });
 
 export default function LoginUserForm() {
