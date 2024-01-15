@@ -52,12 +52,12 @@ const ProfilePage: NextPageWithLayout = () => {
     },
     {
       onSuccess: () => {
-        toast.success(<b>{t('text-profile-page-success-toast')}</b>, {
+        toast.success(<b>{'Información actualizada'}</b>, {
           className: '-mt-10 xs:mt-0',
         });
       },
       onError: (error) => {
-        toast.error(<b>{t('text-profile-page-error-toast')}</b>, {
+        toast.error(<b>{'Hubo un error :('}</b>, {
           className: '-mt-10 xs:mt-0',
         });
         console.log(error);

@@ -1,5 +1,6 @@
 import useAuth from '@/components/auth/use-auth';
 import Button from '@/components/ui/button';
+import routes from '@/config/routes';
 import { useMe } from '@/data/user';
 import { useHistoryWallet, useWallet } from '@/data/wallet';
 import DashboardLayout from '@/layouts/_dashboard';
@@ -7,11 +8,13 @@ import { fadeInBottom } from '@/lib/framer-motion/fade-in-bottom';
 import { NextPageWithLayout } from '@/types';
 import { motion } from 'framer-motion';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useRouter } from 'next/router';
 import { GetStaticProps } from 'next/types';
 import { useQueryClient } from 'react-query';
 
 const WalletPage: NextPageWithLayout = () => {
   const { data, isLoading, error } = useWallet();
+  const router = useRouter();
 
   var idWallet = '';
   if (!isLoading) {
@@ -67,7 +70,13 @@ const WalletPage: NextPageWithLayout = () => {
       </div>
 
       <div className="mt-auto flex items-center gap-4 pb-3 lg:justify-end">
-        <Button onClick={() => {}}>Recargar saldo</Button>
+        <Button
+          onClick={() => {
+            router.push(routes.recharge);
+          }}
+        >
+          Recargar saldo
+        </Button>
       </div>
     </motion.div>
   );

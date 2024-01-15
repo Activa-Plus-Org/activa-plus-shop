@@ -34,7 +34,7 @@ export default function RegisterUserForm() {
       //   return;
       // }
       //authorize(res.token);
-      toast.success(<b>{t('text-profile-page-success-toast')}</b>, {
+      toast.success(<b>{'Registro existoso!'}</b>, {
         className: '-mt-10 xs:mt-0',
       });
       closeModal();

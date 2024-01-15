@@ -13,6 +13,7 @@ import client from '@/data/client';
 import toast from 'react-hot-toast';
 import { v4 as uuidv4 } from 'uuid';
 import { useModalAction, useModalState } from '../modal-views/context';
+import { fadeInBottom } from '@/lib/framer-motion/fade-in-bottom';
 
 const paymentValidationSchema = yup.object().shape({
   amount: yup.string().required(),
@@ -129,10 +130,7 @@ export function Recharge({ userAccount }: { userAccount: User | null }) {
 
   return (
     <div className="px-4 pt-5 pb-9 md:px-6 md:pb-10 md:pt-6 lg:px-7 lg:pb-12 3xl:px-8">
-      <motion.div
-        variants={staggerTransition(0.025)}
-        className="grid grid-cols-1 gap-2"
-      >
+      <motion.div variants={fadeInBottom()} className="grid grid-cols-1 gap-2">
         {showIFrame.state ? (
           <div className="flex flex-col">
             <h1 className="mb-0.5 truncate text-center text-2xl font-semibold uppercase text-dark-100 dark:text-light">
