@@ -50,7 +50,7 @@ const CustomDropdown = <T extends {}>({
   return (
     <div className="relative" ref={dropdownRef}>
       <div
-        className="flex h-10 w-full cursor-pointer items-center justify-start rounded-md border border-light border-opacity-25 bg-dark-100 hover:border-opacity-75 dark:text-light"
+        className="flex h-10 w-full cursor-pointer items-center justify-start rounded-md border border-opacity-25 hover:border-opacity-75 dark:border-light dark:bg-dark-100 dark:text-light"
         onClick={toggleDropdown}
       >
         <div className="mx-1 flex items-center">
@@ -88,7 +88,7 @@ const CustomDropdown = <T extends {}>({
           >
             {options.map((value: T, index) => (
               <div
-                className="duration-50 flex h-10 items-center border border-transparent px-4 transition ease-out hover:-translate-y-px hover:scale-95 hover:rounded hover:border-light hover:border-opacity-25 hover:bg-dark-500 focus:bg-dark-600 dark:text-light-800 hover:dark:text-light"
+                className="duration-50 hover:bg-light-100-500 flex h-10 items-center border border-transparent bg-light-100 px-4 transition ease-out hover:-translate-y-px hover:scale-95 hover:rounded hover:border-light hover:border-opacity-25 focus:bg-dark-100 dark:bg-dark-600 dark:text-light-800 dark:hover:bg-dark-500 hover:dark:text-light dark:focus:bg-dark-600"
                 key={index}
                 onClick={() => handleOptionSelected(value)}
               >

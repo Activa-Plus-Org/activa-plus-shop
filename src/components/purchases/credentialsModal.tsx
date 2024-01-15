@@ -71,7 +71,7 @@ export default function CredentialsModal({ credentials }: CredentialsProps) {
         <div className="w-full shrink-0 text-left md:w-[380px]">
           <div className="flex flex-col pb-5 text-center xl:pb-6 xl:pt-2">
             <h2 className="text-lg font-medium tracking-[-0.3px] text-dark dark:text-light lg:text-xl">
-              {'Procesando el servicio'}
+              {'Credenciales'}
             </h2>
             <div className="mt-1.5 text-13px leading-6 tracking-[0.2px] dark:text-light-900 lg:mt-2.5 xl:mt-3">
               {data ? (
@@ -81,7 +81,7 @@ export default function CredentialsModal({ credentials }: CredentialsProps) {
                   }: ${value}`}</p>
                 ))
               ) : (
-                <> ... </>
+                <> Procesando el servicio... </>
               )}
             </div>
           </div>
