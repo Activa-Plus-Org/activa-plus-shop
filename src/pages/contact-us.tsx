@@ -20,15 +20,21 @@ import PageHeading from '@/components/ui/page-heading';
 import routes from '@/config/routes';
 import * as yup from 'yup';
 import { useSettings } from '@/data/settings';
+import Link from 'next/link';
+
+const formatPhone = `+${process.env.NEXT_PUBLIC_COUNTRY_CODE} ${process.env.NEXT_PUBLIC_PHONE_WHATSAPP}`;
+const linkWhatsApp = `${process.env.NEXT_PUBLIC_LINK_WHATSAPP}`;
 
 function ContactInfo({
   icon,
   title,
   description,
+  isWhatsAppLink,
 }: {
   icon: React.ReactNode;
   title: string;
   description: string;
+  isWhatsAppLink: boolean;
 }) {
   return (
     <div className="flex max-w-xs flex-row items-center pr-4 sm:pr-2 lg:max-w-sm lg:pr-0">
@@ -39,7 +45,13 @@ function ContactInfo({
         <h3 className="mb-2 text-15px font-medium text-dark dark:text-light">
           {title}
         </h3>
-        <p className="leading-[1.8em]">{description}</p>
+        {isWhatsAppLink ? (
+          <Link href={linkWhatsApp}>
+            <a className="text-blue-500 hover:underline">{description}</a>
+          </Link>
+        ) : (
+          <p className="leading-[1.8em]">{description}</p>
+        )}
       </div>
     </div>
   );
@@ -103,13 +115,13 @@ const ContactUsPage: NextPageWithLayout = () => {
                   contactDetails?.location?.formattedAddress ??
                   t('contact-us-office-message')
                 }
+                isWhatsAppLink={false}
               />
               <ContactInfo
                 icon={<PhoneIcon className="h-10 w-10" />}
-                title={t('contact-us-phone-title')}
-                description={
-                  contactDetails?.contact ?? t('contact-us-phone-message')
-                }
+                title={'Número de Contacto'}
+                description={formatPhone}
+                isWhatsAppLink={true}
               />
               <ContactInfo
                 icon={<MailIcon className="h-10 w-10" />}
@@ -117,6 +129,7 @@ const ContactUsPage: NextPageWithLayout = () => {
                 description={
                   contactDetails?.website ?? t('contact-us-site-message')
                 }
+                isWhatsAppLink={false}
               />
             </div>
           </div>
