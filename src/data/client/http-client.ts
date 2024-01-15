@@ -2,6 +2,7 @@ import type { SearchParamOptions } from '@/types';
 import axios from 'axios';
 import Router from 'next/router';
 import { getAuthToken, removeAuthToken } from './token.utils';
+import { ExecException } from 'child_process';
 
 // TODO: Due to windows timeout was set to 15000
 const Axios = axios.create({
@@ -55,6 +56,11 @@ export class HttpClient {
 
   static async put<T>(url: string, data: unknown) {
     const response = await Axios.put<T>(url, data);
+    return response.data;
+  }
+
+  static async patch<T>(url: string, data: unknown) {
+    const response = await Axios.patch<T>(url, data);
     return response.data;
   }
 

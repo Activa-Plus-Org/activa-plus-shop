@@ -1,5 +1,5 @@
 import type { User } from '@/types';
-import { Fragment } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Avatar from 'react-avatar';
 import routes from '@/config/routes';
@@ -11,7 +11,6 @@ import { Menu } from '@/components/ui/dropdown';
 import { Transition } from '@/components/ui/transition';
 import { UserIcon } from '@/components/icons/user-icon';
 import SearchButton from '@/components/search/search-button';
-import CartButton from '@/components/cart/cart-button';
 import Hamburger from '@/components/ui/hamburger';
 import GridSwitcher from '@/components/product/grid-switcher';
 import { useIsMounted } from '@/lib/hooks/use-is-mounted';
@@ -20,43 +19,43 @@ import { useModalAction } from '@/components/modal-views/context';
 import Button from '@/components/ui/button';
 import LanguageSwitcher from '@/components/ui/language-switcher';
 import { useTranslation } from 'next-i18next';
+import { useWallet } from '@/data/wallet';
 
 const AuthorizedMenuItems = [
   {
-    label: 'text-auth-profile',
+    label: 'Perfil',
     path: routes.profile,
   },
   {
-    label: 'text-auth-purchase',
+    label: 'Compras',
     path: routes.purchases,
   },
+
   {
-    label: 'text-auth-wishlist',
-    path: routes.wishlists,
-  },
-  {
-    label: 'text-followed-authors',
-    path: routes.followedShop,
-  },
-  {
-    label: 'text-auth-password',
+    label: 'Cambiar contraseña',
     path: routes.password,
+  },
+  {
+    label: 'Recargar billetera',
+    path: routes.recharge,
   },
 ];
 
 function AuthorizedMenu({ user }: { user: User }) {
+  const { data } = useWallet();
   const { mutate: logout } = useLogout();
   const { t } = useTranslation('common');
   return (
     <Menu>
+      <p className="font-sans text-lg">{data?.availablePoints ?? ''} Puntos</p>
       <Menu.Button className="relative inline-flex h-8 w-8 justify-center rounded-full border border-light-400 bg-light-300 dark:border-dark-500 dark:bg-dark-500">
         {/* @ts-ignore */}
         <Avatar
           size="32"
           round={true}
-          name={user.name}
+          name={user.firstName}
           textSizeRatio={2}
-          src={user?.profile?.avatar?.thumbnail}
+          //src={user?.profile?.avatar?.thumbnail}
         />
       </Menu.Button>
       <Transition
@@ -85,7 +84,7 @@ function AuthorizedMenu({ user }: { user: User }) {
               className="transition-fill-colors w-full px-5 py-2.5 hover:bg-light-400 ltr:text-left rtl:text-right dark:hover:bg-dark-600"
               onClick={() => logout()}
             >
-              {t('text-logout')}
+              {'Cerrar sesión'}
             </button>
           </Menu.Item>
         </Menu.Items>
@@ -129,12 +128,33 @@ export default function Header({
   showHamburger = false,
   onClickHamburger,
 }: HeaderProps) {
-  const { asPath } = useRouter();
-  const { t } = useTranslation('common');
+  const [isProvider, setIsProvider] = useState(false);
+  console.log(isProvider);
+  // const { asPath } = useRouter();
+  // const { t } = useTranslation('common');
+  // const { data } = useWallet();
+  const { me, isAuthorized, isLoading } = useMe();
+  const { openModal } = useModalAction();
   useSwapBodyClassOnScrollDirection();
   const isMultiLangEnable =
     process.env.NEXT_PUBLIC_ENABLE_MULTI_LANG === 'true' &&
     !!process.env.NEXT_PUBLIC_AVAILABLE_LANGUAGES;
+  useEffect(() => {
+    setIsProvider(verifyProvider);
+  }, [me]);
+
+  const verifyProvider = () => {
+    if (me && !isLoading) {
+      const permissions = me!.permissions.map((item) => {
+        return item.name;
+      });
+      if (permissions.includes('Provider')) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   return (
     <header className="app-header sticky top-0 z-30 flex h-16 w-full items-center justify-between border-b border-light-300 bg-light py-1 px-4 ltr:left-0 rtl:right-0 dark:border-dark-300 dark:bg-dark-250 sm:h-[70px] sm:px-6">
       <div className="flex items-center gap-4">
@@ -148,12 +168,10 @@ export default function Header({
         <Logo />
       </div>
       <div className="relative flex items-center gap-5 pr-0.5 xs:gap-6 sm:gap-7">
-        <SearchButton className="hidden sm:flex" />
+        {/* Activar cuando se integre la funcionalidad */}
+        {/* <SearchButton className="hidden sm:flex" /> */}
         <ThemeSwitcher />
         <GridSwitcher />
-        {asPath !== routes.checkout && (
-          <CartButton className="hidden sm:flex" />
-        )}
         {isMultiLangEnable ? (
           <div className="ltr:ml-auto rtl:mr-auto">
             <LanguageSwitcher />
@@ -161,14 +179,32 @@ export default function Header({
         ) : (
           ''
         )}
-        <a
-          href={`${process.env.NEXT_PUBLIC_ADMIN_URL}/register`}
-          target="_blank"
-          rel="noreferrer"
-          className="focus:ring-accent-700 hidden h-9 shrink-0 items-center justify-center rounded border border-transparent bg-brand px-3 py-0 text-sm font-semibold leading-none text-light outline-none transition duration-300 ease-in-out hover:bg-brand-dark focus:shadow focus:outline-none focus:ring-1 sm:inline-flex"
-        >
-          {t('text-become-seller')}
-        </a>
+        {isAuthorized ? (
+          isProvider ? (
+            <h2>Ya eres Proveedor</h2>
+          ) : (
+            <Button
+              //href={`${process.env.NEXT_PUBLIC_ADMIN_URL}/register`}
+              //target="_blank"
+              //rel="noreferrer"
+              className="focus:ring-accent-700 hidden h-9 shrink-0 items-center justify-center rounded border border-transparent bg-brand px-3 py-0 text-sm font-semibold leading-none text-light outline-none transition duration-300 ease-in-out hover:bg-brand-dark focus:shadow focus:outline-none focus:ring-1 sm:inline-flex"
+              onClick={() =>
+                openModal('ADD_PROVIDER_PERMISSION', { userId: me?.id })
+              }
+            >
+              {'Ser vendedor'}
+            </Button>
+          )
+        ) : (
+          <a
+            href={`${process.env.NEXT_PUBLIC_ADMIN_URL}/register`}
+            target="_blank"
+            rel="noreferrer"
+            className="focus:ring-accent-700 hidden h-9 shrink-0 items-center justify-center rounded border border-transparent bg-brand px-3 py-0 text-sm font-semibold leading-none text-light outline-none transition duration-300 ease-in-out hover:bg-brand-dark focus:shadow focus:outline-none focus:ring-1 sm:inline-flex"
+          >
+            {'Iniciar como vendedor'}
+          </a>
+        )}
         <LoginMenu />
       </div>
     </header>

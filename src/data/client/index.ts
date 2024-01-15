@@ -54,10 +54,31 @@ import type {
   SettingsQueryOptions,
   TypeQueryOptions,
   Type,
+  Service,
+  ServiceQueryOptions,
+  ServicePaginator,
+  ProductByService,
+  WalletChangeRespone,
+  CreateOrderSyncInput,
+  Purchase,
+  Claim,
+  CreateOrderAsyncInput,
+  PurchaseOrder,
+  WalletRechargeResponse,
+  WalletRechargeInput,
+  HistoryWalletResponse,
+  PaymentGenerateUrl,
+  PaymentGenerateUrlResponse,
+  PaymentTransaction,
+  ViewUserServices,
+  Cause,
+  InputClaim,
+  ConvertProviderInput,
 } from '@/types';
 import { API_ENDPOINTS } from './endpoints';
 import { HttpClient } from './http-client';
-import { FollowedShopsQueryOptions } from '@/types';
+import { FollowedShopsQueryOptions, PaymentTransactionResponse } from '@/types';
+import Input from '@/components/ui/forms/input';
 
 class Client {
   products = {
@@ -90,6 +111,10 @@ class Client {
         withCount: 'orders',
         ...params,
       }),
+    getByService: (slug: number) =>
+      HttpClient.get<ProductByService[]>(
+        `${API_ENDPOINTS.PRODUCTS_BY_SERVICE}/${slug}`
+      ),
     get: ({ slug, language }: GetParams) =>
       HttpClient.get<Product>(`${API_ENDPOINTS.PRODUCTS}/${slug}`, {
         language,
@@ -102,6 +127,29 @@ class Client {
   categories = {
     all: (query?: CategoryQueryOptions) =>
       HttpClient.get<CategoryPaginator>(API_ENDPOINTS.CATEGORIES, { ...query }),
+  };
+  services = {
+    all: () => HttpClient.get<Service[]>(API_ENDPOINTS.SERVICES),
+  };
+  viewServiceUser = {
+    getViewsByUser: (id: string) =>
+      HttpClient.get<ViewUserServices[]>(
+        `${API_ENDPOINTS.VIEWS_SERVICES_BY_USER}/${id}`
+      ),
+  };
+  purchases = {
+    getPurchasesByUser: (id: string) =>
+      HttpClient.get<Purchase[]>(`${API_ENDPOINTS.PURCHASES_BY_USER}/${id}`),
+  };
+  causes = {
+    all: () => HttpClient.get<Cause[]>(API_ENDPOINTS.CAUSES),
+  };
+  claims = {
+    all: () => HttpClient.get<Claim[]>(API_ENDPOINTS.CLAIMS),
+    getClaimsByUser: (id: string) =>
+      HttpClient.get<Claim[]>(`${API_ENDPOINTS.CLAIMS_BY_USER}/${id}`),
+    create: (data: InputClaim) =>
+      HttpClient.post<Claim>(API_ENDPOINTS.CLAIMS, data),
   };
   tags = {
     all: (query?: QueryOptions) =>
@@ -153,17 +201,21 @@ class Client {
       ),
     create: (data: CreateOrderInput) =>
       HttpClient.post<Order>(API_ENDPOINTS.ORDERS, data),
+    createOrderSync: (data: CreateOrderSyncInput) =>
+      HttpClient.post<Purchase>(API_ENDPOINTS.ORDERS_PURCHASE_SYNC, data),
+    createOrderAsync: (data: CreateOrderAsyncInput) =>
+      HttpClient.post<PurchaseOrder>(API_ENDPOINTS.ORDERS_PURCHASE_ASYNC, data),
   };
   users = {
     me: () => HttpClient.get<User>(API_ENDPOINTS.USERS_ME),
-    update: (user: UpdateProfileInput) =>
-      HttpClient.put<User>(`${API_ENDPOINTS.USERS}/${user.id}`, user),
+    update: (id: string, user: UpdateProfileInput) =>
+      HttpClient.patch<User>(`${API_ENDPOINTS.USER_UPDATE}/${id}`, user),
     login: (input: LoginUserInput) =>
       HttpClient.post<AuthResponse>(API_ENDPOINTS.USERS_LOGIN, input),
     register: (input: RegisterUserInput) =>
       HttpClient.post<AuthResponse>(API_ENDPOINTS.USERS_REGISTER, input),
     forgotPassword: (input: ForgetPasswordInput) =>
-      HttpClient.post<PasswordChangeResponse>(
+      HttpClient.patch<PasswordChangeResponse>(
         API_ENDPOINTS.USERS_FORGOT_PASSWORD,
         input
       ),
@@ -177,12 +229,29 @@ class Client {
         API_ENDPOINTS.USERS_RESET_PASSWORD,
         input
       ),
-    changePassword: (input: ChangePasswordInput) =>
-      HttpClient.post<PasswordChangeResponse>(
-        API_ENDPOINTS.USERS_CHANGE_PASSWORD,
+    changePassword: (id: string, input: ChangePasswordInput) =>
+      HttpClient.put<PasswordChangeResponse>(
+        `${API_ENDPOINTS.USERS_CHANGE_PASSWORD}/${id}`,
         input
       ),
     logout: () => HttpClient.post<boolean>(API_ENDPOINTS.USERS_LOGOUT, {}),
+  };
+  wallet = {
+    getWalletByUserId: (id: string) =>
+      HttpClient.get<WalletChangeRespone>(
+        `${API_ENDPOINTS.WALLET_USER_ID}/${id}`
+      ),
+    rechargeWallet: (id: string, input: WalletRechargeInput) =>
+      HttpClient.patch<WalletRechargeResponse>(
+        `${API_ENDPOINTS.WALLET_RECHARGE}/${id}`,
+        input
+      ),
+  };
+  historyWallet = {
+    getHistoryWallet: (id: string) =>
+      HttpClient.get<HistoryWalletResponse[]>(
+        `${API_ENDPOINTS.WALLET_HISTORY}/${id}`
+      ),
   };
   questions = {
     all: ({ question, ...params }: QuestionQueryOptions) =>
@@ -279,6 +348,25 @@ class Client {
         ...params,
       });
     },
+  };
+  payment = {
+    generateUrl: (input: PaymentGenerateUrl) =>
+      HttpClient.post<PaymentGenerateUrlResponse>(
+        API_ENDPOINTS.PAYMENT_GENERATE_URL,
+        input
+      ),
+    savePaymentTransaction: (input: PaymentTransaction) =>
+      HttpClient.post<PaymentTransactionResponse>(
+        API_ENDPOINTS.SAVE_PAYMENT_TRANSACTION,
+        input
+      ),
+  };
+  permission = {
+    convertToProvider: (input: ConvertProviderInput) =>
+      HttpClient.patch<User>(
+        `${API_ENDPOINTS.CONVERT_TO_PROVIDER}/${input.userId}`,
+        []
+      ),
   };
   settings = {
     all: (params?: SettingsQueryOptions) =>

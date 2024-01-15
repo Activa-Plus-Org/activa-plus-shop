@@ -30,11 +30,9 @@ const DefaultSeo = () => {
         },
       ]}
       title={settings?.seo?.metaTitle}
-      titleTemplate={`${
-        settings?.seo?.metaTitle || settings?.siteTitle || 'Digital Download'
-      } | %s`}
-      defaultTitle="Pixer"
-      description={settings?.seo?.metaDescription || settings?.siteSubtitle}
+      titleTemplate={`${'Activa+ | Shop'} `}
+      defaultTitle="Activa+"
+      description={''}
       canonical={settings?.seo?.canonicalUrl}
       openGraph={{
         title: settings?.seo?.ogTitle,

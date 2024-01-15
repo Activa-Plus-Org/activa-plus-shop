@@ -27,6 +27,7 @@ import '@/assets/css/globals.css';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { getDirection } from '@/lib/constants';
+import { ProductProvider } from '@/components/product/lib/product.context';
 
 const PrivateRoute = dynamic(() => import('@/layouts/_private-route'), {
   ssr: false,
@@ -57,32 +58,34 @@ function CustomApp({ Component, pageProps }: AppPropsWithLayout) {
           enableSystem={false}
         >
           <SearchProvider>
-            <CartProvider>
-              <ModalProvider>
-                <AnimatePresence
-                  exitBeforeEnter
-                  initial={false}
-                  onExitComplete={() => window.scrollTo(0, 0)}
-                >
-                  <>
-                    <DefaultSeo />
-                    {authenticationRequired ? (
-                      <PrivateRoute>
-                        {getLayout(<Component {...pageProps} />)}
-                      </PrivateRoute>
-                    ) : (
-                      getLayout(<Component {...pageProps} />)
-                    )}
-                    <SearchView />
-                    <ModalsContainer />
-                    <DrawersContainer />
-                    <Portal>
-                      <Toaster containerClassName="!top-16 sm:!top-3.5 !bottom-16 sm:!bottom-3.5" />
-                    </Portal>
-                  </>
-                </AnimatePresence>
-              </ModalProvider>
-            </CartProvider>
+            <ProductProvider>
+              <CartProvider>
+                <ModalProvider>
+                  <AnimatePresence
+                    exitBeforeEnter
+                    initial={false}
+                    onExitComplete={() => window.scrollTo(0, 0)}
+                  >
+                    <>
+                      <DefaultSeo />
+                      {authenticationRequired ? (
+                        <PrivateRoute>
+                          {getLayout(<Component {...pageProps} />)}
+                        </PrivateRoute>
+                      ) : (
+                        getLayout(<Component {...pageProps} />)
+                      )}
+                      <SearchView />
+                      <ModalsContainer />
+                      <DrawersContainer />
+                      <Portal>
+                        <Toaster containerClassName="!top-16 sm:!top-3.5 !bottom-16 sm:!bottom-3.5" />
+                      </Portal>
+                    </>
+                  </AnimatePresence>
+                </ModalProvider>
+              </CartProvider>
+            </ProductProvider>
           </SearchProvider>
         </ThemeProvider>
       </Hydrate>

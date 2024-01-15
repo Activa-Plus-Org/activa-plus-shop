@@ -183,30 +183,43 @@ export interface Shop {
 
 export interface User {
   id: string;
-  name: string;
-  profile: {
-    id: string;
-    bio: string;
-    contact: string;
-    avatar: Attachment;
-  };
+  firstName: string;
+  lastName: string;
+  numberPhone: string;
+  email: string;
+  // profile: {
+  //   id: string;
+  //   bio: string;
+  //   contact: string;
+  //   avatar: Attachment;
+  // };
   role: string;
   created_at: string;
   updated_at: string;
+  walletId: number;
+  permissions: Permission[];
+}
+
+export interface Permission {
+  id: number;
+  name: string;
 }
 
 export interface UpdateProfileInput {
-  id: string;
-  name: string;
-  profile: {
-    id?: string;
-    bio?: string;
-    contact?: string;
-    avatar?: Attachment | null;
-  };
+  firstName: string;
+  lastName: string;
+  numberPhone: string;
+  email: string;
+  // profile: {
+  //   id?: string;
+  //   bio?: string;
+  //   contact?: string;
+  //   avatar?: Attachment | null;
+  // };
 }
 
 export interface ChangePasswordInput {
+  //idUser?: string
   oldPassword: string;
   newPassword: string;
 }
@@ -225,9 +238,15 @@ export interface LoginUserInput {
 }
 
 export interface RegisterUserInput {
-  name: string;
+  firstName: string;
+  lastName: string;
+  numberPhone: string;
   email: string;
   password: string;
+}
+
+export interface PaymentInput {
+  amount: string;
 }
 
 export interface ForgetPasswordInput {
@@ -252,7 +271,7 @@ export interface PasswordChangeResponse {
 
 export interface AuthResponse {
   token: string;
-  permissions: string[];
+  //permissions: string[];
 }
 
 export interface CreateContactUsInput {
@@ -319,6 +338,16 @@ export interface CreateOrderInput {
   use_wallet_points: boolean;
 }
 
+export interface CreateOrderSyncInput {
+  customerId: number;
+  productId: number;
+}
+
+export interface CreateOrderAsyncInput {
+  customerId: number;
+  productId: number;
+}
+
 export interface CheckoutVerificationInput {
   amount: number;
   products: ConnectProductOrderPivot[];
@@ -365,15 +394,89 @@ export interface Product {
   language: string;
   in_stock: number;
 }
+export interface ProductByService {
+  id: number;
+  name: string;
+  description: string;
+  image: string;
+  type: string;
+  price: number;
+  stock: number;
+  benefit: string;
+  isDeleted: boolean;
+  providerId: number;
+}
 
 export interface ProductPaginator extends PaginatorInfo<Product> {}
 
 export interface ReportsPaginator extends PaginatorInfo<Question> {}
 
+export interface ViewUserServices {
+  id: number;
+  idUser: number;
+  providerFullName: string;
+  productName: string;
+  credentials: JSON;
+  isActived: boolean;
+  imagePath: string;
+  dateExpired: Date;
+  total: number;
+  idPurchase: number;
+}
+
+export interface Claim {
+  id: number;
+  title: string;
+  socialReason: string;
+  statusResponse: string;
+  customer: User;
+  causal: Cause;
+  purchase: number;
+  date: Date;
+}
+
+export interface InputClaim {
+  title: string;
+  socialReason: string;
+  statusResponse: string;
+  customerId: number;
+  causeId: number;
+  purchaseId: number;
+}
+
+export interface Cause {
+  id: number;
+  causeOfClose: string;
+}
+
 export interface Category {
-  id: string;
+  id: number;
   name: string;
   slug: string;
+}
+
+export interface ServiceConfiguration {
+  id: number;
+  email: boolean;
+  password: boolean;
+  code: boolean;
+}
+
+export interface Service {
+  id: number;
+  name: string;
+  image: string;
+  category: Category;
+  serviceConfiguration: ServiceConfiguration;
+}
+
+export interface ServicePaginator extends PaginatorInfo<Service> {}
+
+export interface ServiceQueryOptions extends QueryOptions {
+  name: string;
+  image: string;
+  categoryId: number;
+  serviceConfigurationId: number;
 }
 
 export interface Type {
@@ -401,6 +504,25 @@ export interface Order {
   products: Product[];
   created_at: string;
   updated_at: string;
+}
+
+export interface Purchase {
+  id: number;
+  total: number;
+  createdDate: Date;
+  isDeleted: boolean;
+  customerId: number;
+  productId: number;
+  customer: string;
+  product: string;
+}
+
+export interface PurchaseOrder {
+  id: number;
+  stateRequest: number;
+  dateCreated: Date;
+  dateResponse: Date;
+  purchaseId: number;
 }
 
 export interface DigitalFile {
@@ -466,6 +588,13 @@ export interface Wishlist {
   product_id: string;
   user: User[];
   user_id: string;
+}
+
+export interface WalletRechargePlan {
+  id: number;
+  plan: string;
+  point: number;
+  price: number;
 }
 
 export interface TagPaginator extends PaginatorInfo<Tag> {}
@@ -554,4 +683,84 @@ export interface CreateQuestionInput {
   question: string;
   product_id: string;
   shop_id: string;
+}
+
+export interface PaymentGenerateUrl {
+  companyCode: string;
+  codeTransaction: string;
+  urlSuccess: string;
+  urlFailed: string;
+  billName: string;
+  billNit: string;
+  email: string;
+  generateBill: number;
+  concept: string;
+  currency: string;
+  amount: number;
+  messagePayment: string;
+  codeExternal: string;
+}
+
+export interface PaymentTransaction {
+  operation: string;
+  amount: string;
+  stateAdjusted: string;
+  url: string;
+  statusPayment: string;
+  transactionId: string;
+  walletId: number;
+}
+
+export interface PaymentTransactionResponse {
+  operation: string;
+  amount: number;
+  stateAdjusted: string;
+  url: string;
+  statusPayment: string;
+  transactionId: string;
+  walletId: number;
+}
+
+export interface PaymentGenerateUrlResponse {
+  status: string;
+  message: string;
+  dateCreated: Date;
+  expireTime: string;
+  url: string;
+  transactionId: string;
+}
+
+export interface WalletChangeRespone {
+  id: string;
+  totalPoints: number;
+  pointsUsed: number;
+  availablePoints: number;
+}
+
+export interface HistoryWalletResponse {
+  id: string;
+  operation: string;
+  amount: number;
+  stateAdjusted: string;
+  paymenthMethod: string;
+  transactionDate: Date;
+  walletId: string;
+}
+
+export interface WalletRechargeInput {
+  totalPoints: number;
+}
+
+export interface WalletRechargeResponse {
+  operation: string;
+  amount: number;
+  stateAdjusted: string;
+  paymentMethod: string;
+  walletId: number;
+  id: number;
+  transactionDate: Date;
+}
+
+export interface ConvertProviderInput {
+  userId: number;
 }

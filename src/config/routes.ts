@@ -1,5 +1,6 @@
 const routes = {
   home: '/',
+  wallet: '/wallet',
   authors: '/authors',
   explore: '/explore',
   popularProducts: '/popular-products',
@@ -7,7 +8,9 @@ const routes = {
   contact: '/contact-us',
   purchases: '/purchases',
   wishlists: '/wishlists',
+  claims: '/claims',
   reports: '/reports',
+  recharge: 'recharge',
   questions: '/questions',
   profile: '/profile',
   checkout: '/checkout',

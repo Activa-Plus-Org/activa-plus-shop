@@ -19,6 +19,8 @@ module.exports = withPWA({
       'maps.googleapis.com',
       's3.amazonaws.com',
       'pixarlaravel.s3.ap-southeast-1.amazonaws.com',
+      'hbomax-images.warnermediacdn.com',
+      'i.ibb.co',
     ],
   },
   ...(process.env.APPLICATION_MODE === 'production' && {
