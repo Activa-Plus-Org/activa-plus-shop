@@ -10,7 +10,7 @@ export function ProductItem({ item }: { item: ProductByService | undefined }) {
   if (item === undefined) {
     return <div>El producto no está disponible</div>;
   }
-  const { name, image, price, description } = item;
+  const { name, image, price, description, type } = item;
   //   const { price: itemPrice } = usePrice({
   //     amount: price,
   //   });
@@ -51,7 +51,7 @@ export function ProductItem({ item }: { item: ProductByService | undefined }) {
         </p> */}
         <p className="my-4 flex items-center gap-1">
           <span className="rounded-2xl bg-light-300 p-1.5 font-semibold uppercase leading-none text-brand-dark dark:bg-dark-500">
-            &#128176; {price}
+            {type === 'ASYNC' ? 'Con orden' : 'Inmediato'}
           </span>
         </p>
       </div>

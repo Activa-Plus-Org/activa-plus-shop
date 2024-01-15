@@ -63,11 +63,11 @@ export default function CartWallet({
     <div>
       <div className="mt-2 mb-7 space-y-3">
         <div className="text-body flex justify-between">
-          <span>{t('text-wallet-points-title')}</span>
+          <span>{'Puntos de billetera'}</span>
           <span>&#128179; {walletAmount}</span>
         </div>
         <div className="text-body flex justify-between">
-          <span>{t('text-wallet-currency')}</span>
+          <span>{'Puntos después de la compra'}</span>
           <span>&#128179; {calculateCurrentWalletCurrency}</span>
         </div>
       </div>
@@ -87,7 +87,7 @@ export default function CartWallet({
       {use_wallet && (
         <div className="mt-1 mb-7 flex justify-between border-t-4 border-double border-light-400 pt-4 dark:border-dark-400">
           <span className="text-heading text-15px font-semibold">
-            Payable Amount
+            Monto de pago
           </span>
           <span className="text-heading text-15px font-semibold">
             {totalPrice} &#128176;
