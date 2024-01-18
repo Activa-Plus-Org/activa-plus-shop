@@ -41,12 +41,15 @@ import { pick } from 'lodash';
 // };
 const changePasswordSchema = yup.object().shape({
   idUser: yup.string(),
-  oldPassword: yup.string().required(),
-  newPassword: yup.string().min(6).required(),
+  oldPassword: yup.string().required('Se requiere este campo'),
+  newPassword: yup
+    .string()
+    .min(6, 'Debe ser mayor a 6 caracteres')
+    .required('Error'),
   confirmPassword: yup
     .string()
-    .oneOf([yup.ref('newPassword')], 'Passwords must match')
-    .required(),
+    .oneOf([yup.ref('newPassword')], 'La contraseña no coincide')
+    .required('Se requiere'),
 });
 
 const ChangePasswordPage: NextPageWithLayout = () => {
@@ -75,10 +78,9 @@ const ChangePasswordPage: NextPageWithLayout = () => {
         }
       },
       onError: (e) => {
-        toast.error(<b>{'text-profile-page-error-toast'}</b>, {
+        toast.error(<b>{'Ocurrio un error :('}</b>, {
           className: '-mt-10 xs:mt-0',
         });
-        console.log(error);
       },
     }
   );
@@ -109,7 +111,7 @@ const ChangePasswordPage: NextPageWithLayout = () => {
                 label={'Escribe tu contraseña actual'}
                 {...register('oldPassword')}
                 error={
-                  errors.oldPassword?.message && 'Current password is incorrect'
+                  errors.oldPassword?.message && 'Contraseña actual incorrecta'
                 }
               />
               <Password

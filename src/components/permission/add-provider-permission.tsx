@@ -15,6 +15,7 @@ export default function AddProviderPermission() {
     client.permission.convertToProvider,
     {
       onSuccess: () => {
+        toast.success(<b>Espere unos segundos...</b>);
         router.push(`${process.env.NEXT_PUBLIC_ADMIN_URL}/login`);
       },
       onError: () => {

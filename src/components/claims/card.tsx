@@ -17,23 +17,26 @@ export default function Card({ claim }: { claim: Claim }) {
 
   return (
     <motion.div
-      className="rounded-lg bg-neutral-700 shadow-md hover:shadow-lg"
+      className="rounded-lg bg-light-200 shadow-md hover:shadow-lg dark:bg-neutral-700"
       title={title}
       animate={{ opacity: 1, scale: 1 }}
       whileHover={{ opacity: 0.8, scale: 0.95 }}
       transition={{ ease: 'easeOut', duration: 0.1 }}
     >
-      <div className="mb-2 rounded-t-lg bg-neutral-400 p-3">
+      <div className="mb-2 rounded-t-lg bg-neutral-50 p-3 dark:bg-neutral-400">
         <h3 className="text-xl font-semibold text-neutral-700">{title}</h3>
       </div>
       <div className="p-3">
-        <p className="mb-1 text-lg font-semibold text-slate-100">
+        <p className="mb-1 text-lg font-semibold text-dark-200 dark:text-slate-100">
           <span>{causal.causeOfClose}</span>
         </p>
-        <p className="mb-0 font-semibold text-neutral-300">
+        <p className="mb-0 font-semibold text-dark-500 dark:text-neutral-300">
           <span>{socialReason}</span>
         </p>
-        <a className="mb-4 font-semibold text-neutral-300" href="#">
+        <a
+          className="mb-4 font-semibold text-dark-500 dark:text-neutral-300"
+          href="#"
+        >
           <span>
             {customer.firstName} {customer.lastName}
           </span>

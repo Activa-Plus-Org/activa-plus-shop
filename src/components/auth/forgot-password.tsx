@@ -24,7 +24,7 @@ import { useState } from 'react';
 import { useTranslation } from 'next-i18next';
 
 const emailFormValidation = yup.object().shape({
-  email: yup.string().email().required(),
+  email: yup.string().email().required('Se requiere este campo!'),
 });
 const tokenFormValidation = yup.object().shape({
   token: yup.string().required(),
@@ -72,7 +72,7 @@ function EmailForm({
                   label="Ingrese su email"
                   type="email"
                   {...register('email')}
-                  error={errors.email?.message && 'text-email-notice'}
+                  error={errors.email?.message && 'Se requiere este campo!'}
                 />
                 <Button
                   type="submit"
@@ -251,6 +251,7 @@ function RenderFormSteps() {
       {
         onSuccess: (data) => {
           if (!data.success) {
+            toast.success('Correo enviado');
             setError({ email: data.message });
             return;
           }
@@ -342,7 +343,7 @@ function RenderFormSteps() {
 
 const initialState: GlobalState = {
   step: 'Email',
-  email: 'c',
+  email: '',
   password: '',
   token: '',
 };

@@ -77,13 +77,13 @@ export default function CreateClaim({ handlerHideModal }: CreateClaimProps) {
       <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden outline-none focus:outline-none">
         <div className="relative my-6 mx-auto w-2/3">
           {/*content*/}
-          <div className="relative flex w-full flex-col rounded-lg border border-light border-opacity-25 bg-dark-100 shadow-lg outline-none focus:outline-none">
+          <div className="relative flex w-full flex-col rounded-lg border border-light border-opacity-25 bg-light shadow-lg outline-none focus:outline-none dark:bg-dark-100">
             {/*header*/}
             <div className="flex items-start justify-between rounded-t border-b border-solid border-light border-opacity-25 p-5">
               <h3 className="text-3xl font-semibold">Generar Reclamo</h3>
             </div>
             {/*body*/}
-            <div className="relative flex items-center justify-center bg-dark-250 p-6">
+            <div className="relative flex items-center justify-center bg-slate-50 p-6 dark:bg-dark-250">
               <form action="POST" className="w-full max-w-lg">
                 <CustomDropdown<ViewUserServices>
                   options={viewServices}
@@ -99,7 +99,7 @@ export default function CreateClaim({ handlerHideModal }: CreateClaimProps) {
                   <input
                     id="txtTitle"
                     ref={inputTitle}
-                    className="col-span-3 rounded-md border border-light border-opacity-25 bg-dark-100 hover:border-opacity-75 dark:text-light"
+                    className="col-span-3 rounded-md border border-light border-opacity-25 bg-light hover:border-opacity-75 dark:bg-dark-100 dark:text-light"
                     type="text"
                     name="txtTitle"
                     //value={viewServiceSelected?.productName}
@@ -110,7 +110,7 @@ export default function CreateClaim({ handlerHideModal }: CreateClaimProps) {
                   <input
                     id="txtSocialReason"
                     ref={inputSocialReason}
-                    className="col-span-3 rounded-md border border-light border-opacity-25 bg-dark-100 hover:border-opacity-75 dark:text-light"
+                    className="col-span-3 rounded-md border border-light border-opacity-25 hover:border-opacity-75 dark:bg-dark-100 dark:text-light"
                     type="text"
                     name="txtSocialReason"
                   />

@@ -42,7 +42,7 @@ const Order: NextPageWithLayout = () => {
         </svg>
       </div>
       <h2 className="mb-2.5 text-15px font-semibold text-dark-300 dark:text-light md:text-base 3xl:text-lg">
-        Pedido recibido correctamente
+        Pedido Recibido Correctamente
       </h2>
       <p className="text-center">
         Gracias por su pedido, haga clic aquí para comprobar su compra
@@ -52,7 +52,7 @@ const Order: NextPageWithLayout = () => {
         className="mt-5 sm:mt-6 md:mt-8"
         onClick={() => router.push(routes.purchases)}
       >
-        Ver Orden
+        Ver Compra
       </Button>
       <ReactConfetti width={width} height={height} />
     </div>
