@@ -21,6 +21,7 @@ module.exports = withPWA({
       'pixarlaravel.s3.ap-southeast-1.amazonaws.com',
       'hbomax-images.warnermediacdn.com',
       'i.ibb.co',
+      'res.cloudinary.com',
     ],
   },
   ...(process.env.APPLICATION_MODE === 'production' && {

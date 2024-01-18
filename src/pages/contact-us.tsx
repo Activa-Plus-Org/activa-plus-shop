@@ -95,8 +95,8 @@ const ContactUsPage: NextPageWithLayout = () => {
       />
       <div className="mx-auto flex h-full w-full max-w-screen-xl flex-col p-4 sm:p-5">
         <PageHeading
-          title={'¿Necesita ayuda? Contactanos'}
-          subtitle={'¿Necesita ayuda? Escriba aquí sus datos de contacto'}
+          title="¿Necesita ayuda? Póngase en contacto con nosotros"
+          subtitle="Escriba aquí sus datos de contacto"
         />
         <div className="md:light:bg-light flex w-full flex-col overflow-hidden rounded-md px-4 py-5 sm:px-6 sm:py-8 md:p-10 md:shadow-card md:dark:bg-dark-200 md:dark:shadow-none lg:flex-row lg:p-0">
           <div className="shrink-0 border-light-300 dark:border-dark-300 lg:w-[400px] lg:py-10 ltr:lg:border-r ltr:lg:pr-[72px] ltr:lg:pl-10 rtl:lg:border-l rtl:lg:pl-[72px] rtl:lg:pr-10 lg:dark:bg-dark-250 xl:w-[430px] xl:py-12 ltr:xl:pr-24 rtl:xl:pl-24">
@@ -115,6 +115,15 @@ const ContactUsPage: NextPageWithLayout = () => {
                 description={formatPhone}
                 isWhatsAppLink={true}
               />
+              <ContactInfo
+                icon={<MailIcon className="h-10 w-10" />}
+                title="Visitar el sitio web"
+                description={
+                  contactDetails?.website ??
+                  'Añade la información de tu sitio web desde el panel de administración'
+                }
+                isWhatsAppLink={false}
+              />
             </div>
           </div>
           <div className="w-full flex-grow pt-12 lg:p-10 xl:p-12">
@@ -127,18 +136,18 @@ const ContactUsPage: NextPageWithLayout = () => {
                 <>
                   <fieldset className="mb-6 grid gap-5 sm:grid-cols-2">
                     <Input
-                      label={'Nombre'}
+                      label="Nombre"
                       {...register('name')}
                       error={errors.name?.message}
                     />
                     <Input
-                      label={'Correo electrónico'}
+                      label="Correo Electrónico"
                       type="email"
                       {...register('email')}
                       error={errors.email?.message}
                     />
                     <Input
-                      label={'Asunto'}
+                      label="Asunto"
                       {...register('subject')}
                       error={errors.subject?.message}
                       className="sm:col-span-2"
