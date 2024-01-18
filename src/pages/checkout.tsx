@@ -37,7 +37,7 @@ const CheckoutPage: NextPageWithLayout = () => {
       router.push(routes.orderUrl(res.id.toString()));
     },
     onError: (err: any) => {
-      toast.error(<b>Something went wrong!</b>);
+      toast.error(<b>Algo salió mal</b>);
       console.log(err.response.data.message);
     },
   });
